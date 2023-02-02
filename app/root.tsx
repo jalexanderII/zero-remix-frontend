@@ -2,7 +2,8 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { ClerkApp, ClerkCatchBoundary } from "@clerk/remix";
-import styles from "~/styles/shared.css";
+import clark_styles from "~/styles/shared.css";
+import styles from "./styles/app.css";
 import Header from "~/components/Header";
 
 export const meta: MetaFunction = () => {
@@ -11,7 +12,7 @@ export const meta: MetaFunction = () => {
 
 export function links() {
   return [
-    { rel: "stylesheet", href: "https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" },
+    { rel: "stylesheet", href: clark_styles },
     { rel: "stylesheet", href: styles },
   ];
 }

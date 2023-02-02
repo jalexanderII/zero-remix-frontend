@@ -1,114 +1,50 @@
-import { SignedIn, SignedOut } from "@clerk/remix";
 import { Link } from "@remix-run/react";
-
-const ClerkFeatures = () => (
-  <Link to="/user" className="cardContent">
-    <img src="/icons/layout.svg" />
-    <div>
-      <h3>Explore features provided by Clerk</h3>
-      <p>Interact with the user button, user profile, and more to preview what your users will see</p>
-    </div>
-    <div className="arrow">
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
-
-const SsrDemoLink = () => (
-  <Link to="/ssr-demo" className="cardContent">
-    <img src="/icons/layout.svg" />
-    <div>
-      <h3>Visit the SSR demo page</h3>
-      <p>
-        See how Clerk hydrates the auth state during SSR and CSR, enabling server-side generation even for
-        authenticated pages
-      </p>
-    </div>
-    <div className="arrow">
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
-
-const SignupLink = () => (
-  <Link to="/sign-up" className="cardContent">
-    <img src="/icons/user-plus.svg" />
-    <div>
-      <h3>Sign up for an account</h3>
-      <p>Sign up and sign in to explore all the features provided by Clerk out-of-the-box</p>
-    </div>
-    <div className="arrow">
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
+import { SignedOut } from "@clerk/remix";
+import Footer from "~/components/Footer";
 
 // Main component using <SignedIn> and <SignedOut>
 //
 // The SignedIn and SignedOut components are used to control rendering depending
-// on whether or not a visitor is signed in.
+// on whether a visitor is signed in.
 //
 // https://docs.clerk.dev/frontend/react/signedin-and-signedout
-const Main = () => (
-  <main className="main">
-    <h1 className="title">Welcome to your new app</h1>
-    <SignedIn>
-      <p className="description">You have successfully signed in</p>
-    </SignedIn>
-    <SignedOut>
-      <p className="description">Sign up for an account to get started</p>
-    </SignedOut>
-
-    <div className="cards">
-      <SignedIn>
-        <div className="card">
-          <ClerkFeatures />
-        </div>
-      </SignedIn>
-      <SignedIn>
-        <div className="card">
-          <SsrDemoLink />
-        </div>
-      </SignedIn>
-      <SignedOut>
-        <div className="card">
-          <SignupLink />
-        </div>
-      </SignedOut>
-      <div className="card">
-        <a href="https://dashboard.clerk.dev/last-active?utm_source=github&utm_medium=starter_repos&utm_campaign=remix_starter" target="_blank" rel="noreferrer" className="cardContent">
-          <img src="/icons/settings.svg" />
-          <div>
-            <h3>Configure settings for your app</h3>
-            <p>Visit Clerk to manage instances and configure settings for user management, theme, and more</p>
+const Main = () => {
+  return (
+    <main>
+      <div className="relative px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+            <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+              <Link to="/" className="font-semibold text-indigo-600">
+                <span className="absolute inset-0" aria-hidden="true" />
+                Click to join the waitlist <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
           </div>
-          <div className="arrow">
-            <img src="/icons/arrow-right.svg" />
+          <div className="text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Tired managing all of your credit payments on your own?
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              Zero is the easiest way to manage your debt. Zero will help you achieve your credit reduction goals, save
+              on fees, and improve your credit score!
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <SignedOut>
+                <Link
+                  to="/sign-up"
+                  className="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Get started
+                </Link>
+              </SignedOut>
+            </div>
           </div>
-        </a>
+        </div>
       </div>
-    </div>
-
-    <div className="links">
-      <a href="https://clerk.dev/docs?utm_source=github&utm_medium=starter_repos&utm_campaign=remix_starter" target="_blank" rel="noreferrer" className="link">
-        <span className="linkText">Read Clerk documentation</span>
-      </a>
-      <a href="https://remixjs.org/docs" target="_blank" rel="noreferrer" className="link">
-        <span className="linkText">Read Remix documentation</span>
-      </a>
-    </div>
-  </main>
-);
-
-const Footer = () => (
-  <footer className="footer">
-    <a href="https://github.com/clerkinc/clerk-remix-starter" target="_blank" rel="noopener noreferrer">
-      Powered by <img src="/clerk.svg" alt="Clerk.dev" className="footer-logo" />
-      +
-      <img src="/remix.svg" alt="Remix" className="footer-logo-remix" />
-    </a>
-  </footer>
-);
+    </main>
+  );
+};
 
 export default function Index() {
   return (
