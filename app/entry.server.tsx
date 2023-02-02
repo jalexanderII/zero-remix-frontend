@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 import type { EntryContext } from "@remix-run/node";
 import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
@@ -11,6 +13,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const ABORT_DELAY = 5000;
+
 const RemixServerWithStyleContext = (children: ReactElement) => (
   <StylesContext.Provider value={null}>{children}</StylesContext.Provider>
 );
