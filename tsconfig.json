@@ -1,7 +1,10 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "app/**/*.ts*"],
+  "exclude": ["node_modules", "dist", "lib"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "sourceMap": true,
+    "declaration": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",

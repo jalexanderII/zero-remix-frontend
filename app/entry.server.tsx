@@ -4,8 +4,28 @@ import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
+import dotenv from "dotenv";
+import type { ReactElement } from "react";
+import createEmotionCache from "~/styles/createEmotionCache";
+import { CacheProvider } from "@emotion/react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "~/styles/theme";
+import StylesContext from "~/styles/stylesContext";
+dotenv.config();
 
 const ABORT_DELAY = 5000;
+const cache = createEmotionCache();
+
+const MuiRemixServer = (children: ReactElement) => (
+  <CacheProvider value={cache}>
+    <ThemeProvider theme={theme}>
+      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  </CacheProvider>
+);
 
 export default function handleRequest(
   request: Request,
@@ -13,12 +33,22 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  const callbackName = isbot(request.headers.get("user-agent")) ? "onAllReady" : "onShellReady";
+  const callbackName = isbot(request.headers.get("user-agent"))
+    ? "onAllReady"
+    : "onShellReady";
 
   return new Promise((resolve, reject) => {
     let didError = false;
 
-    const { pipe, abort } = renderToPipeableStream(<RemixServer context={remixContext} url={request.url} />, {
+    const remixServerWithStyles = (
+      <StylesContext.Provider value={null}>
+        {MuiRemixServer(
+          <RemixServer context={remixContext} url={request.url} />
+        )}
+      </StylesContext.Provider>
+    );
+
+    const { pipe, abort } = renderToPipeableStream(remixServerWithStyles, {
       [callbackName]: () => {
         const body = new PassThrough();
 

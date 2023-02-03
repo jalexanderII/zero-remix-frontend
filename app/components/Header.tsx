@@ -18,7 +18,7 @@ const navigation = [
 // on whether a visitor is signed in.
 //
 // https://docs.clerk.dev/frontend/react/signedin-and-signedout
-const Header = () => {
+const Header = (): JSX.Element => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const handleDialogCloseOnLinkClick = () => {
     setMobileMenuOpen(false);
@@ -56,7 +56,13 @@ const Header = () => {
 
         <div className="left justify-between">
           <Link to="/" className="-m-1.5 p-1.5">
-            <img className="h-8" src="/logo.svg" width="32" height="32" alt="Logo" />
+            <img
+              className="h-8"
+              src="/logo.svg"
+              width="32"
+              height="32"
+              alt="Logo"
+            />
             <span className="sr-only">Ot.Zero</span>
           </Link>
         </div>
@@ -77,13 +83,21 @@ const Header = () => {
             if (item.protected)
               return (
                 <SignedIn key={item.name}>
-                  <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-sm font-semibold leading-6 text-gray-900"
+                  >
                     {item.name}
                   </Link>
                 </SignedIn>
               );
             return (
-              <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+              <Link
+                key={item.name}
+                to={item.href}
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
                 {item.name}
               </Link>
             );
@@ -91,7 +105,10 @@ const Header = () => {
         </div>
         <div className="hidden lg:flex right">
           <SignedOut>
-            <Link to="/sign-in" className="text-sm font-semibold leading-6 text-gray-900">
+            <Link
+              to="/sign-in"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
               Sign in
             </Link>
           </SignedOut>
@@ -104,7 +121,13 @@ const Header = () => {
           <Dialog.Panel className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">
             <div className="flex items-center justify-between">
               <Link to="/" className="-m-1.5 p-1.5">
-                <img className="h-8" src="/logo.svg" width="32" height="32" alt="Logo" />
+                <img
+                  className="h-8"
+                  src="/logo.svg"
+                  width="32"
+                  height="32"
+                  alt="Logo"
+                />
                 <span className="sr-only">Ot.Zero</span>
               </Link>
               <button

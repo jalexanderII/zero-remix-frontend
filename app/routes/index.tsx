@@ -8,7 +8,7 @@ import Footer from "~/components/Footer";
 // on whether a visitor is signed in.
 //
 // https://docs.clerk.dev/frontend/react/signedin-and-signedout
-const Main = () => {
+const Main = (): JSX.Element => {
   return (
     <main>
       <div className="relative px-6 lg:px-8">
@@ -17,7 +17,8 @@ const Main = () => {
             <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               <Link to="/" className="font-semibold text-indigo-600">
                 <span className="absolute inset-0" aria-hidden="true" />
-                Click to join the waitlist <span aria-hidden="true">&rarr;</span>
+                Click to join the waitlist{" "}
+                <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
           </div>
@@ -26,8 +27,9 @@ const Main = () => {
               Tired managing all of your credit payments on your own?
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Zero is the easiest way to manage your debt. Zero will help you achieve your credit reduction goals, save
-              on fees, and improve your credit score!
+              Zero is the easiest way to manage your debt. Zero will help you
+              achieve your credit reduction goals, save on fees, and improve
+              your credit score!
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <SignedOut>
@@ -46,7 +48,7 @@ const Main = () => {
   );
 };
 
-export default function Index() {
+export default function Index(): JSX.Element {
   return (
     <div className="container">
       <Main />
