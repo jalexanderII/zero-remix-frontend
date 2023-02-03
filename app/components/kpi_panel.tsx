@@ -44,8 +44,6 @@ const toCategories = (props: KPI): KpiCards => {
 };
 
 export const KpiPanel: React.FC<props> = ({ kpis }) => {
-  console.log("here is the data: ", kpis.data);
-
   const categories = Object.values(toCategories(kpis.data));
   return (
     <ColGrid numColsSm={2} numColsLg={3} gapX="gap-x-6" gapY="gap-y-6">

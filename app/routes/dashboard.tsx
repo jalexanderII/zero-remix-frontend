@@ -6,7 +6,7 @@ import { getAuth } from "@clerk/remix/ssr.server";
 import { createClerkClient } from "@clerk/remix/api.server";
 import * as process from "process";
 import api from "~/services/api.server";
-import type { AccountsResponse, KPIResponse } from "~/utils/types.server";
+import type { KPIResponse } from "~/utils/types.server";
 import Container from "@mui/material/Container";
 import Waterfall from "~/components/waterfall";
 import { KpiPanel } from "~/components/kpi_panel";
@@ -25,16 +25,12 @@ export const loader: LoaderFunction = async (args) => {
   }).users.getUser(userId);
   const email = emailAddresses[0].emailAddress;
 
-  const accounts: AccountsResponse = await api.accounts.get_user_accounts(
-    email
-  );
   const kpis: KPIResponse = await api.kpis.get_user_kpis(email);
-  return { kpis, accounts };
+  return { kpis };
 };
 
 const Dashboard = (): JSX.Element => {
-  const { kpis, accounts } = useLoaderData();
-  console.log(accounts);
+  const { kpis } = useLoaderData();
   return (
     <Container maxWidth="lg">
       <main>
