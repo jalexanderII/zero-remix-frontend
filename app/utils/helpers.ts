@@ -9,3 +9,30 @@ export const toUSD = (value: number, digits = 2) => {
   });
   return formatter.format(value);
 };
+
+const month = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+export const getMonth = (val: number) => {
+  return month[val];
+};
+
+export function toJson(map: Map<string, any>) {
+  return JSON.stringify(Array.from(map.entries()));
+}
+
+export function fromJson(jsonStr: string): Map<string, any> {
+  return new Map(JSON.parse(jsonStr));
+}

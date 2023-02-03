@@ -49,3 +49,20 @@ export type KPIResponse = {
   message: string;
   status: string;
 };
+
+export type Waterfall = {
+  name: string;
+  data: number[];
+};
+
+export type WaterfallResponse = {
+  data: Waterfall[];
+  message: string;
+  status: string;
+};
+
+export type SlimWaterfall = {
+  planName: string;
+  planId: string;
+  data: number[];
+};

@@ -8,10 +8,12 @@ import * as process from "process";
 import api from "~/services/api.server";
 import type { KPIResponse } from "~/utils/types.server";
 import Container from "@mui/material/Container";
-import Waterfall from "~/components/waterfall";
+import { Waterfall } from "~/components/waterfall";
 import { KpiPanel } from "~/components/kpi_panel";
 import TableWithCheckbox from "~/components/table_with_checkbox";
 import { Block } from "@tremor/react";
+import { makeWaterfallFromJson } from "~/services/waterfall";
+import { fromJson } from "~/utils/helpers";
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
@@ -26,16 +28,19 @@ export const loader: LoaderFunction = async (args) => {
   const email = emailAddresses[0].emailAddress;
 
   const kpis: KPIResponse = await api.kpis.get_user_kpis(email);
-  return { kpis };
+  const resp = await api.waterfall.get_user_waterfall(email);
+  const waterfall = makeWaterfallFromJson(resp);
+  return { kpis, waterfall };
 };
 
 const Dashboard = (): JSX.Element => {
-  const { kpis } = useLoaderData();
+  const { kpis, waterfall } = useLoaderData();
+  const newWaterfall = fromJson(waterfall);
   return (
     <Container maxWidth="lg">
       <main>
         <Block marginTop="mt-2">
-          <Waterfall />
+          <Waterfall waterfall={newWaterfall} />
         </Block>
         <Block marginTop="mt-2">
           <KpiPanel kpis={kpis} />
