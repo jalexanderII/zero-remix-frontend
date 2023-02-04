@@ -8,7 +8,6 @@ interface props {
 }
 
 const fill_data = (waterfallPlans: Map<string, SlimWaterfall>) => {
-  console.log(waterfallPlans);
   let data = [...Array(12).keys()].map((mon) => ({
     Month: getMonth(mon),
   }));

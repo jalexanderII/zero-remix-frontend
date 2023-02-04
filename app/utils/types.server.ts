@@ -66,3 +66,52 @@ export type SlimWaterfall = {
   planId: string;
   data: number[];
 };
+
+type TransactionDetails = {
+  address: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  store_number: string;
+  reference_number: string;
+};
+
+export type Transaction = {
+  id: string;
+  plaid_transaction_id: string;
+  account_id: string;
+  plaid_account_id: string;
+  user_id: string;
+  transaction_type: string;
+  pending_transaction_id: string;
+  category_id: string;
+  category: string[];
+  transaction_details: TransactionDetails;
+  name: string;
+  original_description: string;
+  amount: number;
+  iso_currency_code: string;
+  date: string;
+  pending: boolean;
+  merchant_name: string;
+  payment_channel: string;
+  authorized_date: string;
+  primary_category: string;
+  detailed_category: string;
+  updated_at: string;
+  created_at: string;
+};
+
+export type TransactionResponse = {
+  data: Transaction[];
+  message: string;
+  status: string;
+};
+
+export type SlimTransaction = {
+  transactionId: string;
+  name: string;
+  amount: string;
+  date: string;
+};
