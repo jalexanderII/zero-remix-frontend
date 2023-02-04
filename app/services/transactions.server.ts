@@ -3,7 +3,7 @@ import type { Transaction, TransactionResponse } from "~/utils/types.server";
 import type { SlimTransaction } from "~/utils/types.server";
 import { toUSD } from "~/utils/helpers";
 
-const TRANSACTION_LIMIT = 10;
+const TRANSACTION_LIMIT = 100;
 
 export const transactions = {
   get_user_transactions: (email: string) =>
