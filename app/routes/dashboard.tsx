@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-
+import Container from "@mui/material/Container";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { createClerkClient } from "@clerk/remix/api.server";
 import * as process from "process";
@@ -12,7 +12,6 @@ import type {
   SlimWaterfall,
   WaterfallResponse,
 } from "~/utils/types.server";
-import Container from "@mui/material/Container";
 import { Waterfall } from "~/components/waterfall";
 import { KpiPanel } from "~/components/kpi_panel";
 import { Block } from "@tremor/react";
