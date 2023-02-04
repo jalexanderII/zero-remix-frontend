@@ -1,7 +1,8 @@
-import { Card, BarChart, Title, Text, ColGrid } from "@tremor/react";
+import { Card, BarChart, Title, Text, ColGrid, Button } from "@tremor/react";
 import React from "react";
 import type { SlimWaterfall } from "~/utils/types.server";
 import { getMonth } from "~/utils/helpers";
+import { useNavigate } from "@remix-run/react";
 
 interface props {
   waterfall: Map<string, SlimWaterfall>;
@@ -32,8 +33,14 @@ const valueFormatter = (number: number) =>
   `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 
 export const Waterfall: React.FC<props> = ({ waterfall }) => {
+  const navigate = useNavigate();
   const waterfallData = fill_data(waterfall);
   const names = getNames(waterfall);
+
+  const handleModal = () => {
+    console.log("clicked");
+    navigate("paymentplan/creation");
+  };
 
   return (
     <Card marginTop="mt-6">
@@ -47,6 +54,17 @@ export const Waterfall: React.FC<props> = ({ waterfall }) => {
         <div>
           <Title>Payment Plan Waterfall</Title>
           <Text>Monthly payments due for each plan this year (2023)</Text>
+        </div>
+        <div
+          style={{
+            marginTop: 25,
+            marginRight: 35,
+            position: "absolute",
+            top: 0,
+            right: 0,
+          }}
+        >
+          <Button onClick={handleModal}>PaymentPlan Creation</Button>
         </div>
       </ColGrid>
       <BarChart

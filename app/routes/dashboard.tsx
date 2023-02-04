@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import Container from "@mui/material/Container";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { createClerkClient } from "@clerk/remix/api.server";
@@ -46,20 +46,23 @@ const Dashboard = (): JSX.Element => {
   const { kpis, waterfall, transactions } = useLoaderData();
   const newWaterfall: Map<string, SlimWaterfall> = fromJson(waterfall);
   return (
-    <Container maxWidth="lg">
-      <main>
-        <Block marginTop="mt-2">
-          <Waterfall waterfall={newWaterfall} />
-        </Block>
-        <Block marginTop="mt-2">
-          <KpiPanel kpis={kpis} />
-        </Block>
-        <Block marginTop="mt-2">
-          <Transactions transactions={transactions} />
-        </Block>
-        <div className="preContainer"></div>
-      </main>
-    </Container>
+    <>
+      <Container maxWidth="lg">
+        <main>
+          <Block marginTop="mt-2">
+            <Waterfall waterfall={newWaterfall} />
+          </Block>
+          <Block marginTop="mt-2">
+            <KpiPanel kpis={kpis} />
+          </Block>
+          <Block marginTop="mt-2">
+            <Transactions transactions={transactions} />
+          </Block>
+          <div className="preContainer"></div>
+        </main>
+      </Container>
+      <Outlet />
+    </>
   );
 };
 
