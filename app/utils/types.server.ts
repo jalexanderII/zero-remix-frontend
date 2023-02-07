@@ -115,3 +115,9 @@ export type SlimTransaction = {
   amount: string;
   date: string;
 };
+
+export type DropdownInput = {
+  value: number;
+  text: string;
+  icon: any;
+};
