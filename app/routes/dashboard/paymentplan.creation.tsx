@@ -16,42 +16,76 @@ import {
   CalendarDaysIcon,
   CalendarIcon,
 } from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
-// import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { Form } from "@remix-run/react";
+import React, { useEffect, useRef, useState } from "react";
+import { Form, useActionData } from "@remix-run/react";
 import { PaymentFrequency, PlanType, TimelineMonths } from "~/utils/constants";
 import type { DropdownInput } from "~/utils/types.server";
 import { PreferenceDropdownItem } from "~/components/select-box";
-// import type { ActionArgs } from "@remix-run/node";
-// import { json, redirect } from "@remix-run/node";
-// import { createPreference } from "~/services/accounts.server";
+import type { ActionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import { createPreference } from "~/services/accounts.server";
 
-// export async function action({ request }: ActionArgs) {
-//   const formData = await request.formData();
-//
-//   const timeline = formData.get("timeline");
-//   const frequency = formData.get("frequency");
-//   const planType = formData.get("planType");
-//
-//   const errors = {
-//     timeline: timeline ? null : 0,
-//     frequency: frequency ? null : 0,
-//     planType: planType ? null : 0,
-//   };
-//   const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
-//   if (hasErrors) {
-//     return json(errors);
-//   }
-//
-//   const resp = await createPreference({ timeline, frequency, planType });
-//   console.log(resp);
-//
-//   await new Promise((res) => setTimeout(res, 1000));
-//
-//   return redirect("/dashboard/paymentplan/summary");
-// }
+export async function action({ request }: ActionArgs) {
+  const form = await request.formData();
+  console.log("form", form);
+
+  let timeline = form.get("timeline");
+  let frequency = form.get("frequency");
+  let planType = form.get("planType");
+  const action = form.get("_action");
+
+  switch (action) {
+    case "submit_preference":
+      if (
+        typeof timeline !== "string" ||
+        typeof frequency !== "string" ||
+        typeof planType !== "string"
+      ) {
+        return json({ error: `Invalid Form Data Wrong Type` }, { status: 400 });
+      }
+
+      const errors = {
+        timeline: timeline ? null : 0,
+        frequency: frequency ? null : 0,
+        planType: planType ? null : 0,
+      };
+
+      if (Object.values(errors).some(Boolean))
+        return json(
+          { errors, fields: { timeline, frequency, planType } },
+          { status: 400 }
+        );
+
+      await createPreference({ timeline, frequency, planType });
+
+      return redirect("/dashboard/paymentplan/summary");
+
+    default:
+      return json({ error: `Invalid Form Data` }, { status: 400 });
+  }
+}
 
 export default function PaymentPlanCreation() {
+  const actionData = useActionData();
+  const [formError, setFormError] = useState(actionData?.error || "");
+  const firstLoad = useRef(true);
+
+  const [formData, setFormData] = useState({
+    timeline: actionData?.fields?.timeline || "",
+    frequency: actionData?.fields?.frequency || "",
+    planType: actionData?.fields?.planType || "",
+  });
+
+  useEffect(() => {
+    if (!firstLoad.current) {
+      setFormError("");
+    }
+  }, [formData]);
+
+  useEffect(() => {
+    firstLoad.current = false;
+  }, []);
+
   // const navigate = useNavigate();
   // const navigation = useNavigation();
   // const isCreating = Boolean(navigation.state === "submitting");
@@ -63,36 +97,11 @@ export default function PaymentPlanCreation() {
   // console.log("actionDataErrors", errors);
 
   // const [isOpen, setIsOpen] = useState(true);
-  const [formData, setFormData] = useState({
-    pref: {
-      timeline: 0,
-      frequency: 0,
-      planType: 0,
-    },
-  });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    field: string
-  ) => {
-    setFormData((data) => ({
-      ...data,
-      pref: {
-        ...data.pref,
-        [field]: e.target.value,
-      },
-    }));
+  const handleInputChange = (value: number, field: string) => {
+    console.log("value", value);
+    setFormData((form) => ({ ...form, [field]: value }));
   };
-
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
-  //
-  // const handleSubmit = () => {
-  //   setIsOpen(false);
-  //   navigate("summary");
-  // };
 
   const toDropdownOption = (selection: Map<number, string>, icon: any) => {
     let data: DropdownInput[] = [];
@@ -145,7 +154,15 @@ export default function PaymentPlanCreation() {
           </Accordion>
         </AccordionList>
       </Block>
-      <Form action="/dashboard?index" method="post">
+      <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full mb-2">
+        {formError}
+      </div>
+      <Form
+        method="post"
+        onSubmit={(e) =>
+          !confirm("Are you sure?") ? e.preventDefault() : true
+        }
+      >
         <Title marginTop="mt-4">Payment Preferences</Title>
         <ColGrid
           numColsMd={4}
@@ -155,39 +172,33 @@ export default function PaymentPlanCreation() {
           marginTop="mt-3"
         >
           <Card maxWidth="max-w-xs">
-            <input
-              type="hidden"
-              value={formData.pref.timeline}
-              name="preference"
-            />
+            <input type="hidden" value={formData.timeline} name="timeline" />
             <PreferenceDropdownItem
               label="Payment Timeline (Months)"
               options={toDropdownOption(TimelineMonths, CalendarIcon)}
-              onChange={(e) => handleChange(e, "timeline")}
+              onChange={(e) => handleInputChange(e, "timeline")}
+              error={actionData?.errors?.timeline}
+              value={formData.timeline}
             />
           </Card>
           <Card maxWidth="max-w-xs">
-            <input
-              type="hidden"
-              value={formData.pref.frequency}
-              name="preference"
-            />
+            <input type="hidden" value={formData.frequency} name="frequency" />
             <PreferenceDropdownItem
               label="Payment Frequency"
               options={toDropdownOption(PaymentFrequency, CalendarDaysIcon)}
-              onChange={(e) => handleChange(e, "frequency")}
+              onChange={(e) => handleInputChange(e, "frequency")}
+              error={actionData?.errors?.frequency}
+              value={formData.frequency}
             />
           </Card>
           <Card maxWidth="max-w-xs">
-            <input
-              type="hidden"
-              value={formData.pref.planType}
-              name="preference"
-            />
+            <input type="hidden" value={formData.planType} name="planType" />
             <PreferenceDropdownItem
               label="Payment Plan Type"
               options={toDropdownOption(PlanType, BanknotesIcon)}
-              onChange={(e) => handleChange(e, "planType")}
+              onChange={(e) => handleInputChange(e, "planType")}
+              error={actionData?.errors?.planType}
+              value={formData.planType}
             />
           </Card>
           <Card maxWidth="max-w-xs">
@@ -201,7 +212,6 @@ export default function PaymentPlanCreation() {
         <div className="flex flex-col items-center md:flex-row">
           <div className="flex-1" />
           <button
-            type="submit"
             className="rounded-xl bg-blue-300 font-semibold text-blue-600 w-80 h-12 transition duration-300 ease-in-out hover:bg-blue-400 hover:-translate-y-1"
             name="_action"
             value="submit_preference"

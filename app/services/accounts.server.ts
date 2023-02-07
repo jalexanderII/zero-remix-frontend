@@ -1,6 +1,5 @@
 import type { AccountsResponse } from "~/utils/types.server";
 import { request } from "~/services/external-api.service.server";
-import { json } from "@remix-run/node";
 
 export const accounts = {
   get_user_accounts: (email: string) =>
@@ -8,10 +7,9 @@ export const accounts = {
 };
 
 export async function createPreference(data: {
-  timeline: number;
-  frequency: number;
-  planType: number;
+  timeline: any;
+  frequency: any;
+  planType: any;
 }) {
   console.log("createPreference", data);
-  return json(data, { status: 200 });
 }
