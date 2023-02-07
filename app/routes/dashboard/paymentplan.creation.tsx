@@ -27,8 +27,6 @@ import { createPreference } from "~/services/accounts.server";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
-  console.log("form", form);
-
   let timeline = form.get("timeline");
   let frequency = form.get("frequency");
   let planType = form.get("planType");
@@ -58,7 +56,7 @@ export async function action({ request }: ActionArgs) {
 
       await createPreference({ timeline, frequency, planType });
 
-      return redirect("/dashboard/paymentplan/summary");
+      return redirect("/dashboard/paymentplan/creation/summary");
 
     default:
       return json({ error: `Invalid Form Data` }, { status: 400 });
@@ -86,20 +84,7 @@ export default function PaymentPlanCreation() {
     firstLoad.current = false;
   }, []);
 
-  // const navigate = useNavigate();
-  // const navigation = useNavigation();
-  // const isCreating = Boolean(navigation.state === "submitting");
-
-  // console.log("isCreating", isCreating);
-
-  // const errors = useActionData<typeof action>();
-
-  // console.log("actionDataErrors", errors);
-
-  // const [isOpen, setIsOpen] = useState(true);
-
   const handleInputChange = (value: number, field: string) => {
-    console.log("value", value);
     setFormData((form) => ({ ...form, [field]: value }));
   };
 
