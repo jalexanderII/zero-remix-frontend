@@ -20,10 +20,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { Form, useActionData } from "@remix-run/react";
 import { PaymentFrequency, PlanType, TimelineMonths } from "~/utils/constants";
 import type { DropdownInput } from "~/utils/types.server";
-import { PreferenceDropdownItem } from "~/components/select-box";
 import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { createPreference } from "~/services/accounts.server";
+import { PreferenceDropdownItem } from "~/components/select-box";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
