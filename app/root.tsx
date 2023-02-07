@@ -24,7 +24,7 @@ import tremor_styles from "@tremor/react/dist/esm/tremor.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Ot.Zero",
+  title: "Re.Zero",
   viewport: "width=device-width,initial-scale=1",
   themeColor: theme.palette.primary.main,
 });
