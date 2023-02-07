@@ -61,12 +61,14 @@ function Document({
   title?: string;
 }) {
   const styleData = useContext(StylesContext);
+  const titleText = title ? title : null;
   return (
     <html lang="en">
       <head>
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
+        <title>{titleText}</title>
         {styleData?.map(({ key, ids, css }) => (
           <style
             key={key}
