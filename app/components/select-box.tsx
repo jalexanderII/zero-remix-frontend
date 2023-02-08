@@ -23,18 +23,20 @@ export function PreferenceDropdownItem({
     setErrorText(error);
   }, [error]);
 
+  if (errorText) {
+    console.log(errorText);
+  }
+
   return (
     <>
       <Text>{label}</Text>
-      <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
-        {errorText || ""}
-      </div>
+
       <Dropdown
         onValueChange={(e) => {
           onChange(e);
           setErrorText("");
         }}
-        marginTop="mt-2"
+        marginTop="mt-1"
         placeholder="Unknown"
         value={value || 0}
       >

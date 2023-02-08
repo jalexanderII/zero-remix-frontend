@@ -100,6 +100,10 @@ export default function PaymentPlanCreation() {
     return data;
   };
 
+  if (formError) {
+    console.log(formError);
+  }
+
   return (
     <Modal
       isOpen={true}
@@ -139,9 +143,6 @@ export default function PaymentPlanCreation() {
           </Accordion>
         </AccordionList>
       </Block>
-      <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full mb-2">
-        {formError}
-      </div>
       <Form
         method="post"
         onSubmit={(e) =>
@@ -194,10 +195,10 @@ export default function PaymentPlanCreation() {
           </Card>
         </ColGrid>
         <br />
-        <div className="flex flex-col items-center md:flex-row">
+        <div className="flex flex-col items-center md:flex-row pt-14">
           <div className="flex-1" />
           <button
-            className="rounded-xl bg-blue-300 font-semibold text-blue-600 w-80 h-12 transition duration-300 ease-in-out hover:bg-blue-400 hover:-translate-y-1"
+            className="rounded-xl bg-blue-300 font-semibold text-blue-600 w-56 h-12 transition duration-300 ease-in-out hover:bg-blue-400 hover:-translate-y-1"
             name="_action"
             value="submit_preference"
           >
