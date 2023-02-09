@@ -10,6 +10,7 @@ import type {
   KPIResponse,
   SlimTransaction,
   SlimWaterfall,
+  TransactionResponse,
   WaterfallResponse,
 } from "~/utils/types.server";
 import { Waterfall } from "~/components/waterfall";
@@ -17,8 +18,7 @@ import { KpiPanel } from "~/components/kpi_panel";
 import { Block } from "@tremor/react";
 import { makeWaterfallFromJson } from "~/services/waterfall";
 import { fromJson } from "~/utils/helpers";
-import { Transactions } from "~/components/transactions";
-import type { TransactionResponse } from "~/utils/types.server";
+import { Transactions_table_with_pagination } from "~/components/transactions_table_with_pagination";
 import { pruneTransactions } from "~/services/transactions.server";
 
 export const loader: LoaderFunction = async (args) => {
@@ -56,7 +56,7 @@ const Dashboard = (): JSX.Element => {
             <KpiPanel kpis={kpis} />
           </Block>
           <Block marginTop="mt-2">
-            <Transactions transactions={transactions} />
+            <Transactions_table_with_pagination transactions={transactions} />
           </Block>
           <div className="preContainer"></div>
         </main>

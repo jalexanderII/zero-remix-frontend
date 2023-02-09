@@ -24,6 +24,7 @@ import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { createPreference } from "~/services/accounts.server";
 import { PreferenceDropdownItem } from "~/components/select-box";
+import { PaymentPlanTransactions } from "~/components/TrxnTableWithCheckbox/transactions_table_with_checkbox";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
@@ -117,30 +118,14 @@ export default function PaymentPlanCreation() {
       </Text>
       <Block marginTop="mt-6">
         <AccordionList>
-          <Accordion>
-            <AccordionHeader>Accordion 1</AccordionHeader>
-            <AccordionBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              tempor lorem non est congue blandit. Praesent non lorem sodales,
-              suscipit est sed, hendrerit dolor.
-            </AccordionBody>
-          </Accordion>
-          <Accordion>
-            <AccordionHeader>Accordion 2</AccordionHeader>
-            <AccordionBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              tempor lorem non est congue blandit. Praesent non lorem sodales,
-              suscipit est sed, hendrerit dolor.
-            </AccordionBody>
-          </Accordion>
-          <Accordion>
-            <AccordionHeader>Accordion 3</AccordionHeader>
-            <AccordionBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              tempor lorem non est congue blandit. Praesent non lorem sodales,
-              suscipit est sed, hendrerit dolor.
-            </AccordionBody>
-          </Accordion>
+          {[1, 2, 3].map((i) => (
+            <Accordion key={i}>
+              <AccordionHeader>{`Accordion ${i}`}</AccordionHeader>
+              <AccordionBody>
+                <PaymentPlanTransactions />
+              </AccordionBody>
+            </Accordion>
+          ))}
         </AccordionList>
       </Block>
       <Form

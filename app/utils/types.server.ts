@@ -121,3 +121,15 @@ export type DropdownInput = {
   text: string;
   icon: any;
 };
+
+export type ReactTableColumn = {
+  Header: string;
+  accessor: string;
+};
+
+export type PaymentPlanCreationTransaction = {
+  transactionId: string;
+  name: string;
+  amount: number;
+  date: string;
+};

@@ -9,3 +9,4 @@ node_modules
 
 .idea
 
+/react-table-config.d.ts
