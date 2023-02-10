@@ -1,16 +1,21 @@
 import { request } from "~/services/external-api.service.server";
-import type { Transaction, TransactionResponse } from "~/utils/types.server";
-import type { SlimTransaction } from "~/utils/types.server";
+import type {
+  SlimTransaction,
+  Transaction,
+  TransactionResponse,
+} from "~/utils/types.server";
 import { toUSD } from "~/utils/helpers";
 
 const TRANSACTION_LIMIT = 100;
 
 export const transactions = {
-  get_user_transactions: (email: string) =>
+  get_user_transactions: async (email: string) =>
     request.get<TransactionResponse>(`/api/core/transactions/${email}`),
 };
 
-export const pruneTransactions = (trxns: Transaction[]): SlimTransaction[] => {
+export const pruneTransactions = async (
+  trxns: Transaction[]
+): Promise<SlimTransaction[]> => {
   let data: SlimTransaction[] = [];
   trxns.forEach((item) => {
     if (item.amount > 0) {
@@ -19,6 +24,9 @@ export const pruneTransactions = (trxns: Transaction[]): SlimTransaction[] => {
         name: item.name,
         amount: toUSD(item.amount),
         date: item.date,
+        id: item.id,
+        accountId: item.account_id,
+        userId: item.user_id,
       });
     }
   });

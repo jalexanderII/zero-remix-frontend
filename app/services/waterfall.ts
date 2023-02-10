@@ -7,7 +7,7 @@ import type {
 import { toJson } from "~/utils/helpers";
 
 export const waterfall = {
-  get_user_waterfall: (email: string) =>
+  get_user_waterfall: async (email: string) =>
     request.get<WaterfallResponse>(`/api/planning/waterfall/${email}`),
 };
 

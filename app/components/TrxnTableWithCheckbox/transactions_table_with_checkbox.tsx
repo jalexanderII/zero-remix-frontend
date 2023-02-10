@@ -7,33 +7,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import { useRowSelect, useTable } from "react-table";
-import type { PaymentPlanCreationTransaction } from "~/utils/types.server";
+import type { SlimTransaction } from "~/utils/types.server";
 import { IndeterminateCheckbox } from "~/components/TrxnTableWithCheckbox/checkbox";
 
-const range = (len: number) => {
-  const arr = [];
-  for (let i = 0; i < len; i++) {
-    arr.push(i);
-  }
-  return arr;
-};
-
-const newTrxn = (idx: number): PaymentPlanCreationTransaction => {
-  return {
-    transactionId: `${idx}`,
-    name: `jacky_${idx}`,
-    date: "2021-09-01",
-    amount: Math.floor(Math.random() * 30),
-  };
-};
-
-function makeData(len: number) {
-  return range(len).map((i) => {
-    return { ...newTrxn(i) };
-  });
+interface props {
+  transactions: SlimTransaction[];
 }
 
-export const PaymentPlanTransactions = () => {
+export const PaymentPlanTransactions: React.FC<props> = ({ transactions }) => {
   const columns: any = React.useMemo(() => {
     return [
       { Header: "Name", accessor: "name" },
@@ -42,9 +23,9 @@ export const PaymentPlanTransactions = () => {
     ];
   }, []);
 
-  const data: PaymentPlanCreationTransaction[] = React.useMemo(
-    () => makeData(25),
-    []
+  const data: SlimTransaction[] = React.useMemo(
+    () => transactions,
+    [transactions]
   );
 
   // Use the state and functions returned from useTable to build your UI

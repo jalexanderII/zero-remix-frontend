@@ -47,7 +47,7 @@ const Items: React.FC<props> = ({ transactions }) => {
   );
 };
 
-export const Transactions_table_with_pagination: React.FC<props> = ({
+export const TransactionsTableWithPagination: React.FC<props> = ({
   transactions,
 }) => {
   const [items, setItems] = useState(initialState);

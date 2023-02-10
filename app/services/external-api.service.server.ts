@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosResponse } from "axios";
 import axios from "axios";
 import { API_URL } from "~/utils/constants";
-import type { AccountsResponse, BaseResponse } from "~/utils/types.server";
+import type { BaseResponse } from "~/utils/types.server";
 
 let token: null = null;
 

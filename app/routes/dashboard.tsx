@@ -3,8 +3,6 @@ import { redirect } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import Container from "@mui/material/Container";
 import { getAuth } from "@clerk/remix/ssr.server";
-import { createClerkClient } from "@clerk/remix/api.server";
-import * as process from "process";
 import api from "~/services/api.server";
 import type {
   KPIResponse,
@@ -18,8 +16,9 @@ import { KpiPanel } from "~/components/kpi_panel";
 import { Block } from "@tremor/react";
 import { makeWaterfallFromJson } from "~/services/waterfall";
 import { fromJson } from "~/utils/helpers";
-import { Transactions_table_with_pagination } from "~/components/transactions_table_with_pagination";
+import { TransactionsTableWithPagination } from "~/components/transactions_table_with_pagination";
 import { pruneTransactions } from "~/services/transactions.server";
+import { createClerkClient } from "@clerk/remix/api.server";
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
@@ -35,7 +34,9 @@ export const loader: LoaderFunction = async (args) => {
 
   const trxnResp: TransactionResponse =
     await api.transactions.get_user_transactions(email);
-  const transactions: SlimTransaction[] = pruneTransactions(trxnResp.data);
+  const transactions: SlimTransaction[] = await pruneTransactions(
+    trxnResp.data
+  );
   const kpis: KPIResponse = await api.kpis.get_user_kpis(email);
   const resp: WaterfallResponse = await api.waterfall.get_user_waterfall(email);
   const waterfall = makeWaterfallFromJson(resp);
@@ -56,7 +57,7 @@ const Dashboard = (): JSX.Element => {
             <KpiPanel kpis={kpis} />
           </Block>
           <Block marginTop="mt-2">
-            <Transactions_table_with_pagination transactions={transactions} />
+            <TransactionsTableWithPagination transactions={transactions} />
           </Block>
           <div className="preContainer"></div>
         </main>
