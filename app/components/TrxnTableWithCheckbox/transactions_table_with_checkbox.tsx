@@ -5,16 +5,23 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import React from "react";
+import React, { useEffect } from "react";
+// import type { Row } from "react-table";
 import { useRowSelect, useTable } from "react-table";
 import type { SlimTransaction } from "~/utils/types.server";
 import { IndeterminateCheckbox } from "~/components/TrxnTableWithCheckbox/checkbox";
 
 interface props {
   transactions: SlimTransaction[];
+  idx: number;
+  updateAmount: (newAmount: number, idx: number) => void;
 }
 
-export const PaymentPlanTransactions: React.FC<props> = ({ transactions }) => {
+export const PaymentPlanTransactions: React.FC<props> = ({
+  transactions,
+  idx,
+  updateAmount,
+}) => {
   const columns: any = React.useMemo(() => {
     return [
       { Header: "Name", accessor: "name" },
@@ -62,18 +69,35 @@ export const PaymentPlanTransactions: React.FC<props> = ({ transactions }) => {
     ]);
   });
 
-  console.log("Selected Rows:", Object.keys(selectedRowIds).length);
-  console.log(
-    "Selected Rows Json:",
-    JSON.stringify(
-      {
-        selectedRowIds: selectedRowIds,
-        "selectedFlatRows[].original": selectedFlatRows.map((d) => d.original),
-      },
-      null,
-      2
-    )
-  );
+  // const updateValue = (selectedFlatRows: Row<SlimTransaction>[]) => {
+  //   let total = 0;
+  //   selectedFlatRows.forEach((d) => {
+  //     total += parseFloat(d.original.amount.slice(1));
+  //   });
+  //   updateAmount(total, idx);
+  //   return `total for account in ${idx} is ${total}`;
+  // };
+
+  useEffect(() => {
+    return () => {
+      console.log("Selected Rows:", Object.keys(selectedRowIds).length);
+      console.log(
+        "Selected Rows Json:",
+        JSON.stringify(
+          {
+            selectedRowIds: selectedRowIds,
+            "selectedFlatRows[].original": selectedFlatRows.map(
+              (d) => d.original
+            ),
+          },
+          null,
+          2
+        )
+      );
+      // const resp = updateValue(selectedFlatRows);
+      // console.log(resp);
+    };
+  }, [Object.keys(selectedRowIds).length]);
 
   // Render the UI for your table
   return (

@@ -30,8 +30,9 @@ import { PreferenceDropdownItem } from "~/components/select-box";
 import { PaymentPlanTransactions } from "~/components/TrxnTableWithCheckbox/transactions_table_with_checkbox";
 import { createPaymentPlan } from "~/services/paymentplan.server";
 import { getAuth } from "@clerk/remix/ssr.server";
-import { createClerkClient } from "@clerk/remix/api.server";
 import api from "~/services/api.server";
+import { getUserEmail } from "~/routes/dashboard";
+import { toUSD } from "~/utils/helpers";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
@@ -73,21 +74,19 @@ export async function action({ request }: ActionArgs) {
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
-
   if (!userId) {
     return redirect("/sign-in");
   }
+  const email = await getUserEmail(userId);
 
-  const { emailAddresses } = await createClerkClient({
-    apiKey: process.env.CLERK_SECRET_KEY,
-  }).users.getUser(userId);
-  const email = emailAddresses[0].emailAddress;
   const accountAndTransactions: AccountAndTransactions =
     await api.paymentplan.get_transactions_by_account(email);
   return { accountAndTransactions };
 };
 
 export default function PaymentPlanCreation() {
+  const [amounts, setAmounts] = useState<number[]>([]);
+
   const { accountAndTransactions } = useLoaderData();
 
   const actionData = useActionData();
@@ -99,6 +98,17 @@ export default function PaymentPlanCreation() {
     frequency: actionData?.fields?.frequency || "",
     planType: actionData?.fields?.planType || "",
   });
+
+  const updateAmount = (newAmount: number, idx: number) => {
+    const updateAmount = amounts.map((n, i) => {
+      if (i === idx) {
+        return newAmount;
+      } else {
+        return n;
+      }
+    });
+    setAmounts(updateAmount);
+  };
 
   useEffect(() => {
     if (!firstLoad.current) {
@@ -143,18 +153,22 @@ export default function PaymentPlanCreation() {
       </Text>
       <Block marginTop="mt-6">
         <AccordionList>
-          {accountAndTransactions.slimAccounts.map((i: SlimTransaction) => (
-            <Accordion key={i.accountId}>
-              <AccordionHeader>{i.name}</AccordionHeader>
-              <AccordionBody>
-                <PaymentPlanTransactions
-                  transactions={
-                    accountAndTransactions.transactionDict[i.accountId]
-                  }
-                />
-              </AccordionBody>
-            </Accordion>
-          ))}
+          {accountAndTransactions.slimAccounts.map(
+            (i: SlimTransaction, idx: number) => (
+              <Accordion key={i.accountId}>
+                <AccordionHeader>{i.name}</AccordionHeader>
+                <AccordionBody>
+                  <PaymentPlanTransactions
+                    idx={idx}
+                    updateAmount={updateAmount}
+                    transactions={
+                      accountAndTransactions.transactionDict[i.accountId]
+                    }
+                  />
+                </AccordionBody>
+              </Accordion>
+            )
+          )}
         </AccordionList>
       </Block>
       <Form
@@ -204,7 +218,7 @@ export default function PaymentPlanCreation() {
           <Card maxWidth="max-w-xs">
             <Text textAlignment={"text-center"}>Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Metric>$1234</Metric>
+              <Metric>{toUSD(amounts.reduce((a, b) => a + b, 0))}</Metric>
             </div>
           </Card>
         </ColGrid>
