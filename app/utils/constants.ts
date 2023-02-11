@@ -1,6 +1,3 @@
-export const API_URL: string = "http://127.0.0.1:8080";
-// process.env.BACKEND_SERVER_URL || "http://127.0.0.1:8080";
-
 export const PlanType: Map<number, string> = new Map([
   [0, "Unknown"],
   [1, "Optimize Credit Score"],
