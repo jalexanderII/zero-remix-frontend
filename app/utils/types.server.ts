@@ -32,6 +32,13 @@ export type Account = {
   created_at: string;
 };
 
+export type SlimAccount = {
+  accountId: string;
+  userId: string;
+  name: string;
+  balance: number;
+};
+
 export type AccountsResponse = {
   data: Account[];
   message: string;
@@ -110,14 +117,81 @@ export type TransactionResponse = {
 };
 
 export type SlimTransaction = {
-  transactionId: string;
+  id: string;
+  accountId: string;
+  userId: string;
   name: string;
   amount: string;
   date: string;
+  transactionId: string;
 };
 
 export type DropdownInput = {
   value: number;
   text: string;
   icon: any;
+};
+
+export type ReactTableColumn = {
+  Header: string;
+  accessor: string;
+};
+
+export class DefaultDict {
+  constructor(defaultInit: any | Object) {
+    return new Proxy(
+      {},
+      {
+        get: (target: any, name: string) =>
+          name in target
+            ? target[name]
+            : (target[name] =
+                typeof defaultInit === "function"
+                  ? new defaultInit().valueOf()
+                  : defaultInit),
+      }
+    );
+  }
+}
+
+export class DefaultMap {
+  private defaultFn: any;
+  private root: Map<any, any>;
+
+  constructor(defaultFn: any) {
+    this.defaultFn = defaultFn;
+    this.root = new Map();
+  }
+
+  put(...keys: any[]) {
+    let map = this.root;
+
+    for (const key of keys.slice(0, -1)) {
+      map.has(key) || map.set(key, new Map());
+      map = map.get(key);
+    }
+
+    const key = keys[keys.length - 1];
+    map.has(key) || map.set(key, this.defaultFn());
+    return {
+      set: (setterFn: (arg0: any) => any) =>
+        map.set(key, setterFn(map.get(key))),
+      mutate: (mutationFn: (arg0: any) => any) => mutationFn(map.get(key)),
+    };
+  }
+
+  get(...keys: any[]) {
+    let map = this.root;
+
+    for (const key of keys) {
+      map = map?.get(key);
+    }
+
+    return map;
+  }
+}
+
+export type AccountAndTransactions = {
+  slimAccounts: SlimAccount[];
+  transactionDict: DefaultDict;
 };

@@ -1,13 +1,13 @@
 import {
   Card,
+  Divider,
   Table,
-  TableRow,
+  TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
-  TableBody,
+  TableRow,
   Title,
-  Divider,
 } from "@tremor/react";
 import React, { useEffect, useState } from "react";
 import type { SlimTransaction } from "~/utils/types.server";
@@ -47,7 +47,9 @@ const Items: React.FC<props> = ({ transactions }) => {
   );
 };
 
-export const Transactions: React.FC<props> = ({ transactions }) => {
+export const TransactionsTableWithPagination: React.FC<props> = ({
+  transactions,
+}) => {
   const [items, setItems] = useState(initialState);
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState(initialState);
@@ -90,27 +92,6 @@ export const Transactions: React.FC<props> = ({ transactions }) => {
           </TableRow>
         </TableHead>
 
-        {/*<TableBody>*/}
-        {/*  {currentItems.map((item, idx) => (*/}
-        {/*    <TableRow key={`${item.transactionId}_${idx}`}>*/}
-        {/*      <TableCell key={`${item.transactionId}_${idx}a`}>*/}
-        {/*        {item.name}*/}
-        {/*      </TableCell>*/}
-        {/*      <TableCell*/}
-        {/*        key={`${item.transactionId}_${idx}b`}*/}
-        {/*        textAlignment="text-right"*/}
-        {/*      >*/}
-        {/*        {item.date}*/}
-        {/*      </TableCell>*/}
-        {/*      <TableCell*/}
-        {/*        key={`${item.transactionId}_${idx}c`}*/}
-        {/*        textAlignment="text-right"*/}
-        {/*      >*/}
-        {/*        {item.amount}*/}
-        {/*      </TableCell>*/}
-        {/*    </TableRow>*/}
-        {/*  ))}*/}
-        {/*</TableBody>*/}
         <Items transactions={currentItems} />
       </Table>
       <Divider />

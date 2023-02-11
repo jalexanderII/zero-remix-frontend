@@ -3,6 +3,7 @@ import { accounts } from "~/services/accounts.server";
 import { kpis } from "~/services/kpi.server";
 import { waterfall } from "~/services/waterfall";
 import { transactions } from "~/services/transactions.server";
+import { paymentplan } from "~/services/paymentplan.server";
 
 const api = {
   backend,
@@ -10,6 +11,7 @@ const api = {
   kpis,
   waterfall,
   transactions,
+  paymentplan,
 };
 
 export default api;

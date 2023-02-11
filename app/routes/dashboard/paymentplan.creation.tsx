@@ -17,13 +17,21 @@ import {
   CalendarIcon,
 } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef, useState } from "react";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { PaymentFrequency, PlanType, TimelineMonths } from "~/utils/constants";
-import type { DropdownInput } from "~/utils/types.server";
-import type { ActionArgs } from "@remix-run/node";
+import type {
+  AccountAndTransactions,
+  DropdownInput,
+  SlimTransaction,
+} from "~/utils/types.server";
+import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { createPreference } from "~/services/accounts.server";
 import { PreferenceDropdownItem } from "~/components/select-box";
+import { PaymentPlanTransactions } from "~/components/TrxnTableWithCheckbox/transactions_table_with_checkbox";
+import { createPaymentPlan } from "~/services/paymentplan.server";
+import { getAuth } from "@clerk/remix/ssr.server";
+import { createClerkClient } from "@clerk/remix/api.server";
+import api from "~/services/api.server";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
@@ -54,7 +62,7 @@ export async function action({ request }: ActionArgs) {
           { status: 400 }
         );
 
-      await createPreference({ timeline, frequency, planType });
+      await createPaymentPlan({ timeline, frequency, planType });
 
       return redirect("/dashboard/paymentplan/creation/summary");
 
@@ -63,7 +71,25 @@ export async function action({ request }: ActionArgs) {
   }
 }
 
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
+
+  if (!userId) {
+    return redirect("/sign-in");
+  }
+
+  const { emailAddresses } = await createClerkClient({
+    apiKey: process.env.CLERK_SECRET_KEY,
+  }).users.getUser(userId);
+  const email = emailAddresses[0].emailAddress;
+  const accountAndTransactions: AccountAndTransactions =
+    await api.paymentplan.get_transactions_by_account(email);
+  return { accountAndTransactions };
+};
+
 export default function PaymentPlanCreation() {
+  const { accountAndTransactions } = useLoaderData();
+
   const actionData = useActionData();
   const [formError, setFormError] = useState(actionData?.error || "");
   const firstLoad = useRef(true);
@@ -117,30 +143,18 @@ export default function PaymentPlanCreation() {
       </Text>
       <Block marginTop="mt-6">
         <AccordionList>
-          <Accordion>
-            <AccordionHeader>Accordion 1</AccordionHeader>
-            <AccordionBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              tempor lorem non est congue blandit. Praesent non lorem sodales,
-              suscipit est sed, hendrerit dolor.
-            </AccordionBody>
-          </Accordion>
-          <Accordion>
-            <AccordionHeader>Accordion 2</AccordionHeader>
-            <AccordionBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              tempor lorem non est congue blandit. Praesent non lorem sodales,
-              suscipit est sed, hendrerit dolor.
-            </AccordionBody>
-          </Accordion>
-          <Accordion>
-            <AccordionHeader>Accordion 3</AccordionHeader>
-            <AccordionBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              tempor lorem non est congue blandit. Praesent non lorem sodales,
-              suscipit est sed, hendrerit dolor.
-            </AccordionBody>
-          </Accordion>
+          {accountAndTransactions.slimAccounts.map((i: SlimTransaction) => (
+            <Accordion key={i.accountId}>
+              <AccordionHeader>{i.name}</AccordionHeader>
+              <AccordionBody>
+                <PaymentPlanTransactions
+                  transactions={
+                    accountAndTransactions.transactionDict[i.accountId]
+                  }
+                />
+              </AccordionBody>
+            </Accordion>
+          ))}
         </AccordionList>
       </Block>
       <Form
