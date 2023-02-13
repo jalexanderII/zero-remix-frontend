@@ -11,7 +11,6 @@ import { getUserEmail } from "~/routes/dashboard";
 import { AccountAccordion } from "~/components/account_accordion";
 import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
 import { toUSD } from "~/utils/helpers";
 import type { AccountAndTransactions } from "~/utils/types.server";
 
@@ -76,60 +75,6 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
     },
   })
 );
-
-// interface PaymentPlanCreationForm {
-//   timeline: number;
-//   frequency: number;
-//   planType: number;
-//   updateTimeline: (value: number) => void;
-//   updateFrequency: (value: number) => void;
-//   updatePlanType: (value: number) => void;
-//   amount: number[];
-//   updateAmount: (amount: number, index: number) => void;
-//   totalAmount: number;
-//   setTotalAmount: () => void;
-//   accountInfo: AccountInfo[];
-//   updateAccountInfo: (data: AccountInfo, index: number) => void;
-// }
-//
-// export const usePaymentPlanCreationForm = create<PaymentPlanCreationForm>()(
-//   // devtools(
-//   //   persist(
-//   (set) => ({
-//     timeline: 0,
-//     updateTimeline: (value) => set({ timeline: value }),
-//     frequency: 0,
-//     updateFrequency: (value) => set({ frequency: value }),
-//     planType: 0,
-//     updatePlanType: (value) => set({ planType: value }),
-//     amount: [],
-//     updateAmount: (amount, index) => {
-//       set((state) => {
-//         const newAmount = [...state.amount];
-//         newAmount[index] = amount;
-//         return { amount: newAmount };
-//       });
-//     },
-//     totalAmount: 0,
-//     setTotalAmount: () =>
-//       set((state) => ({
-//         totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
-//       })),
-//     accountInfo: [],
-//     updateAccountInfo: (data, index) => {
-//       set((state) => {
-//         const newAccountInfo = [...state.accountInfo];
-//         newAccountInfo[index] = data;
-//         return { accountInfo: newAccountInfo };
-//       });
-//     },
-//   })
-//   //     {
-//   //       name: "PaymentPlanCreation-Data",
-//   //     }
-//   //   )
-//   // )
-// );
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
