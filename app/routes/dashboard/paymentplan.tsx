@@ -1,7 +1,7 @@
 import { Modal } from "~/components/modal";
 import { Card, ColGrid, Metric, Text, Title } from "@tremor/react";
 import React from "react";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import type { AccountInfo } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
@@ -14,7 +14,6 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { toUSD } from "~/utils/helpers";
 import type { AccountAndTransactions } from "~/utils/types.server";
-import { PaymentPlanSummary } from "~/routes/dashboard/paymentplan.summary";
 
 interface PaymentPlanCreationForm {
   timeline: number;
@@ -107,16 +106,12 @@ export async function action({ request }: ActionArgs) {
         save_plan: false,
       };
 
-      const response = await api.paymentplan.submit_payment_plan(
+      const resp = await api.paymentplan.submit_payment_plan(
         email,
         JSON.stringify(req)
       );
-      console.log("resp", response);
-      const submitted = true;
-      return json(
-        { response: response, submitted: submitted },
-        { status: 200 }
-      );
+      console.log("resp", resp);
+      return redirect("summary");
 
     default:
       return json({ error: `Invalid Form Data` }, { status: 400 });
@@ -135,7 +130,6 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
-  const data = useActionData<typeof action>();
   const { totalAmount, frequency, timeline, planType, accountInfo } =
     usePaymentPlanCreationForm((state) => state);
   const { accountAndTransactions, email } = useLoaderData();
@@ -146,59 +140,55 @@ export default function PaymentPlanCreation() {
       className="tr-overflow-auto p-10"
       navigate_path={"/dashboard"}
     >
-      {data && !data.submitted ? (
-        <Form
-          method="post"
-          onSubmit={(e) =>
-            !confirm("Are you sure?") ? e.preventDefault() : true
-          }
+      <Form
+        method="post"
+        onSubmit={(e) =>
+          !confirm("Are you sure?") ? e.preventDefault() : true
+        }
+      >
+        <input type="hidden" value={frequency} name="frequency" />
+        <input type="hidden" value={timeline} name="timeline" />
+        <input type="hidden" value={planType} name="planType" />
+        <input
+          type="hidden"
+          value={JSON.stringify(accountInfo)}
+          name="account_info"
+        />
+        <input type="hidden" value={email} name="email" />
+        <Title>Create A Payment Plan</Title>
+        <Text>
+          Select the accounts or transactions you'd like to pay-down and select
+          your payment preferences.
+        </Text>
+        <AccountAccordion accountAndTransactions={accountAndTransactions} />
+        <Title marginTop="mt-4">Payment Preferences</Title>
+        <ColGrid
+          numColsMd={4}
+          numColsLg={4}
+          gapX="gap-x-4"
+          gapY="gap-y-4"
+          marginTop="mt-3"
         >
-          <input type="hidden" value={frequency} name="frequency" />
-          <input type="hidden" value={timeline} name="timeline" />
-          <input type="hidden" value={planType} name="planType" />
-          <input
-            type="hidden"
-            value={JSON.stringify(accountInfo)}
-            name="account_info"
-          />
-          <input type="hidden" value={email} name="email" />
-          <Title>Create A Payment Plan</Title>
-          <Text>
-            Select the accounts or transactions you'd like to pay-down and
-            select your payment preferences.
-          </Text>
-          <AccountAccordion accountAndTransactions={accountAndTransactions} />
-          <Title marginTop="mt-4">Payment Preferences</Title>
-          <ColGrid
-            numColsMd={4}
-            numColsLg={4}
-            gapX="gap-x-4"
-            gapY="gap-y-4"
-            marginTop="mt-3"
+          <PaymentPlanPreferences />
+          <Card maxWidth="max-w-xs">
+            <Text textAlignment={"text-center"}>Total Amount</Text>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Metric>{toUSD(totalAmount)}</Metric>
+            </div>
+          </Card>
+        </ColGrid>
+        <br />
+        <div className="flex flex-col items-center md:flex-row pt-14">
+          <div className="flex-1" />
+          <button
+            className="rounded-xl bg-blue-300 font-semibold text-blue-600 w-56 h-12 transition duration-300 ease-in-out hover:bg-blue-400 hover:-translate-y-1"
+            name="_action"
+            value="submit_preference"
           >
-            <PaymentPlanPreferences />
-            <Card maxWidth="max-w-xs">
-              <Text textAlignment={"text-center"}>Total Amount</Text>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <Metric>{toUSD(totalAmount)}</Metric>
-              </div>
-            </Card>
-          </ColGrid>
-          <br />
-          <div className="flex flex-col items-center md:flex-row pt-14">
-            <div className="flex-1" />
-            <button
-              className="rounded-xl bg-blue-300 font-semibold text-blue-600 w-56 h-12 transition duration-300 ease-in-out hover:bg-blue-400 hover:-translate-y-1"
-              name="_action"
-              value="submit_preference"
-            >
-              Send
-            </button>
-          </div>
-        </Form>
-      ) : (
-        <PaymentPlanSummary response={data.response} />
-      )}
+            Send
+          </button>
+        </div>
+      </Form>
     </Modal>
   );
 }
