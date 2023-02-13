@@ -15,59 +15,121 @@ import { devtools, persist } from "zustand/middleware";
 import { toUSD } from "~/utils/helpers";
 import type { AccountAndTransactions } from "~/utils/types.server";
 
-interface PaymentPlanCreationForm {
+// define types for state values and actions separately
+type State = {
   timeline: number;
   frequency: number;
   planType: number;
+  amount: number[];
+  totalAmount: number;
+  accountInfo: AccountInfo[];
+};
+
+type Actions = {
   updateTimeline: (value: number) => void;
   updateFrequency: (value: number) => void;
   updatePlanType: (value: number) => void;
-  amount: number[];
   updateAmount: (amount: number, index: number) => void;
-  totalAmount: number;
   setTotalAmount: () => void;
-  accountInfo: AccountInfo[];
   updateAccountInfo: (data: AccountInfo, index: number) => void;
-}
+  reset: () => void;
+};
 
-export const usePaymentPlanCreationForm = create<PaymentPlanCreationForm>()(
-  devtools(
-    persist(
-      (set) => ({
-        timeline: 0,
-        updateTimeline: (value) => set({ timeline: value }),
-        frequency: 0,
-        updateFrequency: (value) => set({ frequency: value }),
-        planType: 0,
-        updatePlanType: (value) => set({ planType: value }),
-        amount: [],
-        updateAmount: (amount, index) => {
-          set((state) => {
-            const newAmount = [...state.amount];
-            newAmount[index] = amount;
-            return { amount: newAmount };
-          });
-        },
-        totalAmount: 0,
-        setTotalAmount: () =>
-          set((state) => ({
-            totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
-          })),
-        accountInfo: [],
-        updateAccountInfo: (data, index) => {
-          set((state) => {
-            const newAccountInfo = [...state.accountInfo];
-            newAccountInfo[index] = data;
-            return { accountInfo: newAccountInfo };
-          });
-        },
-      }),
-      {
-        name: "PaymentPlanCreation-Data",
-      }
-    )
-  )
+// define the initial state
+const initialState: State = {
+  timeline: 0,
+  frequency: 0,
+  planType: 0,
+  amount: [],
+  totalAmount: 0,
+  accountInfo: [],
+};
+
+// create store
+export const usePaymentPlanCreationForm = create<State & Actions>()(
+  (set, get) => ({
+    ...initialState,
+
+    updateTimeline: (value) => set({ timeline: value }),
+    updateFrequency: (value) => set({ frequency: value }),
+    updatePlanType: (value) => set({ planType: value }),
+    updateAmount: (amount, index) => {
+      set((state) => {
+        const newAmount = [...state.amount];
+        newAmount[index] = amount;
+        return { amount: newAmount };
+      });
+    },
+    setTotalAmount: () =>
+      set((state) => ({
+        totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
+      })),
+    updateAccountInfo: (data, index) => {
+      set((state) => {
+        const newAccountInfo = [...state.accountInfo];
+        newAccountInfo[index] = data;
+        return { accountInfo: newAccountInfo };
+      });
+    },
+    reset: () => {
+      set(initialState);
+    },
+  })
 );
+
+// interface PaymentPlanCreationForm {
+//   timeline: number;
+//   frequency: number;
+//   planType: number;
+//   updateTimeline: (value: number) => void;
+//   updateFrequency: (value: number) => void;
+//   updatePlanType: (value: number) => void;
+//   amount: number[];
+//   updateAmount: (amount: number, index: number) => void;
+//   totalAmount: number;
+//   setTotalAmount: () => void;
+//   accountInfo: AccountInfo[];
+//   updateAccountInfo: (data: AccountInfo, index: number) => void;
+// }
+//
+// export const usePaymentPlanCreationForm = create<PaymentPlanCreationForm>()(
+//   // devtools(
+//   //   persist(
+//   (set) => ({
+//     timeline: 0,
+//     updateTimeline: (value) => set({ timeline: value }),
+//     frequency: 0,
+//     updateFrequency: (value) => set({ frequency: value }),
+//     planType: 0,
+//     updatePlanType: (value) => set({ planType: value }),
+//     amount: [],
+//     updateAmount: (amount, index) => {
+//       set((state) => {
+//         const newAmount = [...state.amount];
+//         newAmount[index] = amount;
+//         return { amount: newAmount };
+//       });
+//     },
+//     totalAmount: 0,
+//     setTotalAmount: () =>
+//       set((state) => ({
+//         totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
+//       })),
+//     accountInfo: [],
+//     updateAccountInfo: (data, index) => {
+//       set((state) => {
+//         const newAccountInfo = [...state.accountInfo];
+//         newAccountInfo[index] = data;
+//         return { accountInfo: newAccountInfo };
+//       });
+//     },
+//   })
+//   //     {
+//   //       name: "PaymentPlanCreation-Data",
+//   //     }
+//   //   )
+//   // )
+// );
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
@@ -130,9 +192,14 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
-  const { totalAmount, frequency, timeline, planType, accountInfo } =
+  const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
   const { accountAndTransactions, email } = useLoaderData();
+
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    reset();
+    return !confirm("Are you sure?") ? e.preventDefault() : true;
+  };
 
   return (
     <Modal
@@ -140,12 +207,7 @@ export default function PaymentPlanCreation() {
       className="tr-overflow-auto p-10"
       navigate_path={"/dashboard"}
     >
-      <Form
-        method="post"
-        onSubmit={(e) =>
-          !confirm("Are you sure?") ? e.preventDefault() : true
-        }
-      >
+      <Form method="post" onSubmit={handleOnSubmit}>
         <input type="hidden" value={frequency} name="frequency" />
         <input type="hidden" value={timeline} name="timeline" />
         <input type="hidden" value={planType} name="planType" />
