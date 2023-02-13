@@ -2,10 +2,11 @@ import Paper from "@mui/material/Paper";
 import type { FC } from "react";
 import React, { useEffect, useMemo, useState } from "react";
 import type { SlimTransaction } from "~/utils/types.server";
-import { usePaymentPlanCreationForm } from "~/routes/dashboard/paymentplan";
+
 import type { MRT_ColumnDef } from "material-react-table";
 import MaterialReactTable from "material-react-table";
 import type { RowSelectionState } from "@tanstack/react-table";
+import { usePaymentPlanCreationForm } from "~/routes/dashboard/paymentplan";
 
 interface props {
   transactions: SlimTransaction[];
