@@ -132,10 +132,10 @@ export type DropdownInput = {
   icon: any;
 };
 
-export type ReactTableColumn = {
-  Header: string;
-  accessor: string;
-};
+// export type ReactTableColumn = {
+//   header: string;
+//   accessorKey: string;
+// };
 
 export class DefaultDict {
   constructor(defaultInit: any | Object) {
@@ -194,4 +194,51 @@ export class DefaultMap {
 export type AccountAndTransactions = {
   slimAccounts: SlimAccount[];
   transactionDict: DefaultDict;
+};
+
+export type AccountInfo = {
+  transaction_ids: string[];
+  account_id: string;
+  amount: number;
+};
+
+export type CreatePaymentPlanRequest = {
+  account_info: AccountInfo[];
+  meta_data: {
+    preferred_plan_type: number;
+    preferred_timeline_in_months: number;
+    preferred_payment_freq: number;
+  };
+  save_plan: boolean;
+};
+
+export type PaymentAction = {
+  id: string;
+  account_id: string;
+  amount: number;
+  transaction_date: string;
+  status: number;
+};
+
+export type PaymentPlan = {
+  id: string;
+  name: string;
+  payment_plan_id: string;
+  user_id: string;
+  payment_task_id: string[];
+  amount: number;
+  timeline: number;
+  payment_freq: number;
+  amount_per_payment: number;
+  plan_type: number;
+  end_date: string;
+  active: boolean;
+  status: number;
+  payment_action: PaymentAction[];
+};
+
+export type CreatePaymentPlanResponse = {
+  data: PaymentPlan[];
+  message: string;
+  status: string;
 };

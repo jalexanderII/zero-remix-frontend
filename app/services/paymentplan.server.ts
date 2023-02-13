@@ -5,10 +5,12 @@ import type {
   SlimAccount,
   Transaction,
   TransactionResponse,
+  CreatePaymentPlanResponse,
 } from "~/utils/types.server";
 import { DefaultDict } from "~/utils/types.server";
 import { makeAccountFromJson } from "~/services/accounts.server";
 import { toUSD } from "~/utils/helpers";
+import { Convert } from "~/utils/paymentplan_request_converter.server";
 
 export const paymentplan = {
   get_transactions_by_account: async (email: string) => {
@@ -27,15 +29,18 @@ export const paymentplan = {
     const resp: AccountAndTransactions = { slimAccounts, transactionDict };
     return resp;
   },
+  submit_payment_plan: async (email: string, json: string) => {
+    const paymentPlanRequest = Convert.toPaymentPlanRequest(json);
+    paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
+      (account) => account.transaction_ids.length > 0
+    );
+    console.log("createPaymentPlan", paymentPlanRequest);
+    return await request.post<CreatePaymentPlanResponse>(
+      `/api/core/paymentplan/${email}`,
+      paymentPlanRequest
+    );
+  },
 };
-
-export async function createPaymentPlan(data: {
-  timeline: any;
-  frequency: any;
-  planType: any;
-}) {
-  console.log("createPaymentPlan", data);
-}
 
 export const makeTransactionsFromJson = async (trxns: Transaction[]) => {
   const transactionsDict = new DefaultDict(Array);

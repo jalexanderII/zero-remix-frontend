@@ -38,8 +38,7 @@ export const Waterfall: React.FC<props> = ({ waterfall }) => {
   const names = getNames(waterfall);
 
   const handleModal = () => {
-    console.log("clicked");
-    navigate("paymentplan/creation");
+    navigate("paymentplan");
   };
 
   return (

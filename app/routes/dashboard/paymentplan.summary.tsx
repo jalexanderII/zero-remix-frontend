@@ -2,7 +2,6 @@ import { Modal } from "~/components/modal";
 import {
   Block,
   Bold,
-  ButtonInline,
   Callout,
   Card,
   Flex,
@@ -12,6 +11,7 @@ import {
   Metric,
   ProgressBar,
   Text,
+  Button,
 } from "@tremor/react";
 
 import { BanknotesIcon, CalendarDaysIcon } from "@heroicons/react/24/solid";
@@ -105,7 +105,8 @@ export default function PaymentPlanSummary() {
           ))}
         </List>
         <Footer>
-          <ButtonInline
+          <Button
+            variant="light"
             size="sm"
             text="View more"
             icon={CalendarDaysIcon}
