@@ -8,9 +8,9 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "pnpm run build:css && cross-env NODE_ENV=production remix build",
+    "build": "yarn run build:css && cross-env NODE_ENV=production remix build",
     "build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
-    "dev": "concurrently \"pnpm run dev:css\" \"cross-env NODE_ENV=development remix dev\"",
+    "dev": "concurrently \"yarn run dev:css\" \"cross-env NODE_ENV=development remix dev\"",
     "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
     "typecheck": "tsc"
   },
@@ -23,6 +23,7 @@
   "dependencies": {
     "@babel/core": ">=7.0.0 <8.0.0",
     "@clerk/remix": "^2.1.1",
+    "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
