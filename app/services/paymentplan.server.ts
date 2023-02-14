@@ -34,7 +34,6 @@ export const paymentplan = {
     paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
       (account) => account.transaction_ids.length > 0
     );
-    // console.log("createPaymentPlan", paymentPlanRequest);
     return await request.post<CreatePaymentPlanResponse>(
       `/api/core/paymentplan/${email}`,
       paymentPlanRequest

@@ -13,6 +13,7 @@ import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { create } from "zustand";
 import { toUSD } from "~/utils/helpers";
 import type { AccountAndTransactions } from "~/utils/types.server";
+import CryptoJS from "crypto-js";
 
 // define types for state values and actions separately
 type State = {
@@ -117,8 +118,7 @@ export async function action({ request }: ActionArgs) {
         email,
         JSON.stringify(req)
       );
-      console.log("resp", resp);
-      return redirect("summary");
+      return redirect(`summary?resp=${encodeURI(JSON.stringify(resp))}`);
 
     default:
       return json({ error: `Invalid Form Data` }, { status: 400 });
