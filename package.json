@@ -8,9 +8,9 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "yarn run build:css && cross-env NODE_ENV=production remix build",
+    "build": "npm run build:css && cross-env NODE_ENV=production remix build",
     "build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
-    "dev": "concurrently \"yarn run dev:css\" \"cross-env NODE_ENV=development remix dev\"",
+    "dev": "concurrently \"npm run dev:css\" \"cross-env NODE_ENV=development remix dev\"",
     "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
     "typecheck": "tsc"
   },

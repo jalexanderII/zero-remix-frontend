@@ -19,7 +19,6 @@ import { fromJson } from "~/utils/helpers";
 import { TransactionsTableWithPagination } from "~/components/transactions_table_with_pagination";
 import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
-import { useState } from "react";
 
 interface DashboardLoaderData {
   kpis: KPIResponse;

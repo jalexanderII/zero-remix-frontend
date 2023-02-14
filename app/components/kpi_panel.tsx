@@ -50,7 +50,7 @@ export const KpiPanel: React.FC<props> = ({ kpis }) => {
       {categories.map((item) => (
         <Card key={item.title}>
           <Block textAlignment="text-center">
-            <Icon icon={item.icon} variant="light" size="md" />
+            <Icon icon={item.icon} variant="light" size="sm" />
             <Metric marginTop="mt-2">{item.metric}</Metric>
             <Text textAlignment="text-center">{item.title}</Text>
           </Block>
