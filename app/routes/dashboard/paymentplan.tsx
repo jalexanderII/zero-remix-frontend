@@ -13,7 +13,6 @@ import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { create } from "zustand";
 import { toUSD } from "~/utils/helpers";
 import type { AccountAndTransactions } from "~/utils/types.server";
-import CryptoJS from "crypto-js";
 
 // define types for state values and actions separately
 type State = {
