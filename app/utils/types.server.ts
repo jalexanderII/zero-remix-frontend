@@ -132,11 +132,6 @@ export type DropdownInput = {
   icon: any;
 };
 
-// export type ReactTableColumn = {
-//   header: string;
-//   accessorKey: string;
-// };
-
 export class DefaultDict {
   constructor(defaultInit: any | Object) {
     return new Proxy(
@@ -151,43 +146,6 @@ export class DefaultDict {
                   : defaultInit),
       }
     );
-  }
-}
-
-export class DefaultMap {
-  private defaultFn: any;
-  private root: Map<any, any>;
-
-  constructor(defaultFn: any) {
-    this.defaultFn = defaultFn;
-    this.root = new Map();
-  }
-
-  put(...keys: any[]) {
-    let map = this.root;
-
-    for (const key of keys.slice(0, -1)) {
-      map.has(key) || map.set(key, new Map());
-      map = map.get(key);
-    }
-
-    const key = keys[keys.length - 1];
-    map.has(key) || map.set(key, this.defaultFn());
-    return {
-      set: (setterFn: (arg0: any) => any) =>
-        map.set(key, setterFn(map.get(key))),
-      mutate: (mutationFn: (arg0: any) => any) => mutationFn(map.get(key)),
-    };
-  }
-
-  get(...keys: any[]) {
-    let map = this.root;
-
-    for (const key of keys) {
-      map = map?.get(key);
-    }
-
-    return map;
   }
 }
 
@@ -239,6 +197,17 @@ export type PaymentPlan = {
 
 export type CreatePaymentPlanResponse = {
   data: PaymentPlan[];
+  message: string;
+  status: string;
+};
+
+export type PlaidAccountLinked = {
+  debit: boolean;
+  credit: boolean;
+};
+
+export type PlaidAccountLinkedResponse = {
+  data: PlaidAccountLinked;
   message: string;
   status: string;
 };

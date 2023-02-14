@@ -6,6 +6,7 @@ import { getAuth } from "@clerk/remix/ssr.server";
 import api from "~/services/api.server";
 import type {
   KPIResponse,
+  PlaidAccountLinkedResponse,
   SlimTransaction,
   SlimWaterfall,
   TransactionResponse,
@@ -13,12 +14,13 @@ import type {
 } from "~/utils/types.server";
 import { Waterfall } from "~/components/waterfall";
 import { KpiPanel } from "~/components/kpi_panel";
-import { Block } from "@tremor/react";
+import { Block, Button, Card, Flex } from "@tremor/react";
 import { makeWaterfallFromJson } from "~/services/waterfall";
 import { fromJson } from "~/utils/helpers";
 import { TransactionsTableWithPagination } from "~/components/transactions_table_with_pagination";
 import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
+import React from "react";
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
@@ -38,7 +40,7 @@ export const getUserEmail = async (userId: string): Promise<string> => {
   return emailAddresses[0].emailAddress;
 };
 
-const getDashboardLoaderData = async (
+export const getDashboardLoaderData = async (
   email: string
 ): Promise<DashboardLoaderData> => {
   const trxnResp: TransactionResponse =
@@ -59,30 +61,61 @@ export const loader: LoaderFunction = async (args) => {
   }
 
   const email = await getUserEmail(userId);
+  const { kpis, waterfall, transactions } = await getDashboardLoaderData(email);
 
-  return await getDashboardLoaderData(email);
+  const plaidLinked: PlaidAccountLinkedResponse =
+    await api.plaid.is_plaid_linked(email);
+
+  return { kpis, waterfall, transactions, plaidLinked };
 };
 
 const Dashboard = (): JSX.Element => {
-  const { kpis, waterfall, transactions } = useLoaderData();
+  const { kpis, waterfall, transactions, plaidLinked } = useLoaderData();
   const newWaterfall: Map<string, SlimWaterfall> = fromJson(waterfall);
+
+  return (
+    <Container maxWidth="lg">
+      <main>
+        {PlaidButtonsComponent(plaidLinked)}
+        <Block marginTop="mt-2">
+          <Waterfall waterfall={newWaterfall} />
+        </Block>
+        <Block marginTop="mt-2">
+          <KpiPanel kpis={kpis} />
+        </Block>
+        <Block marginTop="mt-2">
+          <TransactionsTableWithPagination transactions={transactions} />
+        </Block>
+        <div className="preContainer"></div>
+      </main>
+      <Outlet />
+    </Container>
+  );
+};
+
+const PlaidButtonsComponent = (
+  plaidLinked: PlaidAccountLinkedResponse
+): JSX.Element => {
   return (
     <>
-      <Container maxWidth="lg">
-        <main>
-          <Block marginTop="mt-2">
-            <Waterfall waterfall={newWaterfall} />
-          </Block>
-          <Block marginTop="mt-2">
-            <KpiPanel kpis={kpis} />
-          </Block>
-          <Block marginTop="mt-2">
-            <TransactionsTableWithPagination transactions={transactions} />
-          </Block>
-          <div className="preContainer"></div>
-        </main>
-      </Container>
-      <Outlet />
+      {plaidLinked?.data?.debit && plaidLinked?.data?.credit ? null : (
+        <Card maxWidth="max-w-md">
+          <Flex
+            justifyContent="justify-center"
+            alignItems="items-center"
+            spaceX="space-x-6"
+            truncate={true}
+            marginTop="mt-0"
+          >
+            {!plaidLinked?.data?.debit ? (
+              <Button size="sm">{`"Link Debit account"`}</Button>
+            ) : null}
+            {!plaidLinked?.data?.credit ? (
+              <Button size="sm">{`"Link Credit account"`}</Button>
+            ) : null}
+          </Flex>
+        </Card>
+      )}
     </>
   );
 };

@@ -12,7 +12,8 @@
     "build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
     "dev": "concurrently \"npm run dev:css\" \"cross-env NODE_ENV=development remix dev\"",
     "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "prepare": "husky install"
   },
   "prettier": {},
   "eslintIgnore": [
@@ -43,7 +44,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-table": "^7.8.0",
-    "react-test-renderer": "^18.2.0",
     "zustand": "^4.3.3"
   },
   "devDependencies": {
@@ -59,6 +59,8 @@
     "concurrently": "^7.6.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.33.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.2",
     "postcss": "^8.4.21",
     "prettier": "2.8.3",
     "tailwindcss": "^3.2.4",
@@ -70,5 +72,9 @@
       "@remix-run/eslint-config",
       "@remix-run/eslint-config/node"
     ]
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write --ignore-unknown"
   }
 }
