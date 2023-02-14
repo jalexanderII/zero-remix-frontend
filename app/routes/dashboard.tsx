@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { Outlet, useLoaderData, useOutletContext } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import Container from "@mui/material/Container";
 import { getAuth } from "@clerk/remix/ssr.server";
 import api from "~/services/api.server";
