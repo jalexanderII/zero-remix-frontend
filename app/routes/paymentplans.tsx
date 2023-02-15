@@ -1,163 +1,45 @@
 import { Button, Footer, Text, Title } from "@tremor/react";
-import type { PaymentAction, PaymentPlan } from "~/utils/types.server";
+import type { GetPaymentPlansResponse } from "~/utils/types.server";
 import { PaymentPlanCard } from "~/components/paymentplan_card";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import React from "react";
+import { Form, useLoaderData } from "@remix-run/react";
+import type { ActionArgs, LoaderFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import api from "~/services/api.server";
+import { getAuth } from "@clerk/remix/ssr.server";
+import { getUserEmail } from "~/routes/dashboard";
 
-const Pactions: PaymentAction[] = [
-  {
-    id: "000000000000000000000001",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 28 Feb 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000002",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 14 Mar 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000003",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 28 Mar 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000004",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 11 Apr 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000005",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 25 Apr 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000006",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 09 May 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000007",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 23 May 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000008",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 06 Jun 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000009",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 20 Jun 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000010",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 04 Jul 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000011",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.79,
-    transaction_date: "Tue, 18 Jul 2023 23:15:39 GMT",
-    status: 1,
-  },
-  {
-    id: "000000000000000000000012",
-    account_id: "62ce9f1ebae41154387ac637",
-    amount: 0.7000000000000011,
-    transaction_date: "Tue, 01 Aug 2023 23:15:39 GMT",
-    status: 1,
-  },
-];
-const plans: PaymentPlan[] = [
-  {
-    id: "000000000000000000000001",
-    payment_plan_id: "000000000000000000000001",
-    user_id: "62ce9f1ebae41154387ac637",
-    payment_task_id: [],
-    active: true,
-    name: "Plan_1_68c2_02.14.2023",
-    amount: 9.39,
-    timeline: 6,
-    payment_freq: 2,
-    amount_per_payment: 0.79,
-    plan_type: 2,
-    end_date: "Tue, 01 Aug 2023 23:15:39 GMT",
-    status: 1,
-    payment_action: Pactions,
-  },
-  {
-    id: "000000000000000000000001",
-    payment_plan_id: "000000000000000000000001",
-    user_id: "62ce9f1ebae41154387ac637",
-    payment_task_id: [],
-    active: true,
-    name: "Plan_2_68c2_02.14.2023",
-    amount: 9.39,
-    timeline: 6,
-    payment_freq: 2,
-    amount_per_payment: 0.79,
-    plan_type: 2,
-    end_date: "Tue, 01 Aug 2023 23:15:39 GMT",
-    status: 1,
-    payment_action: Pactions,
-  },
-  {
-    id: "000000000000000000000001",
-    payment_plan_id: "000000000000000000000001",
-    user_id: "62ce9f1ebae41154387ac637",
-    payment_task_id: [],
-    active: true,
-    name: "Plan_3_68c2_02.14.2023",
-    amount: 9.39,
-    timeline: 6,
-    payment_freq: 2,
-    amount_per_payment: 0.79,
-    plan_type: 2,
-    end_date: "Tue, 01 Aug 2023 23:15:39 GMT",
-    status: 1,
-    payment_action: Pactions,
-  },
-  {
-    id: "000000000000000000000001",
-    payment_plan_id: "000000000000000000000001",
-    user_id: "62ce9f1ebae41154387ac637",
-    payment_task_id: [],
-    active: true,
-    name: "Plan_4_68c2_02.14.2023",
-    amount: 9.39,
-    timeline: 6,
-    payment_freq: 2,
-    amount_per_payment: 0.79,
-    plan_type: 2,
-    end_date: "Tue, 01 Aug 2023 23:15:39 GMT",
-    status: 1,
-    payment_action: Pactions,
-  },
-];
+export async function action({ request }: ActionArgs) {
+  const form = await request.formData();
+  let paymentPlanId = form.get("payment_plan_id");
+
+  if (typeof paymentPlanId !== "string") {
+    return json(
+      { error: `Invalid Form Data Wrong Type`, fields: { paymentPlanId } },
+      { status: 400 }
+    );
+  }
+
+  const resp = await api.paymentplan.delete_payment_plan(paymentPlanId);
+  console.log(resp);
+
+  return redirect("/paymentplans");
+}
+
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
+  if (!userId) {
+    return redirect("/sign-in");
+  }
+  const email = await getUserEmail(userId);
+  const paymentPlans: GetPaymentPlansResponse =
+    await api.paymentplan.get_user_payment_plans(email);
+  return { paymentPlans };
+};
 
 export default function PaymentPlans() {
+  const { paymentPlans } = useLoaderData();
   return (
     <main>
       <Title>Payment Plans</Title>
@@ -169,25 +51,30 @@ export default function PaymentPlans() {
         If you have a premium account these payments will be managed
         automatically!
       </Text>
-      <PaymentPlanCard plans={plans} footer={PlanFooter} />
+      <PaymentPlanCard plans={paymentPlans.data} footer={PlanFooter} />
     </main>
   );
 }
 
-const PlanFooter = () => {
+const PlanFooter = (paymentPlanId: string) => {
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    return !confirm("Are you sure?") ? e.preventDefault() : true;
+  };
+
   return (
-    <Footer>
-      <Button
-        variant="light"
-        size="sm"
-        text="Delete"
-        icon={XMarkIcon}
-        iconPosition="left"
-        color="red"
-        onClick={() => {
-          console.log("delete");
-        }}
-      />
-    </Footer>
+    <Form method="delete" onSubmit={handleOnSubmit}>
+      <input type="hidden" value={paymentPlanId} name="payment_plan_id" />
+      <Footer>
+        <Button
+          type="submit"
+          variant="light"
+          size="sm"
+          text="Delete"
+          icon={XMarkIcon}
+          iconPosition="left"
+          color="red"
+        />
+      </Footer>
+    </Form>
   );
 };

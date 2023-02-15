@@ -38,6 +38,7 @@ export function fromJson(jsonStr: string): Map<string, any> {
 }
 
 export function cleanDate(date: string) {
+  if (!date) return "";
   // Tue, 01 Aug 2023 23:15:39 GMT
   const dateArr = date.split(" ");
   const month = dateArr[2];

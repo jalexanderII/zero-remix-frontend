@@ -2,10 +2,12 @@ import { request } from "~/services/external-api.service.server";
 import type {
   AccountAndTransactions,
   AccountsResponse,
+  CreatePaymentPlanResponse,
+  DeletePaymentPlanResponse,
+  GetPaymentPlansResponse,
   SlimAccount,
   Transaction,
   TransactionResponse,
-  CreatePaymentPlanResponse,
 } from "~/utils/types.server";
 import { DefaultDict } from "~/utils/types.server";
 import { makeAccountFromJson } from "~/services/accounts.server";
@@ -37,6 +39,16 @@ export const paymentplan = {
     return await request.post<CreatePaymentPlanResponse>(
       `/api/core/paymentplan/${email}`,
       paymentPlanRequest
+    );
+  },
+  delete_payment_plan: async (paymentPlanId: string) => {
+    return await request.delete<DeletePaymentPlanResponse>(
+      `/api/core/paymentplan/${paymentPlanId}`
+    );
+  },
+  get_user_payment_plans: async (email: string) => {
+    return await request.get<GetPaymentPlansResponse>(
+      `/api/core/paymentplan/${email}`
     );
   },
 };

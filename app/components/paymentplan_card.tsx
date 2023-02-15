@@ -14,7 +14,10 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowDownCircleIcon,
+  ArrowUpCircleIcon,
+} from "@heroicons/react/24/outline";
 import { cleanDate, toUSD } from "~/utils/helpers";
 import {
   ActionStatus,
@@ -27,15 +30,23 @@ import type { PaymentPlan } from "~/utils/types.server";
 
 interface props {
   plans: PaymentPlan[];
-  footer?: () => JSX.Element;
+  footer?: (paymentPlanId: string) => JSX.Element;
 }
 
 export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
+  if (!plans || plans.length === 0) {
+    return (
+      <Card>
+        <Text>You have no payment plans.</Text>
+      </Card>
+    );
+  }
+
   const numcols = plans.length >= 2 ? 2 : 1;
   return (
     <ColGrid numColsMd={numcols} gapX="gap-x-6" gapY="gap-y-6" marginTop="mt-6">
-      {plans.map((plan) => (
-        <Col key={plan.name}>
+      {plans.map((plan, idx) => (
+        <Col key={`${plan.name}_${idx}`}>
           <Card>
             <ColGrid numCols={2} gapX="gap-x-2" gapY="gap-y-2">
               <Col numColSpan={2}>
@@ -45,7 +56,11 @@ export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
                     text={PlanType.get(plan.plan_type) || ""}
                     color="green"
                     size="sm"
-                    icon={ArrowDownCircleIcon}
+                    icon={
+                      plan.plan_type === 1
+                        ? ArrowUpCircleIcon
+                        : ArrowDownCircleIcon
+                    }
                   />
                 </Flex>
               </Col>
@@ -111,7 +126,7 @@ export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
                 </Accordion>
               </Col>
             </ColGrid>
-            <>{footer && footer()}</>
+            <>{footer && footer(plan.payment_plan_id)}</>
           </Card>
         </Col>
       ))}

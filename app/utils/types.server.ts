@@ -211,3 +211,22 @@ export type PlaidAccountLinkedResponse = {
   message: string;
   status: string;
 };
+
+enum DeleteStatus {
+  DELETE_STATUS_UNKNOWN = 0,
+  DELETE_STATUS_PENDING,
+  DELETE_STATUS_IN_PROGRESS,
+  DELETE_STATUS_SUCCESS,
+  DELETE_STATUS_FAILED,
+}
+
+export type DeletePaymentPlanResponse = {
+  status: DeleteStatus;
+  payment_plan: PaymentPlan;
+};
+
+export type GetPaymentPlansResponse = {
+  data: PaymentPlan[];
+  message: string;
+  status: string;
+};
