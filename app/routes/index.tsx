@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { SignedOut } from "@clerk/remix";
 import Footer from "~/components/Footer";
-import { Badge } from "@tremor/react";
+import { Badge, Flex } from "@tremor/react";
 import { UserPlusIcon } from "@heroicons/react/20/solid";
 
 // Main component using <SignedIn> and <SignedOut>
@@ -15,7 +15,7 @@ const Main = (): JSX.Element => {
     <main>
       <div className="relative px-6 lg:px-8">
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="sm:mb-8 sm:flex sm:justify-center">
+          <Flex justifyContent="justify-center" alignItems="items-center">
             <Link to="/" className="font-semibold text-indigo-600">
               <Badge
                 text="Join the waitlist for premium"
@@ -24,8 +24,8 @@ const Main = (): JSX.Element => {
                 icon={UserPlusIcon}
               />
             </Link>
-          </div>
-          <div className="text-center">
+          </Flex>
+          <div className="pt-4 text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               Tired managing all of your credit payments on your own?
             </h1>
