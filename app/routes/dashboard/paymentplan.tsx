@@ -2,7 +2,7 @@ import { Modal } from "~/components/modal";
 import { Card, ColGrid, Metric, Text, Title } from "@tremor/react";
 import React from "react";
 import { Form, useLoaderData } from "@remix-run/react";
-import type { AccountInfo } from "~/utils/types.server";
+import type { AccountAndTransactions, AccountInfo } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
@@ -12,7 +12,6 @@ import { AccountAccordion } from "~/components/account_accordion";
 import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { create } from "zustand";
 import { toUSD } from "~/utils/helpers";
-import type { AccountAndTransactions } from "~/utils/types.server";
 
 // define types for state values and actions separately
 type State = {
@@ -110,7 +109,7 @@ export async function action({ request }: ActionArgs) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: false,
+        save_plan: true,
       };
 
       const resp = await api.paymentplan.submit_payment_plan(

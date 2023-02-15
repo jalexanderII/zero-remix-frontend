@@ -1,4 +1,4 @@
-import { Button, Footer, Text, Title } from "@tremor/react";
+import { Button, Card, Footer, Text, Title } from "@tremor/react";
 import type { GetPaymentPlansResponse } from "~/utils/types.server";
 import { PaymentPlanCard } from "~/components/paymentplan_card";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -41,18 +41,20 @@ export const loader: LoaderFunction = async (args) => {
 export default function PaymentPlans() {
   const { paymentPlans } = useLoaderData();
   return (
-    <main>
-      <Title>Payment Plans</Title>
-      <Text>
-        These are all of your payment plans. Your plans tell you how much you
-        need to pay and when.
-      </Text>
-      <Text>
-        If you have a premium account these payments will be managed
-        automatically!
-      </Text>
-      <PaymentPlanCard plans={paymentPlans.data} footer={PlanFooter} />
-    </main>
+    <Card marginTop="mt-6">
+      <main>
+        <Title>Payment Plans</Title>
+        <Text>
+          These are all of your payment plans. Your plans tell you how much you
+          need to pay and when.
+        </Text>
+        <Text>
+          If you have a premium account these payments will be managed
+          automatically!
+        </Text>
+        <PaymentPlanCard plans={paymentPlans.data} footer={PlanFooter} />
+      </main>
+    </Card>
   );
 }
 
