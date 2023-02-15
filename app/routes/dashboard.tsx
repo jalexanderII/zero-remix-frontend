@@ -1,5 +1,5 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { LinksFunction, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { getAuth } from "@clerk/remix/ssr.server";
 import api from "~/services/api.server";
@@ -20,15 +20,6 @@ import { TransactionsTableWithPagination } from "~/components/transactions_table
 import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
 import React from "react";
-import clark_styles from "~/styles/shared.css";
-import tremor_styles from "@tremor/react/dist/esm/tremor.css";
-
-export const links: LinksFunction = () => {
-  return [
-    { rel: "stylesheet", href: clark_styles },
-    { rel: "stylesheet", href: tremor_styles },
-  ];
-};
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
