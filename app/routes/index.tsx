@@ -50,7 +50,7 @@ const Main = (): JSX.Element => {
 
 export default function Index(): JSX.Element {
   return (
-    <div className="container">
+    <div>
       <Main />
       <Footer />
     </div>

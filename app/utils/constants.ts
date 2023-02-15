@@ -19,3 +19,10 @@ export const TimelineMonths: Map<number, string> = new Map([
   [12, "12 Months"],
   [24, "24 Months"],
 ]);
+
+export const ActionStatus: Map<number, string> = new Map([
+  [0, "Unknown"],
+  [1, "Pending"],
+  [2, "Completed"],
+  [3, "Missed"],
+]);

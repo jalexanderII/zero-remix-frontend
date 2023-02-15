@@ -1,4 +1,4 @@
-import { Card, BarChart, Title, Text, ColGrid, Button } from "@tremor/react";
+import { BarChart, Button, Card, Text, Title } from "@tremor/react";
 import React from "react";
 import type { SlimWaterfall } from "~/utils/types.server";
 import { getMonth } from "~/utils/helpers";
@@ -43,29 +43,29 @@ export const Waterfall: React.FC<props> = ({ waterfall }) => {
 
   return (
     <Card marginTop="mt-6">
-      <ColGrid
-        numColsMd={2}
-        numColsLg={2}
-        gapX="gap-x-6"
-        gapY="gap-y-6"
-        marginTop="mt-0"
+      {/*<ColGrid*/}
+      {/*  numColsMd={2}*/}
+      {/*  numColsLg={2}*/}
+      {/*  gapX="gap-x-6"*/}
+      {/*  gapY="gap-y-6"*/}
+      {/*  marginTop="mt-0"*/}
+      {/*>*/}
+      <div>
+        <Title>Payment Plan Waterfall</Title>
+        <Text>Monthly payments due for each plan this year (2023)</Text>
+      </div>
+      <div
+        style={{
+          marginTop: 25,
+          marginRight: 35,
+          position: "absolute",
+          top: 0,
+          right: 0,
+        }}
       >
-        <div>
-          <Title>Payment Plan Waterfall</Title>
-          <Text>Monthly payments due for each plan this year (2023)</Text>
-        </div>
-        <div
-          style={{
-            marginTop: 25,
-            marginRight: 35,
-            position: "absolute",
-            top: 0,
-            right: 0,
-          }}
-        >
-          <Button onClick={handleModal}>PaymentPlan Creation</Button>
-        </div>
-      </ColGrid>
+        <Button onClick={handleModal}>PaymentPlan Creation</Button>
+      </div>
+      {/*</ColGrid>*/}
       <BarChart
         marginTop="mt-4"
         data={waterfallData}

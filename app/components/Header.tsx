@@ -6,8 +6,9 @@ import { useState } from "react";
 
 const navigation = [
   { name: "Home", href: "/", protected: false },
-  { name: "About", href: "/about", protected: false },
+  // { name: "About", href: "/about", protected: false },
   { name: "Dashboard", href: "/dashboard", protected: true },
+  { name: "Payment Plans", href: "/paymentplans", protected: true },
 ];
 
 // Header component using <SignedIn> & <SignedOut>.

@@ -36,3 +36,12 @@ export function toJson(map: Map<string, any>) {
 export function fromJson(jsonStr: string): Map<string, any> {
   return new Map(JSON.parse(jsonStr));
 }
+
+export function cleanDate(date: string) {
+  // Tue, 01 Aug 2023 23:15:39 GMT
+  const dateArr = date.split(" ");
+  const month = dateArr[2];
+  const day = dateArr[1];
+  const year = dateArr[3];
+  return `${month}-${day}-${year}`;
+}

@@ -1,7 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import { LinksFunction, redirect } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import Container from "@mui/material/Container";
 import { getAuth } from "@clerk/remix/ssr.server";
 import api from "~/services/api.server";
 import type {
@@ -21,6 +20,15 @@ import { TransactionsTableWithPagination } from "~/components/transactions_table
 import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
 import React from "react";
+import clark_styles from "~/styles/shared.css";
+import tremor_styles from "@tremor/react/dist/esm/tremor.css";
+
+export const links: LinksFunction = () => {
+  return [
+    { rel: "stylesheet", href: clark_styles },
+    { rel: "stylesheet", href: tremor_styles },
+  ];
+};
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
@@ -74,22 +82,20 @@ const Dashboard = (): JSX.Element => {
   const newWaterfall: Map<string, SlimWaterfall> = fromJson(waterfall);
 
   return (
-    <Container maxWidth="lg">
-      <main>
-        {PlaidButtonsComponent(plaidLinked)}
-        <Block marginTop="mt-2">
-          <Waterfall waterfall={newWaterfall} />
-        </Block>
-        <Block marginTop="mt-2">
-          <KpiPanel kpis={kpis} />
-        </Block>
-        <Block marginTop="mt-2">
-          <TransactionsTableWithPagination transactions={transactions} />
-        </Block>
-        <div className="preContainer"></div>
-      </main>
+    <main>
+      {PlaidButtonsComponent(plaidLinked)}
+      <Block marginTop="mt-2">
+        <Waterfall waterfall={newWaterfall} />
+      </Block>
+      <Block marginTop="mt-2">
+        <KpiPanel kpis={kpis} />
+      </Block>
+      <Block marginTop="mt-2">
+        <TransactionsTableWithPagination transactions={transactions} />
+      </Block>
+      <div className="preContainer"></div>
       <Outlet />
-    </Container>
+    </main>
   );
 };
 

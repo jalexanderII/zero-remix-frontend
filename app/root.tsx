@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type {
   LinksFunction,
   LoaderFunction,
@@ -20,21 +22,18 @@ import Header from "~/components/Header";
 import React, { useContext } from "react";
 import StylesContext from "~/styles/stylesContext";
 import theme from "~/styles/theme";
+import Layout from "~/components/layout";
+import { ThemeProvider } from "@mui/material/styles";
 import tremor_styles from "@tremor/react/dist/esm/tremor.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "Re.Zero",
   viewport: "width=device-width,initial-scale=1",
-  themeColor: theme.palette.primary.main,
 });
 
 export const links: LinksFunction = () => {
   return [
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap",
-    },
     { rel: "stylesheet", href: clark_styles },
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: tremor_styles },
@@ -79,8 +78,10 @@ function Document({
         ))}
       </head>
       <body>
-        <Header />
-        {children}
+        <ThemeProvider theme={theme}>
+          <Header />
+          <Layout>{children}</Layout>
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
