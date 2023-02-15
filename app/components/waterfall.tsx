@@ -9,8 +9,8 @@ import {
 } from "@tremor/react";
 import React from "react";
 import type { SlimWaterfall } from "~/utils/types.server";
-import { getMonth } from "~/utils/helpers";
 import { useNavigate } from "@remix-run/react";
+import { getMonth } from "~/utils/helpers";
 
 interface props {
   waterfall: Map<string, SlimWaterfall>;
@@ -21,10 +21,10 @@ const fill_data = (waterfallPlans: Map<string, SlimWaterfall>) => {
     Month: getMonth(mon),
   }));
   for (let value of waterfallPlans.values()) {
-    for (let i = 0; i < value.data.length; i++) {
-      const newData = { [value.planName]: value.data[i] };
-      data[i] = { ...data[i], ...newData };
-    }
+    value.data.forEach(function (num, i) {
+      const newData = { [value.planName]: num };
+      data[i + 1] = { ...data[i + 1], ...newData };
+    });
   }
   return data;
 };
