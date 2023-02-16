@@ -4,8 +4,10 @@ import type {
   LinksFunction,
   LoaderFunction,
   MetaFunction,
+  SerializeFrom,
 } from "@remix-run/node";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -13,6 +15,7 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from "@remix-run/react";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { ClerkApp, ClerkCatchBoundary } from "@clerk/remix";
@@ -25,6 +28,7 @@ import theme from "~/styles/theme";
 import Layout from "~/components/layout";
 import { ThemeProvider } from "@mui/material/styles";
 import tremor_styles from "@tremor/react/dist/esm/tremor.css";
+import { Analytics } from "@vercel/analytics/react";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -34,6 +38,10 @@ export const meta: MetaFunction = () => ({
 
 export const links: LinksFunction = () => {
   return [
+    { rel: "preload", href: clark_styles, as: "style" },
+    { rel: "preload", href: styles, as: "style" },
+    { rel: "preload", href: tremor_styles, as: "style" },
+    //Preload CSS to makes it nonblocking
     { rel: "stylesheet", href: clark_styles },
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: tremor_styles },
@@ -46,11 +54,22 @@ export const loader: LoaderFunction = (args) => {
     ({ request }) => {
       const { userId, sessionId, getToken } = request.auth;
       console.log("Root loader auth:", { userId, sessionId, getToken });
-      return { message: `Hello from the root loader :)` };
+      return {
+        message: `Hello from the root loader :)`,
+        ENV: {
+          VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID,
+        },
+      };
     },
     { loadUser: true }
   );
 };
+
+declare global {
+  interface Window {
+    ENV: SerializeFrom<typeof loader>["ENV"];
+  }
+}
 
 function Document({
   children,
@@ -60,6 +79,7 @@ function Document({
   title?: string;
 }) {
   const styleData = useContext(StylesContext);
+  const { ENV } = useLoaderData<typeof loader>();
   const titleText = title ? title : null;
   return (
     <html lang="en">
@@ -83,8 +103,16 @@ function Document({
           <Layout>{children}</Layout>
         </ThemeProvider>
         <ScrollRestoration />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+          }}
+        />
         <Scripts />
         <LiveReload />
+        {process.env.NODE_ENV !== "development" ? (
+          <Analytics debug={false} />
+        ) : null}
       </body>
     </html>
   );
@@ -113,18 +141,37 @@ export const ErrorBoundary = ({ error }: { error: Error }) => {
 
 function DefaultCatchBoundary() {
   const caught = useCatch();
+  switch (caught.status) {
+    case 401:
+    case 404:
+    case 406:
+      return (
+        <Document title={`${caught.status} ${caught.statusText}`}>
+          <div className="w-screen min-h-screen flex items-center justify-center">
+            <article className="prose prose-lg prose-blue w-full max-w-lg">
+              <h1>
+                <span className="font-mono text-blue-500 pr-5">
+                  {caught.status}
+                </span>
+                <br /> {caught.data}
+              </h1>
+              <pre>
+                <code>{JSON.stringify(caught.data, null, 2)}</code>
+              </pre>
+              <hr />
+              <p>
+                <Link to="/">Start fresh</Link>
+              </p>
+            </article>
+          </div>
+        </Document>
+      );
 
-  return (
-    <Document title={`${caught.status} ${caught.statusText}`}>
-      <div>
-        <h1>Caught</h1>
-        <p>Status: {caught.status}</p>
-        <pre>
-          <code>{JSON.stringify(caught.data, null, 2)}</code>
-        </pre>
-      </div>
-    </Document>
-  );
+    default:
+      throw new Error(
+        `Unexpected caught response with status: ${caught.status}`
+      );
+  }
 }
 
 export default ClerkApp(App);
