@@ -10,9 +10,10 @@ import {
 import React from "react";
 import { useNavigate } from "@remix-run/react";
 import { valueFormatter } from "~/utils/helpers";
+import type { WaterfallDataResponse } from "~/utils/types.server";
 
 interface props {
-  waterfall: any;
+  waterfall: WaterfallDataResponse;
 }
 
 export const Waterfall: React.FC<props> = ({ waterfall }) => {

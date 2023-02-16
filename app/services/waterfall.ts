@@ -2,6 +2,8 @@ import { request } from "~/services/external-api.service.server";
 import type {
   SlimWaterfall,
   Waterfall,
+  WaterfallDataResponse,
+  WaterfallDataSeries,
   WaterfallResponse,
 } from "~/utils/types.server";
 import { getMonth } from "~/utils/helpers";
@@ -25,7 +27,7 @@ const toSlimWaterfall = (data: Waterfall): SlimWaterfall => {
 };
 
 const fill_data = (waterfallPlans: SlimWaterfall[]) => {
-  let data = [...Array(12).keys()].map((mon) => ({
+  let data: WaterfallDataSeries[] = [...Array(12).keys()].map((mon) => ({
     Month: getMonth(mon),
   }));
   for (const sw of waterfallPlans) {
@@ -38,14 +40,16 @@ const fill_data = (waterfallPlans: SlimWaterfall[]) => {
 };
 
 const getNames = (waterfallPlans: SlimWaterfall[]) => {
-  const names = [];
+  const names: string[] = [];
   for (const sw of waterfallPlans) {
     names.push(sw.planName);
   }
   return names;
 };
 
-export const makeWaterfallFromJson = (input: WaterfallResponse) => {
+export const makeWaterfallFromJson = (
+  input: WaterfallResponse
+): WaterfallDataResponse => {
   if (!input.data || input.data.length === 0) {
     return { waterfallData: [], names: [] };
   }

@@ -8,6 +8,7 @@ import type {
   PlaidAccountLinkedResponse,
   SlimTransaction,
   TransactionResponse,
+  WaterfallDataResponse,
   WaterfallResponse,
 } from "~/utils/types.server";
 import { Waterfall } from "~/components/waterfall";
@@ -21,7 +22,7 @@ import React from "react";
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
-  waterfall: any;
+  waterfall: WaterfallDataResponse;
   transactions: SlimTransaction[];
 }
 

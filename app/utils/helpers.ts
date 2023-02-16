@@ -29,11 +29,11 @@ export const getMonth = (val: number) => {
   return month[val];
 };
 
-export function toJson(map: Map<string, any>) {
+export function mapToJson(map: Map<string, any>) {
   return JSON.stringify(Array.from(map.entries()));
 }
 
-export function fromJson(jsonStr: string): Map<string, any> {
+export function jsonToMap(jsonStr: string): Map<string, any> {
   return new Map(JSON.parse(jsonStr));
 }
 

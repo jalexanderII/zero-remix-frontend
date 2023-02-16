@@ -231,3 +231,12 @@ export type GetPaymentPlansResponse = {
   message: string;
   status: string;
 };
+
+export type WaterfallDataSeries = {
+  [key: string]: string | number;
+};
+
+export type WaterfallDataResponse = {
+  waterfallData: WaterfallDataSeries[];
+  names: string[];
+};
