@@ -37,6 +37,9 @@ export function fromJson(jsonStr: string): Map<string, any> {
   return new Map(JSON.parse(jsonStr));
 }
 
+export const valueFormatter = (number: number) =>
+  `$ ${Intl.NumberFormat("us").format(number).toString()}`;
+
 export function cleanDate(date: string) {
   if (!date) return "";
   // Tue, 01 Aug 2023 23:15:39 GMT

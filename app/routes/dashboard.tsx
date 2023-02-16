@@ -7,7 +7,6 @@ import type {
   KPIResponse,
   PlaidAccountLinkedResponse,
   SlimTransaction,
-  SlimWaterfall,
   TransactionResponse,
   WaterfallResponse,
 } from "~/utils/types.server";
@@ -15,7 +14,6 @@ import { Waterfall } from "~/components/waterfall";
 import { KpiPanel } from "~/components/kpi_panel";
 import { Block, Button, Card, Flex } from "@tremor/react";
 import { makeWaterfallFromJson } from "~/services/waterfall";
-import { fromJson } from "~/utils/helpers";
 import { TransactionsTableWithPagination } from "~/components/transactions_table_with_pagination";
 import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
@@ -23,7 +21,7 @@ import React from "react";
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
-  waterfall: string;
+  waterfall: any;
   transactions: SlimTransaction[];
 }
 
@@ -70,13 +68,12 @@ export const loader: LoaderFunction = async (args) => {
 
 const Dashboard = (): JSX.Element => {
   const { kpis, waterfall, transactions, plaidLinked } = useLoaderData();
-  const newWaterfall: Map<string, SlimWaterfall> = fromJson(waterfall);
 
   return (
     <main>
       {PlaidButtonsComponent(plaidLinked)}
       <Block marginTop="mt-2">
-        <Waterfall waterfall={newWaterfall} />
+        <Waterfall waterfall={waterfall} />
       </Block>
       <Block marginTop="mt-2">
         <KpiPanel kpis={kpis} />

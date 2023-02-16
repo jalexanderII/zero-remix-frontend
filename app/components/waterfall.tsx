@@ -8,42 +8,15 @@ import {
   Title,
 } from "@tremor/react";
 import React from "react";
-import type { SlimWaterfall } from "~/utils/types.server";
 import { useNavigate } from "@remix-run/react";
-import { getMonth } from "~/utils/helpers";
+import { valueFormatter } from "~/utils/helpers";
 
 interface props {
-  waterfall: Map<string, SlimWaterfall>;
+  waterfall: any;
 }
-
-const fill_data = (waterfallPlans: Map<string, SlimWaterfall>) => {
-  let data = [...Array(12).keys()].map((mon) => ({
-    Month: getMonth(mon),
-  }));
-  for (let value of waterfallPlans.values()) {
-    value.data.forEach(function (num, i) {
-      const newData = { [value.planName]: num };
-      data[i + 1] = { ...data[i + 1], ...newData };
-    });
-  }
-  return data;
-};
-
-const getNames = (waterfallPlans: Map<string, SlimWaterfall>) => {
-  const names = [];
-  for (let value of waterfallPlans.values()) {
-    names.push(value.planName);
-  }
-  return names;
-};
-
-const valueFormatter = (number: number) =>
-  `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 
 export const Waterfall: React.FC<props> = ({ waterfall }) => {
   const navigate = useNavigate();
-  const waterfallData = fill_data(waterfall);
-  const names = getNames(waterfall);
 
   const handleModal = () => {
     navigate("paymentplan");
@@ -65,9 +38,9 @@ export const Waterfall: React.FC<props> = ({ waterfall }) => {
       </ColGrid>
       <BarChart
         marginTop="mt-4"
-        data={waterfallData}
+        data={waterfall.waterfallData}
         dataKey="Month"
-        categories={names}
+        categories={waterfall.names}
         colors={["indigo", "fuchsia", "amber"]}
         stack={true}
         valueFormatter={valueFormatter}

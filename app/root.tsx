@@ -53,12 +53,10 @@ export const loader: LoaderFunction = (args) => {
     args,
     ({ request }) => {
       const { userId, sessionId, getToken } = request.auth;
-      const analytics = process.env;
       console.log("Root loader auth:", {
         userId,
         sessionId,
         getToken,
-        analytics,
       });
       return {
         message: `Hello from the root loader`,
