@@ -55,7 +55,7 @@ export const loader: LoaderFunction = (args) => {
       const { userId, sessionId, getToken } = request.auth;
       console.log("Root loader auth:", { userId, sessionId, getToken });
       return {
-        message: `Hello from the root loader :)`,
+        message: `Hello from the root loader ${process.env.VERCEL_ANALYTICS_ID}`,
         ENV: {
           VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID,
         },

@@ -12,10 +12,16 @@ function getConnectionSpeed() {
 
 export function sendToVercelAnalytics(metric: Metric) {
   // This requires us passing the variable from a loader in root.tsx
-  const analyticsId = window?.ENV?.VERCEL_ANALYTICS_ID;
+  let analyticsId = window?.ENV?.VERCEL_ANALYTICS_ID;
 
   if (!analyticsId) {
-    return;
+    console.log("No analytics ID found ", analyticsId);
+    const newAnalyticsId = process.env.VERCEL_ANALYTICS_ID;
+    if (newAnalyticsId || newAnalyticsId !== "") {
+      analyticsId = newAnalyticsId;
+    } else {
+      return;
+    }
   }
 
   const body = {
