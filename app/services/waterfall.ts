@@ -11,10 +11,15 @@ export const waterfall = {
     request.get<WaterfallResponse>(`/api/planning/waterfall/${email}`),
 };
 
-const toSlimWaterfall = (data: Waterfall, i: number): SlimWaterfall => {
+const toSlimWaterfall = (data: Waterfall): SlimWaterfall => {
+  const nameParts = data.name.split(" ");
+  let newName = data.name;
+  if (nameParts.length > 1) {
+    newName = nameParts.slice(0, 2).join(" ");
+  }
   return {
-    planName: `Plan${i + 1}`,
-    planId: data.name,
+    planName: newName,
+    planId: data.acc_id,
     data: data.data,
   };
 };
@@ -24,8 +29,8 @@ export const makeWaterfallFromJson = (input: WaterfallResponse): string => {
   if (!input.data || input.data.length === 0) {
     return toJson(waterfallPlans);
   }
-  input.data.map((item, i) =>
-    waterfallPlans.set(`Plan${i + 1}`, toSlimWaterfall(item, i))
+  input.data.map((item) =>
+    waterfallPlans.set(item.acc_id, toSlimWaterfall(item))
   );
   return toJson(waterfallPlans);
 };

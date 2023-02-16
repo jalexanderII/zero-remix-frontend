@@ -60,6 +60,7 @@ export type KPIResponse = {
 export type Waterfall = {
   name: string;
   data: number[];
+  acc_id: string;
 };
 
 export type WaterfallResponse = {
