@@ -15,7 +15,6 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
-  useLoaderData,
 } from "@remix-run/react";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { ClerkApp, ClerkCatchBoundary } from "@clerk/remix";
@@ -24,11 +23,10 @@ import styles from "~/styles/app.css";
 import Header from "~/components/Header";
 import React, { useContext } from "react";
 import StylesContext from "~/styles/stylesContext";
-import theme from "~/styles/theme";
 import Layout from "~/components/layout";
-import { ThemeProvider } from "@mui/material/styles";
 import tremor_styles from "@tremor/react/dist/esm/tremor.css";
 import { Analytics } from "@vercel/analytics/react";
+import getEnv from "../get-env";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -48,17 +46,23 @@ export const links: LinksFunction = () => {
   ];
 };
 
+const env = getEnv();
+
 export const loader: LoaderFunction = (args) => {
   return rootAuthLoader(
     args,
     ({ request }) => {
       const { userId, sessionId, getToken } = request.auth;
-      console.log("Root loader auth:", { userId, sessionId, getToken });
+      const analytics = process.env;
+      console.log("Root loader auth:", {
+        userId,
+        sessionId,
+        getToken,
+        analytics,
+      });
       return {
-        message: `Hello from the root loader ${process.env.VERCEL_ANALYTICS_ID}`,
-        ENV: {
-          VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID,
-        },
+        message: `Hello from the root loader`,
+        ENV: { VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID },
       };
     },
     { loadUser: true }
@@ -79,7 +83,6 @@ function Document({
   title?: string;
 }) {
   const styleData = useContext(StylesContext);
-  const { ENV } = useLoaderData<typeof loader>();
   const titleText = title ? title : null;
   return (
     <html lang="en">
@@ -98,18 +101,16 @@ function Document({
         ))}
       </head>
       <body>
-        <ThemeProvider theme={theme}>
-          <Header />
-          <Layout>{children}</Layout>
-        </ThemeProvider>
+        <Header />
+        <Layout>{children}</Layout>
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+            __html: `window.ENV = ${JSON.stringify(env?.VERCEL_ANALYTICS_ID)}`,
           }}
         />
         <Scripts />
-        <LiveReload />
+        {process.env.NODE_ENV === "development" && <LiveReload />}
         {process.env.NODE_ENV !== "development" ? (
           <Analytics debug={false} />
         ) : null}

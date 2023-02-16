@@ -15,13 +15,7 @@ export function sendToVercelAnalytics(metric: Metric) {
   let analyticsId = window?.ENV?.VERCEL_ANALYTICS_ID;
 
   if (!analyticsId) {
-    console.log("No analytics ID found ", analyticsId);
-    const newAnalyticsId = process.env.VERCEL_ANALYTICS_ID;
-    if (newAnalyticsId || newAnalyticsId !== "") {
-      analyticsId = newAnalyticsId;
-    } else {
-      return;
-    }
+    return;
   }
 
   const body = {

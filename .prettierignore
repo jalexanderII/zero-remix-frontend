@@ -1,7 +1,6 @@
 # Ignore artifacts:
 node_modules
 
-.cache
 .env
 .vercel
 /public/build
