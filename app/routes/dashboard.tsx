@@ -126,7 +126,6 @@ const PlaidButtonsComponent = (
         truncate={true}
         marginTop="mt-0"
       >
-        <input type="hidden" name="email" value={email} />
         {!plaidLinked?.data?.debit ? (
           <Button size="sm" onClick={handleOnClickDebit}>
             Link Debit account

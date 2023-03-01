@@ -27,7 +27,7 @@ const Main = (): JSX.Element => {
           </Flex>
           <div className="pt-4 text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Tired managing all of your credit payments on your own?
+              Tired of managing all of your credit payments on your own?
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Zero is the easiest way to manage your debt. Zero will help you
