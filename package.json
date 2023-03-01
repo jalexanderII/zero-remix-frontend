@@ -80,6 +80,6 @@
   },
   "lint-staged": {
     "*.{ts,jsx,tsx}!(*config).js": "eslint --cache --fix",
-    "*.{!(*config).js,ts,jsx,tsx,cdd,md}": "prettier --write --ignore-unknown"
+    "*.{ts,jsx,tsx,cdd,md}!(*config).js": "prettier --write --ignore-unknown"
   }
 }
