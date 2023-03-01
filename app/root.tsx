@@ -4,7 +4,6 @@ import type {
   LinksFunction,
   LoaderFunction,
   MetaFunction,
-  SerializeFrom,
 } from "@remix-run/node";
 import {
   Link,
@@ -25,8 +24,6 @@ import React, { useContext } from "react";
 import StylesContext from "~/styles/stylesContext";
 import Layout from "~/components/layout";
 import tremor_styles from "@tremor/react/dist/esm/tremor.css";
-import { Analytics } from "@vercel/analytics/react";
-import getEnv from "../get-env";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -46,8 +43,6 @@ export const links: LinksFunction = () => {
   ];
 };
 
-const env = getEnv();
-
 export const loader: LoaderFunction = (args) => {
   return rootAuthLoader(
     args,
@@ -60,18 +55,11 @@ export const loader: LoaderFunction = (args) => {
       });
       return {
         message: `Hello from the root loader`,
-        ENV: { VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID },
       };
     },
     { loadUser: true }
   );
 };
-
-declare global {
-  interface Window {
-    ENV: SerializeFrom<typeof loader>["ENV"];
-  }
-}
 
 function Document({
   children,
@@ -102,16 +90,8 @@ function Document({
         <Header />
         <Layout>{children}</Layout>
         <ScrollRestoration />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(env?.VERCEL_ANALYTICS_ID)}`,
-          }}
-        />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
-        {process.env.NODE_ENV !== "development" ? (
-          <Analytics debug={false} />
-        ) : null}
       </body>
     </html>
   );

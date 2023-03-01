@@ -5,8 +5,6 @@ import createEmotionCache from "~/styles/createEmotionCache";
 import { CacheProvider, ThemeProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "~/styles/theme";
-import reportWebVitals from "./reportWebVitals";
-import { sendToVercelAnalytics } from "./vitals";
 
 const emotionCache = createEmotionCache();
 
@@ -34,5 +32,3 @@ if (typeof requestIdleCallback === "function") {
   // https://caniuse.com/requestidlecallback
   setTimeout(hydrate, 1);
 }
-
-reportWebVitals(sendToVercelAnalytics);
