@@ -79,7 +79,8 @@
     ]
   },
   "lint-staged": {
-    "*.{ts,jsx,tsx}!(*config).js": "eslint --cache --fix",
-    "*.{ts,jsx,tsx,cdd,md}!(*config).js": "prettier --write --ignore-unknown"
+    "!(remix.config).js": "eslint --cache --fix",
+    "*.{ts,jsx,tsx}": "eslint --cache --fix",
+    "*.{ts,jsx,tsx,cdd,md}": "prettier --write --ignore-unknown"
   }
 }
