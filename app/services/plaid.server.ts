@@ -1,6 +1,6 @@
 import { request } from "~/services/external-api.service.server";
 import type { PlaidAccountLinkedResponse } from "~/utils/types.server";
-import { PLAID_FRONTEND_URL } from "~/utils/constants";
+import getEnv from "../../get-env";
 
 export const plaid = {
   is_plaid_linked: async (email: string) => {
@@ -10,6 +10,7 @@ export const plaid = {
   },
 };
 
-export const plaid_url = (email: string, type: string) => {
-  return `${PLAID_FRONTEND_URL}/${type}?email=${email}`;
+export const get_plaid_url = () => {
+  const env = getEnv();
+  return env.PLAID_FRONTEND_URL;
 };

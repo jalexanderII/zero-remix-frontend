@@ -1,6 +1,6 @@
-import type { ActionArgs, LoaderFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import { Form, Outlet, useLoaderData } from "@remix-run/react";
+import type { LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { getAuth } from "@clerk/remix/ssr.server";
 import api from "~/services/api.server";
 import type {
@@ -19,7 +19,7 @@ import { TransactionsTableWithPagination } from "~/components/transactions_table
 import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
 import React from "react";
-import { plaid_url } from "~/services/plaid.server";
+import { get_plaid_url } from "~/services/plaid.server";
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
@@ -53,16 +53,6 @@ export const getDashboardLoaderData = async (
   return { kpis, waterfall, transactions };
 };
 
-export async function action({ request }: ActionArgs) {
-  const form = await request.formData();
-  const link = form.get("link");
-  const email = form.get("email");
-  if (typeof link === "string" && typeof email === "string") {
-    return redirect(plaid_url(email, link));
-  }
-  return json({ error: `Invalid Form Data` }, { status: 400 });
-}
-
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
   if (!userId) {
@@ -75,15 +65,31 @@ export const loader: LoaderFunction = async (args) => {
   const plaidLinked: PlaidAccountLinkedResponse =
     await api.plaid.is_plaid_linked(email);
 
-  return { kpis, waterfall, transactions, plaidLinked, email };
+  const PLAID_FRONTEND_URL = get_plaid_url();
+
+  return {
+    kpis,
+    waterfall,
+    transactions,
+    plaidLinked,
+    email,
+    PLAID_FRONTEND_URL,
+  };
 };
 
 const Dashboard = (): JSX.Element => {
-  const { kpis, waterfall, transactions, plaidLinked, email } = useLoaderData();
+  const {
+    kpis,
+    waterfall,
+    transactions,
+    plaidLinked,
+    email,
+    PLAID_FRONTEND_URL,
+  } = useLoaderData();
 
   return (
     <main>
-      {PlaidButtonsComponent(plaidLinked, email)}
+      {PlaidButtonsComponent(plaidLinked, email, PLAID_FRONTEND_URL)}
       <Block marginTop="mt-2">
         <Waterfall waterfall={waterfall} />
       </Block>
@@ -101,39 +107,41 @@ const Dashboard = (): JSX.Element => {
 
 const PlaidButtonsComponent = (
   plaidLinked: PlaidAccountLinkedResponse,
-  email: string
+  email: string,
+  PLAID_FRONTEND_URL: string
 ): JSX.Element => {
+  const handleOnClickDebit = () => {
+    window.location.href = `${PLAID_FRONTEND_URL}/debit?email=${email}`;
+  };
+  const handleOnClickCredit = () => {
+    window.location.href = `${PLAID_FRONTEND_URL}/credit?email=${email}`;
+  };
+
   return (
     <Card maxWidth="max-w-md">
-      <Form method="post">
-        <Flex
-          justifyContent="justify-center"
-          alignItems="items-center"
-          spaceX="space-x-6"
-          truncate={true}
-          marginTop="mt-0"
-        >
-          <input type="hidden" name="email" value={email} />
-          {!plaidLinked?.data?.debit ? (
-            <>
-              <input type="hidden" name="link" value="debit" />
-              <Button type="submit" size="sm">
-                Link Debit account
-              </Button>
-            </>
-          ) : null}
-          <input type="hidden" name="link" value="credit" />
-          {!plaidLinked?.data?.credit ? (
-            <Button type="submit" size="sm">
-              Link Credit account
-            </Button>
-          ) : (
-            <Button type="submit" size="sm">
-              Link Another Credit account
-            </Button>
-          )}
-        </Flex>
-      </Form>
+      <Flex
+        justifyContent="justify-center"
+        alignItems="items-center"
+        spaceX="space-x-6"
+        truncate={true}
+        marginTop="mt-0"
+      >
+        <input type="hidden" name="email" value={email} />
+        {!plaidLinked?.data?.debit ? (
+          <Button size="sm" onClick={handleOnClickDebit}>
+            Link Debit account
+          </Button>
+        ) : null}
+        {!plaidLinked?.data?.credit ? (
+          <Button size="sm" onClick={handleOnClickCredit}>
+            Link Credit account
+          </Button>
+        ) : (
+          <Button size="sm" onClick={handleOnClickCredit}>
+            Link Another Credit account
+          </Button>
+        )}
+      </Flex>
     </Card>
   );
 };

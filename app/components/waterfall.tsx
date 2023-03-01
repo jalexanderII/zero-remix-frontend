@@ -20,7 +20,8 @@ export const Waterfall: React.FC<props> = ({ waterfall }) => {
   const navigate = useNavigate();
 
   const handleModal = () => {
-    navigate("paymentplan");
+    console.log("handleModal .. navigate");
+    navigate("paymentplan/create");
   };
 
   return (

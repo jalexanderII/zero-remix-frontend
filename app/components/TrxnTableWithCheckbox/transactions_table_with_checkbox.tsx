@@ -6,7 +6,7 @@ import type { SlimTransaction } from "~/utils/types.server";
 import type { MRT_ColumnDef } from "material-react-table";
 import MaterialReactTable from "material-react-table";
 import type { RowSelectionState } from "@tanstack/react-table";
-import { usePaymentPlanCreationForm } from "~/routes/dashboard/paymentplan";
+import { usePaymentPlanCreationForm } from "~/routes/dashboard/paymentplan.create";
 
 interface props {
   transactions: SlimTransaction[];

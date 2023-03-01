@@ -1,11 +1,13 @@
 import type { AxiosError, AxiosResponse } from "axios";
 import axios from "axios";
 import type { BaseResponse } from "~/utils/types.server";
+import getEnv from "../../get-env";
 
 let token: null = null;
 
-axios.defaults.baseURL =
-  process.env.BACKEND_SERVER_URL || "http://127.0.0.1:8080";
+const env = getEnv();
+
+axios.defaults.baseURL = env.BACKEND_SERVER_URL || "http://127.0.0.1:8080";
 
 axios.interceptors.request.use((config) => {
   if (token) {

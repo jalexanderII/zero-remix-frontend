@@ -1,5 +1,3 @@
-export const PLAID_FRONTEND_URL =
-  process.env.PLAID_FRONTEND_URL || "https://zero-react-plaid.vercel.app";
 export const PlanType: Map<number, string> = new Map([
   [0, "Unknown"],
   [1, "Optimize Credit Score"],
