@@ -14,9 +14,10 @@ import type { WaterfallDataResponse } from "~/utils/types.server";
 
 interface props {
   waterfall: WaterfallDataResponse;
+  ready: boolean;
 }
 
-export const Waterfall: React.FC<props> = ({ waterfall }) => {
+export const Waterfall: React.FC<props> = ({ waterfall, ready }) => {
   const navigate = useNavigate();
 
   const handleModal = () => {
@@ -34,7 +35,9 @@ export const Waterfall: React.FC<props> = ({ waterfall }) => {
         <Col>
           <div className="flex flex-col items-right md:flex-row">
             <div className="flex-1" />
-            <Button onClick={handleModal}>PaymentPlan Creation</Button>
+            <Button onClick={handleModal} disabled={!ready}>
+              PaymentPlan Creation
+            </Button>
           </div>
         </Col>
       </ColGrid>

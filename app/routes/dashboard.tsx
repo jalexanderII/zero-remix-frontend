@@ -91,7 +91,7 @@ const Dashboard = (): JSX.Element => {
     <main>
       {PlaidButtonsComponent(plaidLinked, email, PLAID_FRONTEND_URL)}
       <Block marginTop="mt-2">
-        <Waterfall waterfall={waterfall} />
+        <Waterfall waterfall={waterfall} ready={transactions.length > 0} />
       </Block>
       <Block marginTop="mt-2">
         <KpiPanel kpis={kpis} />
