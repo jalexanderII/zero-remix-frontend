@@ -111,10 +111,14 @@ const PlaidButtonsComponent = (
   PLAID_FRONTEND_URL: string
 ): JSX.Element => {
   const handleOnClickDebit = () => {
-    window.location.href = `${PLAID_FRONTEND_URL}/debit?email=${email}`;
+    window.location.href = encodeURI(
+      `${PLAID_FRONTEND_URL}/debit?email=${email}`
+    );
   };
   const handleOnClickCredit = () => {
-    window.location.href = `${PLAID_FRONTEND_URL}/credit?email=${email}`;
+    window.location.href = encodeURI(
+      `${PLAID_FRONTEND_URL}/credit?email=${email}`
+    );
   };
 
   return (
