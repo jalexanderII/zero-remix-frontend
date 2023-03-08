@@ -9,10 +9,10 @@ import type {
   Transaction,
   TransactionResponse,
 } from "~/utils/types.server";
-import { DefaultDict } from "~/utils/types.server";
 import { makeAccountFromJson } from "~/services/accounts.server";
 import { toUSD } from "~/utils/helpers";
 import { Convert } from "~/utils/paymentplan_request_converter.server";
+import defaultdict from "~/utils/defaultdict";
 
 export const paymentplan = {
   get_transactions_by_account: async (email: string) => {
@@ -25,9 +25,7 @@ export const paymentplan = {
     const slimAccounts: SlimAccount[] = await makeAccountFromJson(
       accounts.data
     );
-    const transactionDict: DefaultDict = await makeTransactionsFromJson(
-      transactions.data
-    );
+    const transactionDict = await makeTransactionsFromJson(transactions.data);
     const resp: AccountAndTransactions = { slimAccounts, transactionDict };
     return resp;
   },
@@ -54,7 +52,7 @@ export const paymentplan = {
 };
 
 export const makeTransactionsFromJson = async (trxns: Transaction[]) => {
-  const transactionsDict = new DefaultDict(Array);
+  const transactionsDict = defaultdict([]);
   trxns.forEach((item) => {
     if (item.amount > 0) {
       // @ts-ignore

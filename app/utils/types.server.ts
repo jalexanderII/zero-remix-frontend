@@ -123,6 +123,7 @@ export type SlimTransaction = {
   userId: string;
   name: string;
   amount: string;
+  value: number;
   date: string;
   transactionId: string;
 };
@@ -152,7 +153,7 @@ export class DefaultDict {
 
 export type AccountAndTransactions = {
   slimAccounts: SlimAccount[];
-  transactionDict: DefaultDict;
+  transactionDict: any;
 };
 
 export type AccountInfo = {
