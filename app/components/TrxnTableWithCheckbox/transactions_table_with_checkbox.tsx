@@ -16,6 +16,9 @@ interface props {
 
 const transactionIDToAmount = (trxns: SlimTransaction[]) => {
   const transactionsDict = new Map<string, number>();
+  if (!trxns) {
+    return transactionsDict;
+  }
   trxns.forEach((item) => {
     transactionsDict.set(item.id, item.value);
   });
