@@ -80,7 +80,7 @@
     ]
   },
   "lint-staged": {
-    "!(remix.config).js": "eslint --cache --fix",
+    "!(api/**/*)*.js": ["eslint --cache --fix", "prettier --write"],
     "*.{ts,jsx,tsx}": "eslint --cache --fix",
     "*.{ts,jsx,tsx,cdd,md}": "prettier --write --ignore-unknown"
   }
