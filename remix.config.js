@@ -3,7 +3,7 @@
  */
 module.exports = {
   ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
-  serverBuildTarget: "vercel",
+  // serverBuildTarget: "vercel",
   appDirectory: "app",
   assetsBuildDirectory: "public/build",
   publicPath: "/build/",
