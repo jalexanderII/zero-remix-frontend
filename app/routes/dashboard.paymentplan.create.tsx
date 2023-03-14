@@ -1,6 +1,6 @@
 import { Modal } from "~/components/modal";
 import { Card, ColGrid, Metric, Text, Title } from "@tremor/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, useLoaderData } from "@remix-run/react";
 import type { AccountAndTransactions, AccountInfo } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
@@ -52,13 +52,9 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
     updateFrequency: (value) => set({ frequency: value }),
     updatePlanType: (value) => set({ planType: value }),
     updateAmount: (amount, index) => {
-      console.log(`updateAmount called with: ${amount} at index: ${index}`);
       set((state) => {
         const newAmount = [...state.amount];
-        console.log(`prev amount: ${JSON.stringify(newAmount)}`);
-        console.log(`will update ${newAmount[index]} from index: ${index}`);
         newAmount[index] = amount;
-        console.log(`new amount: ${JSON.stringify(newAmount)}`);
         return { amount: newAmount };
       });
     },
@@ -139,21 +135,9 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
-  const [totalAmount, setTotalAmount] = React.useState(0);
-  const { amount, frequency, timeline, planType, accountInfo, reset } =
+  const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
   const { accountAndTransactions, email } = useLoaderData();
-
-  useEffect(() => {
-    console.log("total amount before update is: ", totalAmount);
-    const ntotal = amount.reduce((pv, cv) => pv + cv, 0);
-    console.log(
-      `set totalAmount called, current amount ${JSON.stringify(
-        amount
-      )}, resulting total: ${ntotal}`
-    );
-    setTotalAmount(ntotal);
-  }, [JSON.stringify(amount)]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();

@@ -57,17 +57,10 @@ export const PaymentPlanTransactions: FC<props> = ({
 
   useEffect(() => {
     const selectedRows: string[] = Object.keys(rowSelection);
-    console.log(`selectedRows for transaction ${idx}`, selectedRows);
 
     let total = 0;
     selectedRows.forEach((id) => {
-      console.log(
-        `selectedRows ${id}`,
-        "fetched value",
-        trxnIdToAmount.get(id)
-      );
       total += trxnIdToAmount.get(id) || 0;
-      console.log("new total", total);
     });
 
     const accountInfo = {
@@ -75,10 +68,9 @@ export const PaymentPlanTransactions: FC<props> = ({
       account_id: accountId,
       amount: total,
     };
-    console.log("latest accountInfo", accountInfo);
 
     updateAmount(total, idx);
-    // setTotalAmount();
+    setTotalAmount();
     updateAccountInfo(accountInfo, idx);
   }, [rowSelection]);
 
