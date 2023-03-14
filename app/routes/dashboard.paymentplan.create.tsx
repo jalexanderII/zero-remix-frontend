@@ -12,7 +12,7 @@ import { AccountAccordion } from "~/components/account_accordion";
 import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { create } from "zustand";
 import { toUSD } from "~/utils/helpers";
-import { createJSONStorage, devtools, persist } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 // define types for state values and actions separately
 type State = {
@@ -77,7 +77,6 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
       }),
       {
         name: "payment-plan-creation-storage",
-        storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
       }
     )
   )
