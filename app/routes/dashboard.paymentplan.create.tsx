@@ -47,7 +47,7 @@ export async function action({ request }: ActionArgs) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: false,
+        save_plan: true,
       };
 
       const resp = await api.paymentplan.submit_payment_plan(
@@ -76,10 +76,6 @@ export default function PaymentPlanCreation() {
   const { accountAndTransactions, email } = useLoaderData();
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
-
-  // useEffect(() => {
-  //   console.log("[PaymentPlanCreation] totalAmount changed! ", totalAmount);
-  // }, [totalAmount]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();

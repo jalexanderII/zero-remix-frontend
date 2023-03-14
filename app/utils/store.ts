@@ -42,7 +42,6 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
       set((state) => {
         const newAmount = [...state.amount];
         newAmount[index] = amount;
-        console.log("[usePaymentPlanCreationForm] amount changed! ", newAmount);
         return { amount: newAmount };
       });
     },

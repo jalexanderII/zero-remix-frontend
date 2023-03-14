@@ -3717,7 +3717,7 @@ var import_zustand = require("zustand"), initialState2 = {
     updateAmount: (amount, index) => {
       set((state) => {
         let newAmount = [...state.amount];
-        return newAmount[index] = amount, console.log("[usePaymentPlanCreationForm] amount changed! ", newAmount), { amount: newAmount };
+        return newAmount[index] = amount, { amount: newAmount };
       });
     },
     setTotalAmount: () => set((state) => ({
@@ -4063,7 +4063,7 @@ async function action({ request: request2 }) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency)
         },
-        save_plan: !1
+        save_plan: !0
       }, resp = await api_server_default.paymentplan.submit_payment_plan(
         email,
         JSON.stringify(req)
@@ -4091,17 +4091,17 @@ function PaymentPlanCreation() {
       children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react26.Form, { method: "post", onSubmit: (e) => (reset(), confirm("Are you sure?") ? !0 : e.preventDefault()), children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("input", { type: "hidden", value: frequency, name: "frequency" }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 96,
+          lineNumber: 92,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("input", { type: "hidden", value: timeline, name: "timeline" }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 97,
+          lineNumber: 93,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("input", { type: "hidden", value: planType, name: "planType" }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 98,
+          lineNumber: 94,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
@@ -4115,34 +4115,34 @@ function PaymentPlanCreation() {
           !1,
           {
             fileName: "app/routes/dashboard.paymentplan.create.tsx",
-            lineNumber: 99,
+            lineNumber: 95,
             columnNumber: 9
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("input", { type: "hidden", value: email, name: "email" }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 104,
+          lineNumber: 100,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react25.Title, { children: "Create A Payment Plan" }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 105,
+          lineNumber: 101,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react25.Text, { children: "Select the accounts or transactions you'd like to pay-down and select your payment preferences." }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 106,
+          lineNumber: 102,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(AccountAccordion, { accountAndTransactions }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 110,
+          lineNumber: 106,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react25.Title, { marginTop: "mt-4", children: "Payment Preferences" }, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 111,
+          lineNumber: 107,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
@@ -4156,27 +4156,27 @@ function PaymentPlanCreation() {
             children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(PaymentPlanPreferences, {}, void 0, !1, {
                 fileName: "app/routes/dashboard.paymentplan.create.tsx",
-                lineNumber: 119,
+                lineNumber: 115,
                 columnNumber: 11
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react25.Card, { maxWidth: "max-w-xs", children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react25.Text, { textAlignment: "text-center", children: "Total Amount" }, void 0, !1, {
                   fileName: "app/routes/dashboard.paymentplan.create.tsx",
-                  lineNumber: 121,
+                  lineNumber: 117,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { style: { display: "flex", justifyContent: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(import_react25.Metric, { children: toUSD(totalAmount) }, void 0, !1, {
                   fileName: "app/routes/dashboard.paymentplan.create.tsx",
-                  lineNumber: 123,
+                  lineNumber: 119,
                   columnNumber: 15
                 }, this) }, void 0, !1, {
                   fileName: "app/routes/dashboard.paymentplan.create.tsx",
-                  lineNumber: 122,
+                  lineNumber: 118,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/dashboard.paymentplan.create.tsx",
-                lineNumber: 120,
+                lineNumber: 116,
                 columnNumber: 11
               }, this)
             ]
@@ -4185,20 +4185,20 @@ function PaymentPlanCreation() {
           !0,
           {
             fileName: "app/routes/dashboard.paymentplan.create.tsx",
-            lineNumber: 112,
+            lineNumber: 108,
             columnNumber: 9
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 127,
+          lineNumber: 123,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "flex flex-col items-center md:flex-row pt-14", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "flex-1" }, void 0, !1, {
             fileName: "app/routes/dashboard.paymentplan.create.tsx",
-            lineNumber: 129,
+            lineNumber: 125,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
@@ -4213,19 +4213,19 @@ function PaymentPlanCreation() {
             !1,
             {
               fileName: "app/routes/dashboard.paymentplan.create.tsx",
-              lineNumber: 130,
+              lineNumber: 126,
               columnNumber: 11
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/dashboard.paymentplan.create.tsx",
-          lineNumber: 128,
+          lineNumber: 124,
           columnNumber: 9
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/dashboard.paymentplan.create.tsx",
-        lineNumber: 95,
+        lineNumber: 91,
         columnNumber: 7
       }, this)
     },
@@ -4233,7 +4233,7 @@ function PaymentPlanCreation() {
     !1,
     {
       fileName: "app/routes/dashboard.paymentplan.create.tsx",
-      lineNumber: 90,
+      lineNumber: 86,
       columnNumber: 5
     },
     this
@@ -4707,7 +4707,7 @@ function UserProfilePage() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "5b771e78", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-UULKEYHK.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-AXVQ47VE.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-7SQKAOZI.js", imports: ["/build/_shared/chunk-VAO4UUTQ.js", "/build/_shared/chunk-B6DLWJ7T.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-744MW2LP.js", imports: ["/build/_shared/chunk-H7QVIX46.js", "/build/_shared/chunk-3XVWGGTB.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-T3M6II5S.js", imports: ["/build/_shared/chunk-Z7KOOHJU.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-3XVWGGTB.js", "/build/_shared/chunk-VAO4UUTQ.js", "/build/_shared/chunk-B6DLWJ7T.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-MS6ITI7L.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-24MI4DWJ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-PRGZQUTF.js", imports: ["/build/_shared/chunk-H7QVIX46.js", "/build/_shared/chunk-Z7KOOHJU.js", "/build/_shared/chunk-3XVWGGTB.js", "/build/_shared/chunk-B6DLWJ7T.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user": { id: "routes/user", parentId: "root", path: "user", index: void 0, caseSensitive: void 0, module: "/build/routes/user-ANIW5W6K.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-5B771E78.js" };
+var assets_manifest_default = { version: "7b6e36af", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-UULKEYHK.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-AXVQ47VE.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-7SQKAOZI.js", imports: ["/build/_shared/chunk-VAO4UUTQ.js", "/build/_shared/chunk-B6DLWJ7T.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-YDEVFQL4.js", imports: ["/build/_shared/chunk-H7QVIX46.js", "/build/_shared/chunk-3XVWGGTB.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-T3M6II5S.js", imports: ["/build/_shared/chunk-Z7KOOHJU.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-3XVWGGTB.js", "/build/_shared/chunk-VAO4UUTQ.js", "/build/_shared/chunk-B6DLWJ7T.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-MS6ITI7L.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-24MI4DWJ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-PRGZQUTF.js", imports: ["/build/_shared/chunk-H7QVIX46.js", "/build/_shared/chunk-Z7KOOHJU.js", "/build/_shared/chunk-3XVWGGTB.js", "/build/_shared/chunk-B6DLWJ7T.js", "/build/_shared/chunk-VWVY3LZK.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user": { id: "routes/user", parentId: "root", path: "user", index: void 0, caseSensitive: void 0, module: "/build/routes/user-ANIW5W6K.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-7B6E36AF.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, unstable_cssSideEffectImports: !1, unstable_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, unstable_vanillaExtract: !1, v2_errorBoundary: !1, v2_meta: !1, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
