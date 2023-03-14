@@ -109,6 +109,7 @@ export type Transaction = {
   detailed_category: string;
   updated_at: string;
   created_at: string;
+  in_plan: boolean;
 };
 
 export type TransactionResponse = {
@@ -153,7 +154,7 @@ export class DefaultDict {
 
 export type AccountAndTransactions = {
   slimAccounts: SlimAccount[];
-  transactionDict: any;
+  transactionDict: object;
 };
 
 export type AccountInfo = {

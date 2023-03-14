@@ -9,6 +9,7 @@ import type {
   Transaction,
   TransactionResponse,
 } from "~/utils/types.server";
+import type { SlimTransaction } from "~/utils/types.server";
 import { makeAccountFromJson } from "~/services/accounts.server";
 import { toUSD } from "~/utils/helpers";
 import { Convert } from "~/utils/paymentplan_request_converter.server";
@@ -25,7 +26,9 @@ export const paymentplan = {
     const slimAccounts: SlimAccount[] = await makeAccountFromJson(
       accounts.data
     );
-    const transactionDict = await makeTransactionsFromJson(transactions.data);
+    const transactionDict: object = await makeTransactionsFromJson(
+      transactions.data
+    );
     const resp: AccountAndTransactions = { slimAccounts, transactionDict };
     return resp;
   },
@@ -52,19 +55,21 @@ export const paymentplan = {
 };
 
 export const makeTransactionsFromJson = async (trxns: Transaction[]) => {
-  const transactionsDict = defaultdict([]);
+  const transactionsDict = defaultdict(Array<SlimTransaction>);
   trxns.forEach((item) => {
-    if (item.amount > 0) {
-      // @ts-ignore
-      transactionsDict[item["account_id"]].push({
+    if (item.amount > 0 && !item.in_plan) {
+      const trxn: SlimTransaction = {
         id: item["id"],
         accountId: item["account_id"],
         userId: item["user_id"],
         name: item.name,
         amount: toUSD(item.amount),
+        value: item.amount,
         date: item.date,
         transactionId: item["id"],
-      });
+      };
+      // @ts-ignore
+      transactionsDict[item["account_id"]].push(trxn);
     }
   });
   return transactionsDict;

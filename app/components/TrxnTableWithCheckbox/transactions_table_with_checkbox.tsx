@@ -16,9 +16,6 @@ interface props {
 
 const transactionIDToAmount = (trxns: SlimTransaction[]) => {
   const transactionsDict = new Map<string, number>();
-  if (!trxns) {
-    return transactionsDict;
-  }
   trxns.forEach((item) => {
     transactionsDict.set(item.id, item.value);
   });
@@ -71,7 +68,7 @@ export const PaymentPlanTransactions: FC<props> = ({
       account_id: accountId,
       amount: total,
     };
-    // console.log(`accountInfo for transaction ${idx}`, accountInfo);
+    console.log(`accountInfo for transaction ${idx}`, accountInfo);
 
     updateAmount(total, idx);
     setTotalAmount();

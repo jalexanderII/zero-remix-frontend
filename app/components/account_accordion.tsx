@@ -13,6 +13,7 @@ import type {
 } from "~/utils/types.server";
 import { PaymentPlanTransactions } from "~/components/TrxnTableWithCheckbox/transactions_table_with_checkbox";
 import { toUSD } from "~/utils/helpers";
+import { ObjectId } from "bson";
 
 interface props {
   accountAndTransactions: AccountAndTransactions;
@@ -22,38 +23,16 @@ export const AccountAccordion: React.FC<props> = ({
   accountAndTransactions,
 }) => {
   return (
-    <Block marginTop="mt-6">
-      {AccountTrxnItem(accountAndTransactions)}
-      {/*<AccordionList>*/}
-      {/*  {accountAndTransactions.slimAccounts.map(*/}
-      {/*    (i: SlimAccount, idx: number) => (*/}
-      {/*      <Accordion key={i.accountId}>*/}
-      {/*        <AccordionHeader>{i.name}</AccordionHeader>*/}
-      {/*        <AccordionBody>*/}
-      {/*          <PaymentPlanTransactions*/}
-      {/*            idx={idx}*/}
-      {/*            transactions={*/}
-      {/*              // @ts-ignore*/}
-      {/*              accountAndTransactions.transactionDict[i.accountId]*/}
-      {/*            }*/}
-      {/*            accountId={i.accountId}*/}
-      {/*          />*/}
-      {/*        </AccordionBody>*/}
-      {/*      </Accordion>*/}
-      {/*    )*/}
-      {/*  )}*/}
-      {/*</AccordionList>*/}
-    </Block>
+    <Block marginTop="mt-6">{AccountTrxnItem(accountAndTransactions)}</Block>
   );
 };
 
 const AccountTrxnItem = (accountAndTransactions: AccountAndTransactions) => {
-  const accounts = [];
-  const transaction: SlimTransaction[][] = [];
+  const transaction: Array<SlimTransaction[]> = [];
   for (const acc of accountAndTransactions.slimAccounts) {
-    accounts.push(acc);
-    // @ts-ignore
-    const a = accountAndTransactions.transactionDict[acc.accountId];
+    const a: SlimTransaction[] =
+      // @ts-ignore
+      accountAndTransactions.transactionDict[acc.accountId];
     if (a) {
       transaction.push(a);
     }
@@ -61,37 +40,40 @@ const AccountTrxnItem = (accountAndTransactions: AccountAndTransactions) => {
 
   return (
     <AccordionList>
-      {accounts.map((i: SlimAccount, idx: number) => (
-        <Accordion key={i.accountId}>
-          <AccordionHeader>{i.name}</AccordionHeader>
-          <AccordionBody>
-            <PaymentPlanTransactions
-              idx={idx}
-              transactions={
-                transaction.length == 0
-                  ? makeTrxnForFullAccount(i)
-                  : transaction[idx]
-              }
-              accountId={i.accountId}
-            />
-          </AccordionBody>
-        </Accordion>
-      ))}
+      {accountAndTransactions.slimAccounts.map(
+        (i: SlimAccount, idx: number) => (
+          <Accordion key={i.accountId}>
+            <AccordionHeader>{i.name}</AccordionHeader>
+            <AccordionBody>
+              <PaymentPlanTransactions
+                idx={idx}
+                transactions={
+                  transaction.length == 0
+                    ? makeTrxnForFullAccount(i)
+                    : transaction[idx]
+                }
+                accountId={i.accountId}
+              />
+            </AccordionBody>
+          </Accordion>
+        )
+      )}
     </AccordionList>
   );
 };
 
 const makeTrxnForFullAccount = (acc: SlimAccount) => {
   const transactions: SlimTransaction[] = [];
+  const transactionId = new ObjectId().toString();
   transactions.push({
-    id: acc.accountId,
+    id: transactionId,
     accountId: acc.accountId,
     userId: acc.userId,
     name: "Account current balance",
     amount: toUSD(acc.balance),
     value: acc.balance,
     date: "n/a",
-    transactionId: acc.accountId,
+    transactionId: transactionId,
   });
   return transactions;
 };
