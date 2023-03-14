@@ -83,6 +83,7 @@ const Header = (): JSX.Element => {
               return (
                 <SignedIn key={item.name}>
                   <Link
+                    prefetch="intent"
                     key={item.name}
                     to={item.href}
                     className="text-sm font-semibold leading-6 text-gray-900"

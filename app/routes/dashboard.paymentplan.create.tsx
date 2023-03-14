@@ -47,7 +47,6 @@ const initialState: State = {
 export const usePaymentPlanCreationForm = create<State & Actions>()(
   (set, get) => ({
     ...initialState,
-
     updateTimeline: (value) => set({ timeline: value }),
     updateFrequency: (value) => set({ frequency: value }),
     updatePlanType: (value) => set({ planType: value }),

@@ -91,7 +91,7 @@ function Document({
         <Layout>{children}</Layout>
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        <LiveReload />
       </body>
     </html>
   );
