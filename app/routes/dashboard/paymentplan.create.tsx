@@ -52,12 +52,13 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
     updateFrequency: (value) => set({ frequency: value }),
     updatePlanType: (value) => set({ planType: value }),
     updateAmount: (amount, index) => {
-      console.log(`updateAmount called with: ${amount} ${index}`);
+      console.log(`updateAmount called with: ${amount} at index: ${index}`);
       set((state) => {
         const newAmount = [...state.amount];
-        console.log(`prev amount: ${newAmount}`);
+        console.log(`prev amount: ${JSON.stringify(newAmount)}`);
+        console.log(`will update ${newAmount[index]} from index: ${index}`);
         newAmount[index] = amount;
-        console.log(`new amount: ${newAmount}`);
+        console.log(`new amount: ${JSON.stringify(newAmount)}`);
         return { amount: newAmount };
       });
     },
