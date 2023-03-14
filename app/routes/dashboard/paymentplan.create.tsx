@@ -145,8 +145,15 @@ export default function PaymentPlanCreation() {
   const { accountAndTransactions, email } = useLoaderData();
 
   useEffect(() => {
-    setTotalAmount(amount.reduce((pv, cv) => pv + cv, 0));
-  }, [amount]);
+    console.log("total amount before update is: ", totalAmount);
+    const ntotal = amount.reduce((pv, cv) => pv + cv, 0);
+    console.log(
+      `set totalAmount called, current amount ${JSON.stringify(
+        amount
+      )}, resulting total: ${ntotal}`
+    );
+    setTotalAmount(ntotal);
+  }, [JSON.stringify(amount)]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
