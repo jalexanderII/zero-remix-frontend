@@ -135,8 +135,15 @@ export const loader: LoaderFunction = async (args) => {
 
 export default function PaymentPlanCreation() {
   const { accountAndTransactions, email } = useLoaderData();
+  const [state, setState] = React.useState(() => () => totalAmount);
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
+
+  React.useEffect(() => {
+    setState(() => () => totalAmount);
+  }, [totalAmount]);
+
+  console.log("state", state());
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
@@ -177,7 +184,7 @@ export default function PaymentPlanCreation() {
           <Card maxWidth="max-w-xs">
             <Text textAlignment={"text-center"}>Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Metric>{toUSD(totalAmount)}</Metric>
+              <Metric>{toUSD(state())}</Metric>
             </div>
           </Card>
         </ColGrid>
