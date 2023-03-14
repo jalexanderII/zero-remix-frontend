@@ -1,14 +1,15 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "app/**/*.ts*"],
-  "exclude": ["node_modules", "dist", "lib"],
+//  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "app/**/*.ts*"],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  // "exclude": ["node_modules", "dist", "lib"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "sourceMap": true,
-    "declaration": true,
+    // "sourceMap": true,
+    // "declaration": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "module": "CommonJS",
+    // "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "target": "ES2019",
@@ -19,7 +20,7 @@
     "paths": {
       "~/*": ["./app/*"]
     },
-    "skipLibCheck": true,
+    // "skipLibCheck": true,
 
     // Remix takes care of building everything in `remix build`.
     "noEmit": true

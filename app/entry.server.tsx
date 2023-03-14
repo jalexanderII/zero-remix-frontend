@@ -12,6 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "~/styles/theme";
 import StylesContext from "~/styles/stylesContext";
+
 dotenv.config();
 
 const ABORT_DELAY = 5000;

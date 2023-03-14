@@ -20,7 +20,8 @@
     "/node_modules",
     "/build",
     "/api",
-    "/public/build"
+    "/public/build",
+    "remix.config.js"
   ],
   "dependencies": {
     "@babel/core": ">=7.0.0 <8.0.0",
@@ -81,11 +82,11 @@
     ]
   },
   "lint-staged": {
-    "!(remix.config).js": "eslint --cache --fix",
     "!(api/**/*)*.js": [
       "eslint --cache --fix",
       "prettier --write"
     ],
+    "!(remix.config).js": "eslint --cache --fix",
     "*.{ts,jsx,tsx}": "eslint --cache --fix",
     "*.{ts,jsx,tsx,cdd,md}": "prettier --write --ignore-unknown"
   }
