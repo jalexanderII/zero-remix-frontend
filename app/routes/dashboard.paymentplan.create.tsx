@@ -12,6 +12,7 @@ import { AccountAccordion } from "~/components/account_accordion";
 import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { create } from "zustand";
 import { toUSD } from "~/utils/helpers";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
 // define types for state values and actions separately
 type State = {
@@ -45,33 +46,41 @@ const initialState: State = {
 
 // create store
 export const usePaymentPlanCreationForm = create<State & Actions>()(
-  (set, get) => ({
-    ...initialState,
-    updateTimeline: (value) => set({ timeline: value }),
-    updateFrequency: (value) => set({ frequency: value }),
-    updatePlanType: (value) => set({ planType: value }),
-    updateAmount: (amount, index) => {
-      set((state) => {
-        const newAmount = [...state.amount];
-        newAmount[index] = amount;
-        return { amount: newAmount };
-      });
-    },
-    setTotalAmount: () =>
-      set((state) => ({
-        totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
-      })),
-    updateAccountInfo: (data, index) => {
-      set((state) => {
-        const newAccountInfo = [...state.accountInfo];
-        newAccountInfo[index] = data;
-        return { accountInfo: newAccountInfo };
-      });
-    },
-    reset: () => {
-      set(initialState);
-    },
-  })
+  devtools(
+    persist(
+      (set, get) => ({
+        ...initialState,
+        updateTimeline: (value) => set({ timeline: value }),
+        updateFrequency: (value) => set({ frequency: value }),
+        updatePlanType: (value) => set({ planType: value }),
+        updateAmount: (amount, index) => {
+          set((state) => {
+            const newAmount = [...state.amount];
+            newAmount[index] = amount;
+            return { amount: newAmount };
+          });
+        },
+        setTotalAmount: () =>
+          set((state) => ({
+            totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
+          })),
+        updateAccountInfo: (data, index) => {
+          set((state) => {
+            const newAccountInfo = [...state.accountInfo];
+            newAccountInfo[index] = data;
+            return { accountInfo: newAccountInfo };
+          });
+        },
+        reset: () => {
+          set(initialState);
+        },
+      }),
+      {
+        name: "payment-plan-creation-storage",
+        storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+      }
+    )
+  )
 );
 
 export async function action({ request }: ActionArgs) {
