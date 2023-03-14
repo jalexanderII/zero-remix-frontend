@@ -2,8 +2,8 @@
  * @type {import('@remix-run/dev').AppConfig}
  */
 module.exports = {
-  ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
   // serverBuildTarget: "vercel",
+  ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
   appDirectory: "app",
   assetsBuildDirectory: "public/build",
   publicPath: "/build/",

@@ -47,7 +47,7 @@ export async function action({ request }: ActionArgs) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: false,
+        save_plan: true,
       };
 
       const resp = await api.paymentplan.submit_payment_plan(
