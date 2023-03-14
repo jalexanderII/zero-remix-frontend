@@ -1,6 +1,6 @@
 import { Modal } from "~/components/modal";
 import { Card, ColGrid, Metric, Text, Title } from "@tremor/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, useLoaderData } from "@remix-run/react";
 import type { AccountAndTransactions } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
@@ -47,14 +47,14 @@ export async function action({ request }: ActionArgs) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: true,
+        save_plan: false,
       };
 
       const resp = await api.paymentplan.submit_payment_plan(
         email,
         JSON.stringify(req)
       );
-      return redirect(`summary?resp=${encodeURI(JSON.stringify(resp))}`);
+      return redirect(`/summary?resp=${encodeURI(JSON.stringify(resp))}`);
 
     default:
       return json({ error: `Invalid Form Data` }, { status: 400 });
@@ -77,9 +77,9 @@ export default function PaymentPlanCreation() {
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
 
-  useEffect(() => {
-    console.log("[PaymentPlanCreation] totalAmount changed! ", totalAmount);
-  }, [totalAmount]);
+  // useEffect(() => {
+  //   console.log("[PaymentPlanCreation] totalAmount changed! ", totalAmount);
+  // }, [totalAmount]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();

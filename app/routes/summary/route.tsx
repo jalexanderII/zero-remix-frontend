@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return { decrypted };
 };
 
-export default function DashboardPaymentplanCreateSummary() {
+export default function Route() {
   const { decrypted } = useLoaderData();
   return (
     <Modal
