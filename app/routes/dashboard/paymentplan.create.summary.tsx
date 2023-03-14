@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return { decrypted };
 };
 
-export default function PaymentPlanSummary() {
+export default function PaymentplanCreateSummary() {
   const { decrypted } = useLoaderData();
   return (
     <Modal
