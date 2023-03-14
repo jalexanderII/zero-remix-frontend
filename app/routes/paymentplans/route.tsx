@@ -38,7 +38,7 @@ export const loader: LoaderFunction = async (args) => {
   return { paymentPlans };
 };
 
-export default function PaymentPlans() {
+export default function Route() {
   const { paymentPlans } = useLoaderData();
   return (
     <Card marginTop="mt-6">

@@ -51,7 +51,7 @@ const Main = (): JSX.Element => {
   );
 };
 
-export default function Index(): JSX.Element {
+export default function _index(): JSX.Element {
   return (
     <div>
       <Main />
