@@ -52,11 +52,12 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
     updateFrequency: (value) => set({ frequency: value }),
     updatePlanType: (value) => set({ planType: value }),
     updateAmount: (amount, index) => {
-      console.log(`updateAmount: ${amount} ${index}`);
+      console.log(`updateAmount called with: ${amount} ${index}`);
       set((state) => {
         const newAmount = [...state.amount];
-        console.log(`newAmount: ${newAmount} ${index}`);
+        console.log(`prev amount: ${newAmount}`);
         newAmount[index] = amount;
+        console.log(`new amount: ${newAmount}`);
         return { amount: newAmount };
       });
     },
@@ -137,14 +138,14 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
-  const [amount, setAmount] = React.useState<number>(0);
-  const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
+  const [totalAmount, setTotalAmount] = React.useState(0);
+  const { amount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
   const { accountAndTransactions, email } = useLoaderData();
 
   useEffect(() => {
-    setAmount(totalAmount);
-  }, [totalAmount]);
+    setTotalAmount(amount.reduce((pv, cv) => pv + cv, 0));
+  }, [amount]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
@@ -185,7 +186,7 @@ export default function PaymentPlanCreation() {
           <Card maxWidth="max-w-xs">
             <Text textAlignment={"text-center"}>Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Metric>{toUSD(amount)}</Metric>
+              <Metric>{toUSD(totalAmount)}</Metric>
             </div>
           </Card>
         </ColGrid>

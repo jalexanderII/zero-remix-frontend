@@ -71,7 +71,7 @@ export const PaymentPlanTransactions: FC<props> = ({
     };
 
     updateAmount(total, idx);
-    setTotalAmount();
+    // setTotalAmount();
     updateAccountInfo(accountInfo, idx);
   }, [rowSelection]);
 
