@@ -4,7 +4,7 @@ node_modules
 .env
 .vercel
 /public/build
-/remix_api/index.js
+/rapi/index.js
 
 .idea
 

@@ -7,7 +7,7 @@ node_modules
 
 /build/
 /public/build
-/remix_api/index.js
+/rapi/index.js
 
 .idea
 /app/styles/app.css
