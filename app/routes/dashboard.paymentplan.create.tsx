@@ -30,6 +30,7 @@ type Actions = {
   updatePlanType: (value: number) => void;
   updateAmount: (amount: number, index: number) => void;
   setTotalAmount: () => void;
+  getTotalAmount: () => number;
   updateAccountInfo: (data: AccountInfo, index: number) => void;
   reset: () => void;
 };
@@ -64,6 +65,7 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
           set((state) => ({
             totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
           })),
+        getTotalAmount: () => get().totalAmount,
         updateAccountInfo: (data, index) => {
           set((state) => {
             const newAccountInfo = [...state.accountInfo];
@@ -142,9 +144,22 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
-  const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
+  const { getTotalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
   const { accountAndTransactions, email } = useLoaderData();
+
+  console.log("getTotalAmount", getTotalAmount());
+  const tt = getTotalAmount();
+  console.log(
+    "frequency",
+    frequency,
+    "timeline",
+    timeline,
+    "planType",
+    planType,
+    "accountInfo",
+    accountInfo
+  );
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
@@ -185,7 +200,7 @@ export default function PaymentPlanCreation() {
           <Card maxWidth="max-w-xs">
             <Text textAlignment={"text-center"}>Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Metric>{toUSD(totalAmount)}</Metric>
+              <Metric>{toUSD(tt)}</Metric>
             </div>
           </Card>
         </ColGrid>
