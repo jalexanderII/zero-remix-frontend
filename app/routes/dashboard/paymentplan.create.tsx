@@ -1,6 +1,6 @@
 import { Modal } from "~/components/modal";
 import { Card, ColGrid, Metric, Text, Title } from "@tremor/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, useLoaderData } from "@remix-run/react";
 import type { AccountAndTransactions, AccountInfo } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
@@ -137,9 +137,14 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
+  const [amount, setAmount] = React.useState<number>(0);
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
   const { accountAndTransactions, email } = useLoaderData();
+
+  useEffect(() => {
+    setAmount(totalAmount);
+  }, [totalAmount]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
@@ -180,7 +185,7 @@ export default function PaymentPlanCreation() {
           <Card maxWidth="max-w-xs">
             <Text textAlignment={"text-center"}>Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Metric>{toUSD(totalAmount)}</Metric>
+              <Metric>{toUSD(amount)}</Metric>
             </div>
           </Card>
         </ColGrid>
