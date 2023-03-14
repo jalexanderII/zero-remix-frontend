@@ -23,6 +23,7 @@ export const pruneTransactions = async (
         transactionId: item.id,
         name: item.name,
         amount: toUSD(item.amount),
+        value: item.amount,
         date: item.date,
         id: item.id,
         accountId: item.account_id,

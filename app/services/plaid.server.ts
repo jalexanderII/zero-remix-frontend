@@ -1,6 +1,8 @@
 import { request } from "~/services/external-api.service.server";
 import type { PlaidAccountLinkedResponse } from "~/utils/types.server";
-import getEnv from "../../get-env";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const plaid = {
   is_plaid_linked: async (email: string) => {
@@ -11,6 +13,5 @@ export const plaid = {
 };
 
 export const get_plaid_url = () => {
-  const env = getEnv();
-  return env.PLAID_FRONTEND_URL;
+  return process.env.PLAID_FRONTEND_URL;
 };
