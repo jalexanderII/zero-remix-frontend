@@ -12,7 +12,6 @@ import { AccountAccordion } from "~/components/account_accordion";
 import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { create } from "zustand";
 import { toUSD } from "~/utils/helpers";
-import { devtools, persist } from "zustand/middleware";
 
 // define types for state values and actions separately
 type State = {
@@ -30,7 +29,6 @@ type Actions = {
   updatePlanType: (value: number) => void;
   updateAmount: (amount: number, index: number) => void;
   setTotalAmount: () => void;
-  getTotalAmount: () => number;
   updateAccountInfo: (data: AccountInfo, index: number) => void;
   reset: () => void;
 };
@@ -47,41 +45,33 @@ const initialState: State = {
 
 // create store
 export const usePaymentPlanCreationForm = create<State & Actions>()(
-  devtools(
-    persist(
-      (set, get) => ({
-        ...initialState,
-        updateTimeline: (value) => set({ timeline: value }),
-        updateFrequency: (value) => set({ frequency: value }),
-        updatePlanType: (value) => set({ planType: value }),
-        updateAmount: (amount, index) => {
-          set((state) => {
-            const newAmount = [...state.amount];
-            newAmount[index] = amount;
-            return { amount: newAmount };
-          });
-        },
-        setTotalAmount: () =>
-          set((state) => ({
-            totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
-          })),
-        getTotalAmount: () => get().totalAmount,
-        updateAccountInfo: (data, index) => {
-          set((state) => {
-            const newAccountInfo = [...state.accountInfo];
-            newAccountInfo[index] = data;
-            return { accountInfo: newAccountInfo };
-          });
-        },
-        reset: () => {
-          set(initialState);
-        },
-      }),
-      {
-        name: "payment-plan-creation-storage",
-      }
-    )
-  )
+  (set, get) => ({
+    ...initialState,
+    updateTimeline: (value) => set({ timeline: value }),
+    updateFrequency: (value) => set({ frequency: value }),
+    updatePlanType: (value) => set({ planType: value }),
+    updateAmount: (amount, index) => {
+      set((state) => {
+        const newAmount = [...state.amount];
+        newAmount[index] = amount;
+        return { amount: newAmount };
+      });
+    },
+    setTotalAmount: () =>
+      set((state) => ({
+        totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
+      })),
+    updateAccountInfo: (data, index) => {
+      set((state) => {
+        const newAccountInfo = [...state.accountInfo];
+        newAccountInfo[index] = data;
+        return { accountInfo: newAccountInfo };
+      });
+    },
+    reset: () => {
+      set(initialState);
+    },
+  })
 );
 
 export async function action({ request }: ActionArgs) {
@@ -144,22 +134,9 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
-  const { getTotalAmount, frequency, timeline, planType, accountInfo, reset } =
-    usePaymentPlanCreationForm((state) => state);
   const { accountAndTransactions, email } = useLoaderData();
-
-  console.log("getTotalAmount", getTotalAmount());
-  const tt = getTotalAmount();
-  console.log(
-    "frequency",
-    frequency,
-    "timeline",
-    timeline,
-    "planType",
-    planType,
-    "accountInfo",
-    accountInfo
-  );
+  const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
+    usePaymentPlanCreationForm((state) => state);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
@@ -200,7 +177,7 @@ export default function PaymentPlanCreation() {
           <Card maxWidth="max-w-xs">
             <Text textAlignment={"text-center"}>Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Metric>{toUSD(tt)}</Metric>
+              <Metric>{toUSD(totalAmount)}</Metric>
             </div>
           </Card>
         </ColGrid>
