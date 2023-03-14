@@ -154,7 +154,7 @@ export class DefaultDict {
 
 export type AccountAndTransactions = {
   slimAccounts: SlimAccount[];
-  transactionDict: object;
+  transactionDict: DefaultDict;
 };
 
 export type AccountInfo = {

@@ -23,7 +23,28 @@ export const AccountAccordion: React.FC<props> = ({
   accountAndTransactions,
 }) => {
   return (
-    <Block marginTop="mt-6">{AccountTrxnItem(accountAndTransactions)}</Block>
+    <Block marginTop="mt-6">
+      <AccordionList>
+        {accountAndTransactions.slimAccounts.map(
+          (i: SlimAccount, idx: number) => (
+            <Accordion key={i.accountId}>
+              <AccordionHeader>{i.name}</AccordionHeader>
+              <AccordionBody>
+                <PaymentPlanTransactions
+                  idx={idx}
+                  transactions={
+                    // @ts-ignore
+                    accountAndTransactions.transactionDict[i.accountId]
+                  }
+                  accountId={i.accountId}
+                />
+              </AccordionBody>
+            </Accordion>
+          )
+        )}
+      </AccordionList>
+      {/*{AccountTrxnItem(accountAndTransactions)}*/}
+    </Block>
   );
 };
 

@@ -57,6 +57,7 @@ export const PaymentPlanTransactions: FC<props> = ({
 
   useEffect(() => {
     const selectedRows: string[] = Object.keys(rowSelection);
+    console.log(`selectedRows for transaction ${idx}`, selectedRows);
 
     let total = 0;
     selectedRows.forEach((id) => {
@@ -68,7 +69,6 @@ export const PaymentPlanTransactions: FC<props> = ({
       account_id: accountId,
       amount: total,
     };
-    console.log(`accountInfo for transaction ${idx}`, accountInfo);
 
     updateAmount(total, idx);
     setTotalAmount();

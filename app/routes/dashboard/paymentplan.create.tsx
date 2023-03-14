@@ -52,8 +52,10 @@ export const usePaymentPlanCreationForm = create<State & Actions>()(
     updateFrequency: (value) => set({ frequency: value }),
     updatePlanType: (value) => set({ planType: value }),
     updateAmount: (amount, index) => {
+      console.log(`updateAmount: ${amount} ${index}`);
       set((state) => {
         const newAmount = [...state.amount];
+        console.log(`newAmount: ${newAmount} ${index}`);
         newAmount[index] = amount;
         return { amount: newAmount };
       });
