@@ -1,8 +1,8 @@
 import { Modal } from "~/components/modal";
 import { Card, ColGrid, Metric, Text, Title } from "@tremor/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, useLoaderData } from "@remix-run/react";
-import type { AccountAndTransactions, AccountInfo } from "~/utils/types.server";
+import type { AccountAndTransactions } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
@@ -10,69 +10,8 @@ import api from "~/services/api.server";
 import { getUserEmail } from "~/routes/dashboard";
 import { AccountAccordion } from "~/components/account_accordion";
 import PaymentPlanPreferences from "~/components/paymentplan_preferences";
-import { create } from "zustand";
 import { toUSD } from "~/utils/helpers";
-
-// define types for state values and actions separately
-type State = {
-  timeline: number;
-  frequency: number;
-  planType: number;
-  amount: number[];
-  totalAmount: number;
-  accountInfo: AccountInfo[];
-};
-
-type Actions = {
-  updateTimeline: (value: number) => void;
-  updateFrequency: (value: number) => void;
-  updatePlanType: (value: number) => void;
-  updateAmount: (amount: number, index: number) => void;
-  setTotalAmount: () => void;
-  updateAccountInfo: (data: AccountInfo, index: number) => void;
-  reset: () => void;
-};
-
-// define the initial state
-const initialState: State = {
-  timeline: 0,
-  frequency: 0,
-  planType: 0,
-  amount: [],
-  totalAmount: 0,
-  accountInfo: [],
-};
-
-// create store
-export const usePaymentPlanCreationForm = create<State & Actions>()(
-  (set, get) => ({
-    ...initialState,
-    updateTimeline: (value) => set({ timeline: value }),
-    updateFrequency: (value) => set({ frequency: value }),
-    updatePlanType: (value) => set({ planType: value }),
-    updateAmount: (amount, index) => {
-      set((state) => {
-        const newAmount = [...state.amount];
-        newAmount[index] = amount;
-        return { amount: newAmount };
-      });
-    },
-    setTotalAmount: () =>
-      set((state) => ({
-        totalAmount: state.amount.reduce((pv, cv) => pv + cv, 0),
-      })),
-    updateAccountInfo: (data, index) => {
-      set((state) => {
-        const newAccountInfo = [...state.accountInfo];
-        newAccountInfo[index] = data;
-        return { accountInfo: newAccountInfo };
-      });
-    },
-    reset: () => {
-      set(initialState);
-    },
-  })
-);
+import { usePaymentPlanCreationForm } from "~/utils/store";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
@@ -135,15 +74,12 @@ export const loader: LoaderFunction = async (args) => {
 
 export default function PaymentPlanCreation() {
   const { accountAndTransactions, email } = useLoaderData();
-  const [state, setState] = React.useState(() => () => totalAmount);
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
 
-  React.useEffect(() => {
-    setState(() => () => totalAmount);
+  useEffect(() => {
+    console.log("[PaymentPlanCreation] totalAmount changed! ", totalAmount);
   }, [totalAmount]);
-
-  console.log("state", state());
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
@@ -184,7 +120,7 @@ export default function PaymentPlanCreation() {
           <Card maxWidth="max-w-xs">
             <Text textAlignment={"text-center"}>Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Metric>{toUSD(state())}</Metric>
+              <Metric>{toUSD(totalAmount)}</Metric>
             </div>
           </Card>
         </ColGrid>

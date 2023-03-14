@@ -8,7 +8,7 @@ import React, { useEffect, useRef } from "react";
 import { PaymentFrequency, PlanType, TimelineMonths } from "~/utils/constants";
 import type { DropdownInput } from "~/utils/types.server";
 import { PreferenceDropdownItem } from "~/components/select-box";
-import { usePaymentPlanCreationForm } from "~/routes/dashboard.paymentplan.create";
+import { usePaymentPlanCreationForm } from "~/utils/store";
 
 export default function PaymentPlanPreferences() {
   const {
