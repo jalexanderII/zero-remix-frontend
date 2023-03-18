@@ -35,7 +35,7 @@ export const paymentplan = {
   submit_payment_plan: async (email: string, json: string) => {
     const paymentPlanRequest = Convert.toPaymentPlanRequest(json);
     paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
-      (account) => account.transaction_ids.length > 0
+      (account) => account.amount > 0
     );
     return await request.post<CreatePaymentPlanResponse>(
       `/api/core/paymentplan/${email}`,
@@ -55,7 +55,6 @@ export const paymentplan = {
 };
 
 export const makeTransactionsFromJson = async (trxns: Transaction[]) => {
-  // const transactionsDict = defaultdict(Array<SlimTransaction>);
   const transactionsDict = new DefaultDict(Array);
   trxns.forEach((item) => {
     if (item.amount > 0 && !item.in_plan) {

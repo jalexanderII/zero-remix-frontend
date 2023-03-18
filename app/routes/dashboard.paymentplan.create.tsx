@@ -60,9 +60,8 @@ export async function action({ request }: ActionArgs) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: true,
+        save_plan: false,
       };
-
       const resp = await api.paymentplan.submit_payment_plan(
         email,
         JSON.stringify(req)
@@ -95,8 +94,6 @@ export default function PaymentPlanCreation() {
     () => accountAndTransactions,
     [accountAndTransactions]
   );
-
-  const validOptions = new Set([1, 2, 3]);
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
@@ -135,120 +132,8 @@ export default function PaymentPlanCreation() {
             onChange={(v: number) => handleInputChange(v)}
             value={planOption}
           />
-          <Block marginTop="mt-3">
-            {planOption === 3 && (
-              <Text textAlignment={"text-center"} color="stone">
-                Select your payment preferences below and we'll handle the rest
-                of the hard work!
-              </Text>
-            )}
-            {planOption !== 3 && (
-              <AccordionList>
-                {data.slimAccounts.map((i: SlimAccount, idx: number) => (
-                  <Accordion key={i.accountId}>
-                    <AccordionHeader>{i.name}</AccordionHeader>
-                    <AccordionBody>
-                      {(planOption === 1 || planOption === 2) && (
-                        <AccountAccordionBody
-                          accountId={i.accountId}
-                          balance={i.balance}
-                          idx={idx}
-                          purpose={
-                            planOption === 1 ? "transactions" : "amounts"
-                          }
-                          transactions={
-                            // @ts-ignore
-                            data.transactionDict[i.accountId]
-                          }
-                          name={i.name}
-                        />
-                      )}
-                      {planOption === 3 &&
-                        "Select your payment preferences below and we'll handle the rest of the hard work!"}
-                      {!validOptions.has(planOption) &&
-                        "Choose one of the options from the dropdown above to see more details"}
-                      {/*<PaymentPlanTransactions*/}
-                      {/*  idx={idx}*/}
-                      {/*  transactions={*/}
-                      {/*    // @ts-ignore*/}
-                      {/*    accountAndTransactions.transactionDict[i.accountId]*/}
-                      {/*  }*/}
-                      {/*  accountId={i.accountId}*/}
-                      {/*/>*/}
-                    </AccordionBody>
-                  </Accordion>
-                ))}
-              </AccordionList>
-            )}
-          </Block>
+          {GetPaymentPlanCreationBody(planOption, data)}
         </Card>
-        {/*{planOption === 1 && (*/}
-        {/*  <AccountAccordion*/}
-        {/*    accountAndTransactions={accountAndTransactions}*/}
-        {/*    purpose="transactions"*/}
-        {/*  />*/}
-        {/*)}*/}
-        {/*{planOption === 2 && (*/}
-        {/*  <AccountAccordion*/}
-        {/*    accountAndTransactions={accountAndTransactions}*/}
-        {/*    purpose="amounts"*/}
-        {/*  />*/}
-        {/*)}*/}
-        {/*<AccordionList>*/}
-        {/*  <Accordion>*/}
-        {/*    <AccordionHeader>*/}
-        {/*      Select from most recent transactions*/}
-        {/*    </AccordionHeader>*/}
-        {/*    <AccordionBody>*/}
-        {/*      <AccountAccordion*/}
-        {/*        accountAndTransactions={accountAndTransactions}*/}
-        {/*        purpose="transactions"*/}
-        {/*      />*/}
-        {/*    </AccordionBody>*/}
-        {/*  </Accordion>*/}
-        {/*  <Accordion>*/}
-        {/*    <AccordionHeader>*/}
-        {/*      Tell us the total amount for any account*/}
-        {/*    </AccordionHeader>*/}
-        {/*    <AccordionBody>*/}
-        {/*      <AccountAccordion*/}
-        {/*        accountAndTransactions={accountAndTransactions}*/}
-        {/*        purpose="amounts"*/}
-        {/*      />*/}
-        {/*    </AccordionBody>*/}
-        {/*  </Accordion>*/}
-        {/*  <Accordion>*/}
-        {/*    <AccordionHeader>*/}
-        {/*      Let us optimize a payment plan based on your credit information*/}
-        {/*    </AccordionHeader>*/}
-        {/*    <AccordionBody>*/}
-        {/*      <Flex justifyContent="justify-end" spaceX="space-x-2">*/}
-        {/*        <Button*/}
-        {/*          size="xs"*/}
-        {/*          variant="secondary"*/}
-        {/*          onClick={() => console.log("clicked")}*/}
-        {/*        >*/}
-        {/*          Read more*/}
-        {/*        </Button>*/}
-        {/*        <Button*/}
-        {/*          size="xs"*/}
-        {/*          variant="primary"*/}
-        {/*          onClick={() => console.log("clicked")}*/}
-        {/*        >*/}
-        {/*          View more*/}
-        {/*        </Button>*/}
-        {/*      </Flex>*/}
-        {/*    </AccordionBody>*/}
-        {/*    /!*<AccordionHeader>*!/*/}
-        {/*    /!*  Let us optimize a payment plan based on your credit information*!/*/}
-        {/*    /!*</AccordionHeader>*!/*/}
-        {/*    /!*<AccordionBody>*!/*/}
-        {/*    /!*  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus*!/*/}
-        {/*    /!*  tempor lorem non est congue blandit. Praesent non lorem sodales,*!/*/}
-        {/*    /!*  suscipit est sed, hendrerit dolor.*!/*/}
-        {/*    /!*</AccordionBody>*!/*/}
-        {/*  </Accordion>*/}
-        {/*</AccordionList>*/}
         <Title marginTop="mt-4">Payment Preferences</Title>
         <ColGrid
           numColsMd={4}
@@ -280,3 +165,49 @@ export default function PaymentPlanCreation() {
     </Modal>
   );
 }
+
+const GetPaymentPlanCreationBody = (
+  planOption: number,
+  data: AccountAndTransactions
+) => {
+  const validOptions = new Set([1, 2, 3]);
+
+  return (
+    <Block marginTop="mt-3">
+      {planOption === 3 && (
+        <Text textAlignment={"text-center"} color="stone">
+          Select your payment preferences below and we'll handle the rest of the
+          hard work!
+        </Text>
+      )}
+      {planOption !== 3 && (
+        <AccordionList>
+          {data.slimAccounts.map((i: SlimAccount, idx: number) => (
+            <Accordion key={i.accountId}>
+              <AccordionHeader>{i.name}</AccordionHeader>
+              <AccordionBody>
+                {(planOption === 1 || planOption === 2) && (
+                  <AccountAccordionBody
+                    accountId={i.accountId}
+                    balance={i.balance}
+                    idx={idx}
+                    purpose={planOption === 1 ? "transactions" : "amounts"}
+                    transactions={
+                      // @ts-ignore
+                      data.transactionDict[i.accountId]
+                    }
+                    name={i.name}
+                  />
+                )}
+                {planOption === 3 &&
+                  "Select your payment preferences below and we'll handle the rest of the hard work!"}
+                {!validOptions.has(planOption) &&
+                  "Choose one of the options from the dropdown above to see more details"}
+              </AccordionBody>
+            </Accordion>
+          ))}
+        </AccordionList>
+      )}
+    </Block>
+  );
+};
