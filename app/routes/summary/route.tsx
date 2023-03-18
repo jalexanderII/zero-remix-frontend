@@ -22,11 +22,12 @@ export default function Route() {
       navigate_path={"/dashboard"}
     >
       <Title textAlignment="text-center" marginTop="mt-2">
-        New Payment Plan Created!
+        New Payment Plan Created
       </Title>
       <Text textAlignment="text-center" marginTop="mt-2">
         Here is a summary of your new payment plan. You can always view all of
-        your plans on the Payment Plans tab.
+        your plans on the Payment Plans tab. And don't worry, we'll text you all
+        the necessary details when you have an upcoming payment to make.
       </Text>
       <PaymentPlanCard plans={decrypted.data} />
     </Modal>

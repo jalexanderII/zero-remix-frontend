@@ -1,6 +1,5 @@
 import type { DropdownInput } from "~/utils/types.server";
 import {
-  BoltIcon,
   CreditCardIcon,
   CurrencyDollarIcon,
 } from "@heroicons/react/24/outline";
@@ -50,9 +49,9 @@ export const PaymentPlanOptions: DropdownInput[] = [
     text: "Tell us the total amount for any account",
     icon: CurrencyDollarIcon,
   },
-  {
-    value: 3,
-    text: "Let us optimize a payment plan based on your credit information",
-    icon: BoltIcon,
-  },
+  // {
+  //   value: 3,
+  //   text: "Let us optimize a payment plan based on your credit information",
+  //   icon: BoltIcon,
+  // },
 ];

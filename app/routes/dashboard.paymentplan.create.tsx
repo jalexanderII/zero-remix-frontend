@@ -60,7 +60,7 @@ export async function action({ request }: ActionArgs) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: false,
+        save_plan: true,
       };
       const resp = await api.paymentplan.submit_payment_plan(
         email,
@@ -122,7 +122,7 @@ export default function PaymentPlanCreation() {
         <input type="hidden" value={email} name="email" />
         <Title>Create A Payment Plan</Title>
         <Text>
-          Choose one of our 3 payment plan creation options and select your plan
+          Choose one of our 2 payment plan creation options and select your plan
           preferences when you are done.
         </Text>
         <Title marginTop="mt-6">Payment Plan creation options</Title>
