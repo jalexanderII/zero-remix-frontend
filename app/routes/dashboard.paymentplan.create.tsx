@@ -11,7 +11,7 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Form, useLoaderData } from "@remix-run/react";
 import type { AccountAndTransactions, SlimAccount } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
@@ -90,11 +90,6 @@ export default function PaymentPlanCreation() {
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
 
-  const data: AccountAndTransactions = useMemo(
-    () => accountAndTransactions,
-    [accountAndTransactions]
-  );
-
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     reset();
     return !confirm("Are you sure?") ? e.preventDefault() : true;
@@ -132,7 +127,7 @@ export default function PaymentPlanCreation() {
             onChange={(v: number) => handleInputChange(v)}
             value={planOption}
           />
-          {GetPaymentPlanCreationBody(planOption, data)}
+          {GetPaymentPlanCreationBody(planOption, accountAndTransactions)}
         </Card>
         <Title marginTop="mt-4">Payment Preferences</Title>
         <ColGrid
