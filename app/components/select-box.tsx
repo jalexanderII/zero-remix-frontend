@@ -22,7 +22,7 @@ export function PreferenceDropdownItem({
           onChange(e);
         }}
         marginTop="mt-1"
-        placeholder="Unknown"
+        placeholder="Select an Option"
         value={value || 0}
       >
         {options.map((item, i) => (

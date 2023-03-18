@@ -18,7 +18,7 @@ export const makeAccountFromJson = async (data: Account[]) => {
         accountId: item.id,
         userId: item.user_id,
         name: item.official_name,
-        balance: item.available_balance,
+        balance: item.current_balance,
       });
     }
   });

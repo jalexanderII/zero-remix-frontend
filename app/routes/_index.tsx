@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import { SignedOut } from "@clerk/remix";
-import Footer from "~/components/Footer";
+import Footer from "~/components/footer";
 import { Badge, Flex } from "@tremor/react";
 import { UserPlusIcon } from "@heroicons/react/20/solid";
 

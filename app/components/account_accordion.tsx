@@ -7,37 +7,49 @@ import {
 } from "@tremor/react";
 import React from "react";
 import type { AccountAndTransactions, SlimAccount } from "~/utils/types.server";
-import { PaymentPlanTransactions } from "~/components/TrxnTableWithCheckbox/transactions_table_with_checkbox";
+import { AccountAccordionBody } from "~/components/account_accordion_body";
 
 interface props {
   accountAndTransactions: AccountAndTransactions;
+  purpose: string;
 }
 
 export const AccountAccordion: React.FC<props> = ({
   accountAndTransactions,
+  purpose,
 }) => {
   return (
-    <Block marginTop="mt-6">
+    <Block marginTop="mt-1">
       <AccordionList>
         {accountAndTransactions.slimAccounts.map(
           (i: SlimAccount, idx: number) => (
             <Accordion key={i.accountId}>
               <AccordionHeader>{i.name}</AccordionHeader>
               <AccordionBody>
-                <PaymentPlanTransactions
+                <AccountAccordionBody
+                  accountId={i.accountId}
+                  balance={i.balance}
                   idx={idx}
+                  purpose={purpose}
                   transactions={
                     // @ts-ignore
                     accountAndTransactions.transactionDict[i.accountId]
                   }
-                  accountId={i.accountId}
+                  name={i.name}
                 />
+                {/*<PaymentPlanTransactions*/}
+                {/*  idx={idx}*/}
+                {/*  transactions={*/}
+                {/*    // @ts-ignore*/}
+                {/*    accountAndTransactions.transactionDict[i.accountId]*/}
+                {/*  }*/}
+                {/*  accountId={i.accountId}*/}
+                {/*/>*/}
               </AccordionBody>
             </Accordion>
           )
         )}
       </AccordionList>
-      {/*{AccountTrxnItem(accountAndTransactions)}*/}
     </Block>
   );
 };

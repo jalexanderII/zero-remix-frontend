@@ -19,7 +19,7 @@ import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { ClerkApp, ClerkCatchBoundary } from "@clerk/remix";
 import clark_styles from "~/styles/shared.css";
 import styles from "~/styles/app.css";
-import Header from "~/components/Header";
+import Header from "~/components/header";
 import React, { useContext } from "react";
 import StylesContext from "~/styles/stylesContext";
 import Layout from "~/components/layout";
