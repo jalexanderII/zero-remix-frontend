@@ -196,7 +196,7 @@ export type PaymentPlan = {
   active: boolean;
   status: number;
   payment_action: PaymentAction[];
-  transactions: string[];
+  transactions?: string[];
 };
 
 export type CreatePaymentPlanResponse = {

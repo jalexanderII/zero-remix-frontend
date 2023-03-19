@@ -49,9 +49,10 @@ export const paymentplan = {
   },
   delete_payment_plan: async (
     paymentPlanId: string,
-    transactionIds: string
+    transactionIds: string | undefined
   ) => {
-    const b: DeleteBody = { transaction_ids: JSON.parse(transactionIds) };
+    const ids = transactionIds ? JSON.parse(transactionIds) : [];
+    const b: DeleteBody = { transaction_ids: ids };
     console.log("calling delete with ", b);
     return await request.delete<DeletePaymentPlanResponse>(
       `/api/core/paymentplan/${paymentPlanId}`,

@@ -126,7 +126,9 @@ export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
                 </Accordion>
               </Col>
             </ColGrid>
-            <>{footer && footer(plan.payment_plan_id, plan.transactions)}</>
+            <>
+              {footer && footer(plan.payment_plan_id, plan.transactions || [])}
+            </>
           </Card>
         </Col>
       ))}
