@@ -25,6 +25,7 @@ import { usePaymentPlanCreationForm } from "~/utils/store";
 import { PaymentPlanOptions } from "~/utils/constants";
 import { PreferenceDropdownItem } from "~/components/select-box";
 import { AccountAccordionBody } from "~/components/account_accordion_body";
+import type { PaymentPlanRequest } from "~/utils/paymentplan_request_converter.server";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
@@ -53,14 +54,14 @@ export async function action({ request }: ActionArgs) {
         );
       }
 
-      const req = {
+      const req: PaymentPlanRequest = {
         account_info: JSON.parse(accountInfo),
         meta_data: {
           preferred_plan_type: Number(planType),
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: true,
+        save_plan: false,
       };
       const resp = await api.paymentplan.submit_payment_plan(
         email,

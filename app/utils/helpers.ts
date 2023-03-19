@@ -43,9 +43,9 @@ export const valueFormatter = (number: number) =>
 export function cleanDate(date: string) {
   if (!date) return "";
   // Tue, 01 Aug 2023 23:15:39 GMT
-  const dateArr = date.split(" ");
-  const month = dateArr[2];
-  const day = dateArr[1];
-  const year = dateArr[3];
+  const clean_date = new Date(Date.parse(date));
+  const month = getMonth(clean_date.getUTCMonth());
+  const day = clean_date.getUTCDate();
+  const year = clean_date.getUTCFullYear();
   return `${month}-${day}-${year}`;
 }

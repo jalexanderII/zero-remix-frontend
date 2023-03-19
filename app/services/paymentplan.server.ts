@@ -34,6 +34,7 @@ export const paymentplan = {
   },
   submit_payment_plan: async (email: string, json: string) => {
     const paymentPlanRequest = Convert.toPaymentPlanRequest(json);
+    paymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
     paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
       (account) => account.amount > 0
     );

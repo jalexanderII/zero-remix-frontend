@@ -17,12 +17,18 @@ export const AccountListAmount: React.FC<props> = ({
   balance,
   name,
 }) => {
-  const [total, SetTotal] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [error, setError] = useState(false);
   const { updateAmount, setTotalAmount, updateAccountInfo } =
     usePaymentPlanCreationForm((state) => state);
 
   const handleOnChange = (e: React.BaseSyntheticEvent) => {
-    SetTotal(Number(e.target.value));
+    if (e.target.value > balance) {
+      setError(true);
+    } else {
+      setError(false);
+      setTotal(Number(e.target.value));
+    }
   };
 
   useEffect(() => {
@@ -44,6 +50,8 @@ export const AccountListAmount: React.FC<props> = ({
       )})`}</Text>
       <TextInput
         id={accountId}
+        error={error}
+        errorMessage="Amount must be less than or equal to account balance"
         icon={CurrencyDollarIcon}
         maxWidth="max-w-xs"
         placeholder="Enter Dollar Amount ($)"
