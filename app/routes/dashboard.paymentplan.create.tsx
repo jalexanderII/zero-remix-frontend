@@ -90,9 +90,9 @@ export default function PaymentPlanCreation() {
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
 
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = () => {
     reset();
-    return !confirm("Are you sure?") ? e.preventDefault() : true;
+    return true;
   };
 
   const handleInputChange = (value: number) => {
