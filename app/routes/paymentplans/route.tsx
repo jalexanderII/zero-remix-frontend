@@ -13,15 +13,22 @@ import { getUserEmail } from "~/routes/dashboard";
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
   let paymentPlanId = form.get("payment_plan_id");
+  let transactionIds = form.get("transaction_ids");
 
-  if (typeof paymentPlanId !== "string") {
+  if (typeof paymentPlanId !== "string" || typeof transactionIds !== "string") {
     return json(
-      { error: `Invalid Form Data Wrong Type`, fields: { paymentPlanId } },
+      {
+        error: `Invalid Form Data Wrong Type`,
+        fields: { paymentPlanId, transactionIds },
+      },
       { status: 400 }
     );
   }
 
-  const resp = await api.paymentplan.delete_payment_plan(paymentPlanId);
+  const resp = await api.paymentplan.delete_payment_plan(
+    paymentPlanId,
+    JSON.parse(transactionIds)
+  );
   console.log(resp);
 
   return redirect("/paymentplans");
@@ -58,7 +65,7 @@ export default function Route() {
   );
 }
 
-const PlanFooter = (paymentPlanId: string) => {
+const PlanFooter = (paymentPlanId: string, transactionIds: string[]) => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     return !confirm("Are you sure?") ? e.preventDefault() : true;
   };
@@ -66,6 +73,7 @@ const PlanFooter = (paymentPlanId: string) => {
   return (
     <Form method="delete" onSubmit={handleOnSubmit}>
       <input type="hidden" value={paymentPlanId} name="payment_plan_id" />
+      <input type="hidden" value={transactionIds} name="transaction_ids" />
       <Footer>
         <Button
           type="submit"

@@ -30,7 +30,7 @@ import type { PaymentPlan } from "~/utils/types.server";
 
 interface props {
   plans: PaymentPlan[];
-  footer?: (paymentPlanId: string) => JSX.Element;
+  footer?: (paymentPlanId: string, transactionIds: string[]) => JSX.Element;
 }
 
 export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
@@ -126,7 +126,7 @@ export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
                 </Accordion>
               </Col>
             </ColGrid>
-            <>{footer && footer(plan.payment_plan_id)}</>
+            <>{footer && footer(plan.payment_plan_id, plan.transactions)}</>
           </Card>
         </Col>
       ))}

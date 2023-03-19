@@ -48,7 +48,8 @@ export const request = {
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
   post: <T>(url: string, body: {}) =>
     axios.post<T>(url, body).then(responseBody),
-  delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
+  delete: <T>(url: string, body?: {}) =>
+    axios.delete<T>(url, body).then(responseBody),
 };
 
 export const backend = {

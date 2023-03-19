@@ -15,6 +15,10 @@ import { makeAccountFromJson } from "~/services/accounts.server";
 import { toUSD } from "~/utils/helpers";
 import { Convert } from "~/utils/paymentplan_request_converter.server";
 
+type DeleteBody = {
+  transaction_ids: string[];
+};
+
 export const paymentplan = {
   get_transactions_by_account: async (email: string) => {
     const accounts: AccountsResponse = await request.get<AccountsResponse>(
@@ -43,9 +47,15 @@ export const paymentplan = {
       paymentPlanRequest
     );
   },
-  delete_payment_plan: async (paymentPlanId: string) => {
+  delete_payment_plan: async (
+    paymentPlanId: string,
+    transactionIds: string
+  ) => {
+    const b: DeleteBody = { transaction_ids: JSON.parse(transactionIds) };
+    console.log("calling delete with ", b);
     return await request.delete<DeletePaymentPlanResponse>(
-      `/api/core/paymentplan/${paymentPlanId}`
+      `/api/core/paymentplan/${paymentPlanId}`,
+      b
     );
   },
   get_user_payment_plans: async (email: string) => {
