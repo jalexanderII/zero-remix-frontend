@@ -24,7 +24,7 @@ export async function action({ request }: ActionArgs) {
       { status: 400 }
     );
   }
-  console.log(transactionIds);
+
   const resp = await api.paymentplan.delete_payment_plan(
     paymentPlanId,
     transactionIds

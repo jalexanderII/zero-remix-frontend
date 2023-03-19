@@ -51,11 +51,10 @@ export const paymentplan = {
     paymentPlanId: string,
     transactionIds: string | undefined
   ) => {
-    const ids = transactionIds ? JSON.parse(transactionIds) : [];
+    const ids: string[] = transactionIds ? transactionIds.split(",") : [];
     const b: DeleteBody = { transaction_ids: ids };
-    console.log("calling delete with ", b);
-    return await request.delete<DeletePaymentPlanResponse>(
-      `/api/core/paymentplan/${paymentPlanId}`,
+    return await request.post<DeletePaymentPlanResponse>(
+      `/api/core/paymentplan/delete/${paymentPlanId}`,
       b
     );
   },
