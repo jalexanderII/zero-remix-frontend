@@ -132,7 +132,7 @@ var import_react7 = require("@remix-run/react"), import_ssr = require("@clerk/re
 var shared_default = "/build/_assets/shared-DNV4CNRF.css";
 
 // app/styles/app.css
-var app_default = "/build/_assets/app-CJYVECBX.css";
+var app_default = "/build/_assets/app-3QG7Y73U.css";
 
 // app/components/header.tsx
 var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/react"), import_outline = require("@heroicons/react/24/outline"), import_react5 = require("@headlessui/react"), import_react6 = require("react"), import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), navigation = [
@@ -851,100 +851,103 @@ var import_jsx_dev_runtime5 = require("react/jsx-dev-runtime"), Footer = () => /
 }, this), footer_default = Footer;
 
 // app/routes/_index.tsx
-var import_react10 = require("@tremor/react"), import_solid = require("@heroicons/react/20/solid"), import_jsx_dev_runtime6 = require("react/jsx-dev-runtime"), Main = () => /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("main", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "relative px-6 lg:px-8", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "mx-auto max-w-2xl py-32 sm:py-48 lg:py-56", children: [
-  /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_react10.Flex, { justifyContent: "justify-center", alignItems: "items-center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_react9.Link, { to: "/", className: "font-semibold text-indigo-600", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(
-    import_react10.Badge,
+var import_react10 = require("react"), import_jsx_dev_runtime6 = require("react/jsx-dev-runtime"), Main = () => ((0, import_react10.useEffect)(() => {
+  if (document.getElementById("launchlist"))
+    return;
+  let script = document.createElement("script");
+  script.id = "launchlist", script.src = "https://getlaunchlist.com/js/widget.js", script.type = "text/javascript", script.defer = !0, document.body.appendChild(script);
+}, []), /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("main", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "relative px-6 lg:px-8", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "mx-auto max-w-2xl py-32 sm:py-48 lg:py-56", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "pt-4 text-center", children: [
+  /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "mt-10 mb-6 flex items-center justify-center gap-x-6", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_remix3.SignedOut, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(
+    import_react9.Link,
     {
-      text: "Join the waitlist for premium",
-      color: "indigo",
-      size: "sm",
-      icon: import_solid.UserPlusIcon
+      to: "/sign-up",
+      className: "rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
+      children: "Sign up today"
     },
     void 0,
     !1,
     {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 20,
-      columnNumber: 15
+      lineNumber: 32,
+      columnNumber: 17
     },
     this
   ) }, void 0, !1, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 19,
-    columnNumber: 13
+    lineNumber: 31,
+    columnNumber: 15
   }, this) }, void 0, !1, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 18,
-    columnNumber: 11
+    lineNumber: 30,
+    columnNumber: 13
   }, this),
-  /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "pt-4 text-center", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("h1", { className: "text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl", children: "Tired of managing all of your credit payments on your own?" }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 29,
-      columnNumber: 13
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("p", { className: "mt-6 text-lg leading-8 text-gray-600", children: "Zero is the easiest way to manage your debt. Zero will help you achieve your credit reduction goals, save on fees, and improve your credit score!" }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 32,
-      columnNumber: 13
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "mt-10 flex items-center justify-center gap-x-6", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_remix3.SignedOut, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(
-      import_react9.Link,
-      {
-        to: "/sign-up",
-        className: "rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
-        children: "Sign up today"
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 39,
-        columnNumber: 17
-      },
-      this
-    ) }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 38,
-      columnNumber: 15
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 37,
-      columnNumber: 13
-    }, this)
-  ] }, void 0, !0, {
+  /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("h1", { className: "text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl", children: "Tired of managing all of your credit payments on your own?" }, void 0, !1, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 28,
-    columnNumber: 11
-  }, this)
+    lineNumber: 40,
+    columnNumber: 13
+  }, this),
+  /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("p", { className: "mt-6 text-lg leading-8 text-gray-600", children: "Zero is the easiest way to manage your debt. Zero will help you achieve your credit reduction goals, save on fees, and improve your credit score!" }, void 0, !1, {
+    fileName: "app/routes/_index.tsx",
+    lineNumber: 43,
+    columnNumber: 13
+  }, this),
+  /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("p", { className: "mt-6 text-sm text-gray-600", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("em", { children: "With premium we'll automatically handle the deduction and payments needed for your payment plans" }, void 0, !1, {
+    fileName: "app/routes/_index.tsx",
+    lineNumber: 49,
+    columnNumber: 15
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/_index.tsx",
+    lineNumber: 48,
+    columnNumber: 13
+  }, this),
+  /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(
+    "div",
+    {
+      className: "launchlist-widget",
+      "data-key-id": "KDgsgp",
+      "data-height": "75px"
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 54,
+      columnNumber: 13
+    },
+    this
+  )
 ] }, void 0, !0, {
   fileName: "app/routes/_index.tsx",
-  lineNumber: 17,
+  lineNumber: 29,
+  columnNumber: 11
+}, this) }, void 0, !1, {
+  fileName: "app/routes/_index.tsx",
+  lineNumber: 28,
   columnNumber: 9
 }, this) }, void 0, !1, {
   fileName: "app/routes/_index.tsx",
-  lineNumber: 16,
+  lineNumber: 27,
   columnNumber: 7
 }, this) }, void 0, !1, {
   fileName: "app/routes/_index.tsx",
-  lineNumber: 15,
+  lineNumber: 26,
   columnNumber: 5
-}, this);
+}, this));
 function _index() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Main, {}, void 0, !1, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 57,
+      lineNumber: 69,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(footer_default, {}, void 0, !1, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 58,
+      lineNumber: 70,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 56,
+    lineNumber: 68,
     columnNumber: 5
   }, this);
 }
@@ -3217,13 +3220,13 @@ var api = {
 // app/components/waterfall.tsx
 var import_react12 = require("@tremor/react"), import_react13 = require("@remix-run/react");
 
-// app/components/no_payment_plans.tsx
-var import_react11 = require("@tremor/react"), import_jsx_dev_runtime7 = require("react/jsx-dev-runtime"), NoPaymentPlan = ({ text }) => /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react11.Card, { marginTop: "mt-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react11.Text, { textAlignment: "text-center", children: text }, void 0, !1, {
-  fileName: "app/components/no_payment_plans.tsx",
+// app/components/missing_data.tsx
+var import_react11 = require("@tremor/react"), import_jsx_dev_runtime7 = require("react/jsx-dev-runtime"), MissingData = ({ text }) => /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react11.Card, { marginTop: "mt-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react11.Text, { textAlignment: "text-center", children: text }, void 0, !1, {
+  fileName: "app/components/missing_data.tsx",
   lineNumber: 10,
   columnNumber: 7
 }, this) }, void 0, !1, {
-  fileName: "app/components/no_payment_plans.tsx",
+  fileName: "app/components/missing_data.tsx",
   lineNumber: 9,
   columnNumber: 5
 }, this);
@@ -3298,7 +3301,7 @@ var import_jsx_dev_runtime8 = require("react/jsx-dev-runtime"), Waterfall = ({ w
       this
     ),
     (!waterfall2.waterfallData || waterfall2.waterfallData.length === 0) && /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(
-      NoPaymentPlan,
+      MissingData,
       {
         text: "You have no Payment Plans. " + (ready ? "Create " : "Link a credit card account and then create ") + "a Payment Plan to see more data here."
       },
@@ -3319,20 +3322,20 @@ var import_jsx_dev_runtime8 = require("react/jsx-dev-runtime"), Waterfall = ({ w
 };
 
 // app/components/kpi_panel.tsx
-var import_react14 = require("@tremor/react"), import_solid2 = require("@heroicons/react/24/solid");
+var import_react14 = require("@tremor/react"), import_solid = require("@heroicons/react/24/solid");
 var import_jsx_dev_runtime9 = require("react/jsx-dev-runtime"), toCategories = (props) => {
   let d = {
     title: "Debit",
     metric: toUSD(props.debit, 0),
-    icon: import_solid2.CurrencyDollarIcon
+    icon: import_solid.CurrencyDollarIcon
   }, c = {
     title: "Credit",
     metric: toUSD(props.credit, 0),
-    icon: import_solid2.CreditCardIcon
+    icon: import_solid.CreditCardIcon
   }, p = {
     title: "PaymentPlans",
     metric: toUSD(props.payment_plans, 0),
-    icon: import_solid2.ChartBarIcon
+    icon: import_solid.ChartBarIcon
   };
   return { credit: c, debit: d, plans: p };
 }, KpiPanel = ({ kpis: kpis2 }) => {
@@ -3372,7 +3375,8 @@ var import_jsx_dev_runtime9 = require("react/jsx-dev-runtime"), toCategories = (
 var import_react18 = require("@tremor/react");
 
 // app/components/transactions_table_with_pagination.tsx
-var import_react15 = require("@tremor/react"), import_react16 = require("react"), import_Pagination = __toESM(require("@mui/material/Pagination")), import_Stack = __toESM(require("@mui/material/Stack")), import_jsx_dev_runtime10 = require("react/jsx-dev-runtime"), ITEMS_PER_PAGE = 5, initialState = [], AccountIDToName = (data) => {
+var import_react15 = require("@tremor/react"), import_react16 = require("react"), import_Pagination = __toESM(require("@mui/material/Pagination")), import_Stack = __toESM(require("@mui/material/Stack"));
+var import_jsx_dev_runtime10 = require("react/jsx-dev-runtime"), ITEMS_PER_PAGE = 5, initialState = [], AccountIDToName = (data) => {
   let accIDToName = /* @__PURE__ */ new Map();
   return data.forEach((item) => {
     accIDToName.set(item.id, item.official_name);
@@ -3460,11 +3464,7 @@ var import_react15 = require("@tremor/react"), import_react16 = require("react")
       lineNumber: 109,
       columnNumber: 7
     }, this),
-    (!transactions2 || transactions2.length === 0) && /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.Card, { marginTop: "mt-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.Text, { textAlignment: "text-center", children: "Link a Credit Card to see a list of your recent transactions here." }, void 0, !1, {
-      fileName: "app/components/transactions_table_with_pagination.tsx",
-      lineNumber: 112,
-      columnNumber: 11
-    }, this) }, void 0, !1, {
+    (!transactions2 || transactions2.length === 0) && /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(MissingData, { text: "Link a Credit Card to see a list of your recent transactions here." }, void 0, !1, {
       fileName: "app/components/transactions_table_with_pagination.tsx",
       lineNumber: 111,
       columnNumber: 9
@@ -3473,12 +3473,12 @@ var import_react15 = require("@tremor/react"), import_react16 = require("react")
       /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.TableHead, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.TableRow, { children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.TableHeaderCell, { children: " Account " }, void 0, !1, {
           fileName: "app/components/transactions_table_with_pagination.tsx",
-          lineNumber: 121,
+          lineNumber: 117,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.TableHeaderCell, { children: " Name " }, void 0, !1, {
           fileName: "app/components/transactions_table_with_pagination.tsx",
-          lineNumber: 122,
+          lineNumber: 118,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.TableHeaderCell, { textAlignment: "text-right", children: [
@@ -3487,7 +3487,7 @@ var import_react15 = require("@tremor/react"), import_react16 = require("react")
           " "
         ] }, void 0, !0, {
           fileName: "app/components/transactions_table_with_pagination.tsx",
-          lineNumber: 123,
+          lineNumber: 119,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.TableHeaderCell, { textAlignment: "text-right", children: [
@@ -3496,31 +3496,31 @@ var import_react15 = require("@tremor/react"), import_react16 = require("react")
           " "
         ] }, void 0, !0, {
           fileName: "app/components/transactions_table_with_pagination.tsx",
-          lineNumber: 127,
+          lineNumber: 123,
           columnNumber: 15
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/transactions_table_with_pagination.tsx",
-        lineNumber: 120,
+        lineNumber: 116,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/components/transactions_table_with_pagination.tsx",
-        lineNumber: 119,
+        lineNumber: 115,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(Items, { transactions: currentItems, accIdToName }, void 0, !1, {
         fileName: "app/components/transactions_table_with_pagination.tsx",
-        lineNumber: 134,
+        lineNumber: 130,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/transactions_table_with_pagination.tsx",
-      lineNumber: 118,
+      lineNumber: 114,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react15.Divider, {}, void 0, !1, {
       fileName: "app/components/transactions_table_with_pagination.tsx",
-      lineNumber: 137,
+      lineNumber: 133,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_Stack.default, { spacing: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
@@ -3543,13 +3543,13 @@ var import_react15 = require("@tremor/react"), import_react16 = require("react")
       !1,
       {
         fileName: "app/components/transactions_table_with_pagination.tsx",
-        lineNumber: 139,
+        lineNumber: 135,
         columnNumber: 9
       },
       this
     ) }, void 0, !1, {
       fileName: "app/components/transactions_table_with_pagination.tsx",
-      lineNumber: 138,
+      lineNumber: 134,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
@@ -4096,7 +4096,7 @@ var import_jsx_dev_runtime15 = require("react/jsx-dev-runtime"), transactionIDTo
 };
 
 // app/components/account_list_amounts.tsx
-var import_react25 = require("@tremor/react"), import_solid3 = require("@heroicons/react/24/solid"), import_react26 = require("react");
+var import_react25 = require("@tremor/react"), import_solid2 = require("@heroicons/react/24/solid"), import_react26 = require("react");
 var import_jsx_dev_runtime16 = require("react/jsx-dev-runtime"), AccountListAmount = ({
   idx,
   accountId,
@@ -4127,7 +4127,7 @@ var import_jsx_dev_runtime16 = require("react/jsx-dev-runtime"), AccountListAmou
         id: accountId,
         error,
         errorMessage: "Amount must be less than or equal to account balance",
-        icon: import_solid3.CurrencyDollarIcon,
+        icon: import_solid2.CurrencyDollarIcon,
         maxWidth: "max-w-xs",
         placeholder: "Enter Dollar Amount ($)",
         onChange: (e) => handleOnChange(e)
@@ -4546,7 +4546,7 @@ var import_react31 = require("@tremor/react");
 var import_react30 = require("@tremor/react"), import_outline4 = require("@heroicons/react/24/outline");
 var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime"), PaymentPlanCard = ({ plans, footer }) => {
   if (!plans || plans.length === 0)
-    return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(NoPaymentPlan, { text: "You have no Payment Plans. Create a Payment Plan to see more data here." }, void 0, !1, {
+    return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(MissingData, { text: "You have no Payment Plans. Create a Payment Plan to see more data here." }, void 0, !1, {
       fileName: "app/components/paymentplan_card.tsx",
       lineNumber: 40,
       columnNumber: 7
@@ -4793,7 +4793,7 @@ var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime"), PaymentPlanCard
 };
 
 // app/routes/paymentplans/route.tsx
-var import_solid4 = require("@heroicons/react/20/solid"), import_react32 = require("@remix-run/react"), import_node5 = require("@remix-run/node");
+var import_solid3 = require("@heroicons/react/20/solid"), import_react32 = require("@remix-run/react"), import_node5 = require("@remix-run/node");
 var import_ssr4 = require("@clerk/remix/ssr.server");
 var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime");
 async function action2({ request: request2 }) {
@@ -4870,7 +4870,7 @@ var PlanFooter = (paymentPlanId, transactionIds) => /* @__PURE__ */ (0, import_j
       variant: "light",
       size: "sm",
       text: "Delete",
-      icon: import_solid4.XMarkIcon,
+      icon: import_solid3.XMarkIcon,
       iconPosition: "left",
       color: "red"
     },
@@ -4947,7 +4947,7 @@ function Route3() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "9e5e53d3", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-7BVPIY6U.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-T6CATCD4.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-R2YGF4MX.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-CL2RRIZL.js", imports: ["/build/_shared/chunk-VIYBEHXT.js", "/build/_shared/chunk-HOLGRC2I.js", "/build/_shared/chunk-R2YGF4MX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-MC6SUJG4.js", imports: ["/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-AVCFADO5.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-SODANSRA.js", imports: ["/build/_shared/chunk-UG7J2RPR.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-AVCFADO5.js", "/build/_shared/chunk-VIYBEHXT.js", "/build/_shared/chunk-HOLGRC2I.js", "/build/_shared/chunk-R2YGF4MX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-7OLRMEP3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-6T7COOZE.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-5GTCPUAD.js", imports: ["/build/_shared/chunk-UG7J2RPR.js", "/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-AVCFADO5.js", "/build/_shared/chunk-HOLGRC2I.js", "/build/_shared/chunk-R2YGF4MX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-PJA3H5Z2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-9E5E53D3.js" };
+var assets_manifest_default = { version: "9fba2d1e", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-5EFUD5QE.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-GRIFKOEG.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-K6VWATVA.js", imports: ["/build/_shared/chunk-M6KUKRQS.js", "/build/_shared/chunk-JLG5GO3Z.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-PCPNYXHW.js", imports: ["/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-AVCFADO5.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-CKMBFRO5.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-U6XOPNOT.js", imports: ["/build/_shared/chunk-5RN7IEZ3.js", "/build/_shared/chunk-AVCFADO5.js", "/build/_shared/chunk-M6KUKRQS.js", "/build/_shared/chunk-JLG5GO3Z.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-7OLRMEP3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-6T7COOZE.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-H7MF5NXA.js", imports: ["/build/_shared/chunk-5RN7IEZ3.js", "/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-AVCFADO5.js", "/build/_shared/chunk-JLG5GO3Z.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-PJA3H5Z2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-9FBA2D1E.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, unstable_cssSideEffectImports: !1, unstable_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, unstable_vanillaExtract: !1, v2_errorBoundary: !1, v2_meta: !1, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

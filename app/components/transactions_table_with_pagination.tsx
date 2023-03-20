@@ -7,13 +7,13 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-  Text,
   Title,
 } from "@tremor/react";
 import React, { useEffect, useMemo, useState } from "react";
 import type { Account, SlimTransaction } from "~/utils/types.server";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { MissingData } from "~/components/missing_data";
 
 interface props {
   transactions: SlimTransaction[];
@@ -108,11 +108,7 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
     <Card>
       <Title>Recent Transactions</Title>
       {(!transactions || transactions.length === 0) && (
-        <Card marginTop="mt-4">
-          <Text textAlignment="text-center">
-            Link a Credit Card to see a list of your recent transactions here.
-          </Text>
-        </Card>
+        <MissingData text="Link a Credit Card to see a list of your recent transactions here." />
       )}
       {transactions && transactions.length > 0 && (
         <Table>

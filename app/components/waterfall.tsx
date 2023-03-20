@@ -11,7 +11,7 @@ import React from "react";
 import { useNavigate } from "@remix-run/react";
 import { valueFormatter } from "~/utils/helpers";
 import type { WaterfallDataResponse } from "~/utils/types.server";
-import { NoPaymentPlan } from "~/components/no_payment_plans";
+import { MissingData } from "~/components/missing_data";
 
 interface props {
   waterfall: WaterfallDataResponse;
@@ -56,7 +56,7 @@ export const Waterfall: React.FC<props> = ({ waterfall, ready }) => {
         />
       )}
       {(!waterfall.waterfallData || waterfall.waterfallData.length === 0) && (
-        <NoPaymentPlan
+        <MissingData
           text={
             "You have no Payment Plans. " +
             (ready

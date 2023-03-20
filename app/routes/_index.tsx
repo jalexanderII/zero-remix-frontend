@@ -1,8 +1,7 @@
 import { Link } from "@remix-run/react";
 import { SignedOut } from "@clerk/remix";
 import Footer from "~/components/footer";
-import { Badge, Flex } from "@tremor/react";
-import { UserPlusIcon } from "@heroicons/react/20/solid";
+import { useEffect } from "react";
 
 // Main component using <SignedIn> and <SignedOut>
 //
@@ -11,30 +10,24 @@ import { UserPlusIcon } from "@heroicons/react/20/solid";
 //
 // https://docs.clerk.dev/frontend/react/signedin-and-signedout
 const Main = (): JSX.Element => {
+  useEffect(() => {
+    if (document.getElementById("launchlist")) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = "launchlist";
+    script.src = "https://getlaunchlist.com/js/widget.js";
+    script.type = "text/javascript";
+    script.defer = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <main>
       <div className="relative px-6 lg:px-8">
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <Flex justifyContent="justify-center" alignItems="items-center">
-            <Link to="/" className="font-semibold text-indigo-600">
-              <Badge
-                text="Join the waitlist for premium"
-                color="indigo"
-                size="sm"
-                icon={UserPlusIcon}
-              />
-            </Link>
-          </Flex>
           <div className="pt-4 text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Tired of managing all of your credit payments on your own?
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Zero is the easiest way to manage your debt. Zero will help you
-              achieve your credit reduction goals, save on fees, and improve
-              your credit score!
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="mt-10 mb-6 flex items-center justify-center gap-x-6">
               <SignedOut>
                 <Link
                   to="/sign-up"
@@ -44,6 +37,25 @@ const Main = (): JSX.Element => {
                 </Link>
               </SignedOut>
             </div>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Tired of managing all of your credit payments on your own?
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              Zero is the easiest way to manage your debt. Zero will help you
+              achieve your credit reduction goals, save on fees, and improve
+              your credit score!
+            </p>
+            <p className="mt-6 text-sm text-gray-600">
+              <em>
+                With premium we'll automatically handle the deduction and
+                payments needed for your payment plans
+              </em>
+            </p>
+            <div
+              className="launchlist-widget"
+              data-key-id="KDgsgp"
+              data-height="75px"
+            ></div>
           </div>
         </div>
       </div>

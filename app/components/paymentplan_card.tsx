@@ -27,7 +27,7 @@ import {
 } from "~/utils/constants";
 import React from "react";
 import type { PaymentPlan } from "~/utils/types.server";
-import { NoPaymentPlan } from "~/components/no_payment_plans";
+import { MissingData } from "~/components/missing_data";
 
 interface props {
   plans: PaymentPlan[];
@@ -37,7 +37,7 @@ interface props {
 export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
   if (!plans || plans.length === 0) {
     return (
-      <NoPaymentPlan text="You have no Payment Plans. Create a Payment Plan to see more data here." />
+      <MissingData text="You have no Payment Plans. Create a Payment Plan to see more data here." />
     );
   }
 
