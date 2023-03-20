@@ -1,12 +1,13 @@
 import { Card, Text } from "@tremor/react";
 import React from "react";
 
-export const NoPaymentPlan = () => {
+interface props {
+  text: string;
+}
+export const NoPaymentPlan: React.FC<props> = ({ text }) => {
   return (
     <Card marginTop="mt-4">
-      <Text textAlignment="text-center">
-        You have no Payment Plans. Create a Payment Plan to see more data here.
-      </Text>
+      <Text textAlignment="text-center">{text}</Text>
     </Card>
   );
 };

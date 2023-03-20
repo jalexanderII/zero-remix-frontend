@@ -56,7 +56,15 @@ export const Waterfall: React.FC<props> = ({ waterfall, ready }) => {
         />
       )}
       {(!waterfall.waterfallData || waterfall.waterfallData.length === 0) && (
-        <NoPaymentPlan />
+        <NoPaymentPlan
+          text={
+            "You have no Payment Plans. " +
+            (ready
+              ? "Create "
+              : "Link a credit card account and then create ") +
+            "a Payment Plan to see more data here."
+          }
+        />
       )}
     </Card>
   );

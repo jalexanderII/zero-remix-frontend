@@ -36,7 +36,9 @@ interface props {
 
 export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
   if (!plans || plans.length === 0) {
-    return <NoPaymentPlan />;
+    return (
+      <NoPaymentPlan text="You have no Payment Plans. Create a Payment Plan to see more data here." />
+    );
   }
 
   const numcols = plans.length >= 2 ? 2 : 1;

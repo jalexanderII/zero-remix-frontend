@@ -104,34 +104,36 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
     setItemOffset(newOffset);
   };
 
-  if (!transactions || transactions.length === 0) {
-    return (
-      <Card marginTop="mt-4">
-        <Text textAlignment="text-center">
-          Link a Credit Card to see a list of your recent transactions here.
-        </Text>
-      </Card>
-    );
-  }
-
   return (
     <Card>
       <Title>Recent Transactions</Title>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell> Account </TableHeaderCell>
-            <TableHeaderCell> Name </TableHeaderCell>
-            <TableHeaderCell textAlignment="text-right"> Date </TableHeaderCell>
-            <TableHeaderCell textAlignment="text-right">
-              {" "}
-              Amount{" "}
-            </TableHeaderCell>
-          </TableRow>
-        </TableHead>
+      {(!transactions || transactions.length === 0) && (
+        <Card marginTop="mt-4">
+          <Text textAlignment="text-center">
+            Link a Credit Card to see a list of your recent transactions here.
+          </Text>
+        </Card>
+      )}
+      {transactions && transactions.length > 0 && (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell> Account </TableHeaderCell>
+              <TableHeaderCell> Name </TableHeaderCell>
+              <TableHeaderCell textAlignment="text-right">
+                {" "}
+                Date{" "}
+              </TableHeaderCell>
+              <TableHeaderCell textAlignment="text-right">
+                {" "}
+                Amount{" "}
+              </TableHeaderCell>
+            </TableRow>
+          </TableHead>
 
-        <Items transactions={currentItems} accIdToName={accIdToName} />
-      </Table>
+          <Items transactions={currentItems} accIdToName={accIdToName} />
+        </Table>
+      )}
       <Divider />
       <Stack spacing={2}>
         <Pagination
