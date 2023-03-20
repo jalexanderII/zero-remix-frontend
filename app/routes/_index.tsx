@@ -18,7 +18,6 @@ const Main = (): JSX.Element => {
     script.id = "launchlist";
     script.src = "https://getlaunchlist.com/js/widget.js";
     script.type = "text/javascript";
-    script.defer = true;
     document.body.appendChild(script);
   }, []);
 
