@@ -7,26 +7,47 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
+  Text,
   Title,
 } from "@tremor/react";
-import React, { useEffect, useState } from "react";
-import type { SlimTransaction } from "~/utils/types.server";
+import React, { useEffect, useMemo, useState } from "react";
+import type { Account, SlimTransaction } from "~/utils/types.server";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
 interface props {
   transactions: SlimTransaction[];
+  accounts: Account[];
+}
+
+interface ItemProps {
+  transactions: SlimTransaction[];
+  accIdToName: Map<string, string>;
 }
 
 const ITEMS_PER_PAGE = 5;
 const initialState: SlimTransaction[] = [];
 
-const Items: React.FC<props> = ({ transactions }) => {
+export const AccountIDToName = (data: Account[]) => {
+  const accIDToName: Map<string, string> = new Map();
+  data.forEach((item) => {
+    accIDToName.set(item.id, item.official_name);
+  });
+  return accIDToName;
+};
+
+const Items: React.FC<ItemProps> = ({ transactions, accIdToName }) => {
   return (
     <TableBody>
       {transactions.map((item, idx) => (
         <TableRow key={`${item.transactionId}_${idx}`}>
-          <TableCell key={`${item.transactionId}_${idx}a`}>
+          <TableCell key={`${item.transactionId}_${idx}_accname`}>
+            {accIdToName.get(item.accountId)}
+          </TableCell>
+          <TableCell
+            key={`${item.transactionId}_${idx}a`}
+            textAlignment="text-left"
+          >
             {item.name}
           </TableCell>
           <TableCell
@@ -49,6 +70,7 @@ const Items: React.FC<props> = ({ transactions }) => {
 
 export const TransactionsTableWithPagination: React.FC<props> = ({
   transactions,
+  accounts,
 }) => {
   const [items, setItems] = useState(initialState);
   // We start with an empty list of items.
@@ -66,6 +88,11 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
     endOffset
   );
 
+  const accIdToName: Map<string, string> = useMemo(
+    () => AccountIDToName(accounts),
+    [accounts]
+  );
+
   useEffect(() => {
     setCurrentItems(currSelection);
     setPageCount(Math.ceil(transactions.length / ITEMS_PER_PAGE));
@@ -77,12 +104,23 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
     setItemOffset(newOffset);
   };
 
+  if (!transactions || transactions.length === 0) {
+    return (
+      <Card marginTop="mt-4">
+        <Text textAlignment="text-center">
+          Link a Credit Card to see a list of your recent transactions here.
+        </Text>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <Title>Recent Transactions</Title>
       <Table>
         <TableHead>
           <TableRow>
+            <TableHeaderCell> Account </TableHeaderCell>
             <TableHeaderCell> Name </TableHeaderCell>
             <TableHeaderCell textAlignment="text-right"> Date </TableHeaderCell>
             <TableHeaderCell textAlignment="text-right">
@@ -92,7 +130,7 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
           </TableRow>
         </TableHead>
 
-        <Items transactions={currentItems} />
+        <Items transactions={currentItems} accIdToName={accIdToName} />
       </Table>
       <Divider />
       <Stack spacing={2}>

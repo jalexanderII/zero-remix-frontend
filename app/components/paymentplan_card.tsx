@@ -27,6 +27,7 @@ import {
 } from "~/utils/constants";
 import React from "react";
 import type { PaymentPlan } from "~/utils/types.server";
+import { NoPaymentPlan } from "~/components/no_payment_plans";
 
 interface props {
   plans: PaymentPlan[];
@@ -35,11 +36,7 @@ interface props {
 
 export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
   if (!plans || plans.length === 0) {
-    return (
-      <Card>
-        <Text>You have no payment plans.</Text>
-      </Card>
-    );
+    return <NoPaymentPlan />;
   }
 
   const numcols = plans.length >= 2 ? 2 : 1;

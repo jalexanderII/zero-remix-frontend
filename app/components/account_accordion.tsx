@@ -37,14 +37,6 @@ export const AccountAccordion: React.FC<props> = ({
                   }
                   name={i.name}
                 />
-                {/*<PaymentPlanTransactions*/}
-                {/*  idx={idx}*/}
-                {/*  transactions={*/}
-                {/*    // @ts-ignore*/}
-                {/*    accountAndTransactions.transactionDict[i.accountId]*/}
-                {/*  }*/}
-                {/*  accountId={i.accountId}*/}
-                {/*/>*/}
               </AccordionBody>
             </Accordion>
           )

@@ -4,6 +4,7 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import { getAuth } from "@clerk/remix/ssr.server";
 import api from "~/services/api.server";
 import type {
+  AccountsResponse,
   KPIResponse,
   PlaidAccountLinkedResponse,
   SlimTransaction,
@@ -25,6 +26,7 @@ interface DashboardLoaderData {
   kpis: KPIResponse;
   waterfall: WaterfallDataResponse;
   transactions: SlimTransaction[];
+  accounts: AccountsResponse;
 }
 
 export const getUserEmail = async (userId: string): Promise<string> => {
@@ -44,13 +46,14 @@ export const getDashboardLoaderData = async (
 ): Promise<DashboardLoaderData> => {
   const trxnResp: TransactionResponse =
     await api.transactions.get_user_transactions(email);
+  const accounts = await api.accounts.get_user_accounts(email);
   const transactions: SlimTransaction[] = await pruneTransactions(
     trxnResp.data
   );
   const kpis: KPIResponse = await api.kpis.get_user_kpis(email);
   const resp: WaterfallResponse = await api.waterfall.get_user_waterfall(email);
   const waterfall = makeWaterfallFromJson(resp);
-  return { kpis, waterfall, transactions };
+  return { kpis, waterfall, transactions, accounts };
 };
 
 export const loader: LoaderFunction = async (args) => {
@@ -60,7 +63,8 @@ export const loader: LoaderFunction = async (args) => {
   }
 
   const email = await getUserEmail(userId);
-  const { kpis, waterfall, transactions } = await getDashboardLoaderData(email);
+  const { kpis, waterfall, transactions, accounts } =
+    await getDashboardLoaderData(email);
 
   const plaidLinked: PlaidAccountLinkedResponse =
     await api.plaid.is_plaid_linked(email);
@@ -71,6 +75,7 @@ export const loader: LoaderFunction = async (args) => {
     kpis,
     waterfall,
     transactions,
+    accounts,
     plaidLinked,
     email,
     PLAID_FRONTEND_URL,
@@ -82,6 +87,7 @@ const Dashboard = (): JSX.Element => {
     kpis,
     waterfall,
     transactions,
+    accounts,
     plaidLinked,
     email,
     PLAID_FRONTEND_URL,
@@ -97,7 +103,10 @@ const Dashboard = (): JSX.Element => {
         <KpiPanel kpis={kpis} />
       </Block>
       <Block marginTop="mt-2">
-        <TransactionsTableWithPagination transactions={transactions} />
+        <TransactionsTableWithPagination
+          transactions={transactions}
+          accounts={accounts.data}
+        />
       </Block>
       <div className="preContainer"></div>
       <Outlet />
