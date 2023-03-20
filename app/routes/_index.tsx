@@ -44,17 +44,18 @@ const Main = (): JSX.Element => {
               achieve your credit reduction goals, save on fees, and improve
               your credit score!
             </p>
-            <p className="mt-6 text-sm text-gray-600">
-              <em>
-                With premium we'll automatically handle the deduction and
-                payments needed for your payment plans
-              </em>
-            </p>
             <div
               className="launchlist-widget"
               data-key-id="KDgsgp"
-              data-height="75px"
-            ></div>
+              data-height="125px"
+            >
+              <p className="mt-6 text-sm text-gray-600">
+                <em>
+                  With premium we'll automatically handle the deduction and
+                  payments needed for your payment plans
+                </em>
+              </p>
+            </div>
           </div>
         </div>
       </div>
