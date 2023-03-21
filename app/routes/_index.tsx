@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react";
 import { SignedOut } from "@clerk/remix";
 import Footer from "~/components/footer";
 import { useEffect } from "react";
+import HowToGetStarted from "~/components/how_to_get_started";
 
 // Main component using <SignedIn> and <SignedOut>
 //
@@ -23,9 +24,9 @@ const Main = (): JSX.Element => {
 
   return (
     <main>
-      <div className="relative px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="pt-4 text-center">
+      <div className="relative px-4 lg:px-6">
+        <div className="mx-auto max-w-2xl py-4 sm:py-6 lg:py-12">
+          <div className="pt-2 text-center">
             <div className="mt-10 mb-6 flex items-center justify-center gap-x-6">
               <SignedOut>
                 <Link
@@ -57,6 +58,7 @@ const Main = (): JSX.Element => {
               </p>
             </div>
           </div>
+          <HowToGetStarted />
         </div>
       </div>
     </main>
