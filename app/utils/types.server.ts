@@ -243,3 +243,12 @@ export type WaterfallDataResponse = {
   waterfallData: WaterfallDataSeries[];
   names: string[];
 };
+
+export type AccountDetailsResponse = {
+  data: {
+    Accounts: Account[];
+    Transactions: Transaction[];
+  };
+  message: string;
+  status: string;
+};

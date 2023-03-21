@@ -20,13 +20,13 @@ export const pruneTransactions = async (
   trxns.forEach((item) => {
     if (item.amount > 0) {
       data.push({
-        transactionId: item.id,
+        transactionId: item.plaid_transaction_id,
         name: item.name,
         amount: toUSD(item.amount),
         value: item.amount,
         date: item.date,
-        id: item.id,
-        accountId: item.account_id,
+        id: item.plaid_transaction_id,
+        accountId: item.plaid_account_id,
         userId: item.user_id,
       });
     }

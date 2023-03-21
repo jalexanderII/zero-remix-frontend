@@ -15,7 +15,7 @@ export const makeAccountFromJson = async (data: Account[]) => {
   data.forEach((item) => {
     if (item.type === "credit") {
       accounts.push({
-        accountId: item.id,
+        accountId: item.plaid_account_id,
         userId: item.user_id,
         name: item.official_name,
         balance: item.current_balance,

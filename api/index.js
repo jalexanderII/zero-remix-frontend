@@ -2900,7 +2900,7 @@ var accounts = {
   let accounts2 = [];
   return data.forEach((item) => {
     item.type === "credit" && accounts2.push({
-      accountId: item.id,
+      accountId: item.plaid_account_id,
       userId: item.user_id,
       name: item.official_name,
       balance: item.current_balance
@@ -2986,13 +2986,13 @@ var TRANSACTION_LIMIT = 100, transactions = {
   let data = [];
   return trxns.forEach((item) => {
     item.amount > 0 && data.push({
-      transactionId: item.id,
+      transactionId: item.plaid_transaction_id,
       name: item.name,
       amount: toUSD(item.amount),
       value: item.amount,
       date: item.date,
-      id: item.id,
-      accountId: item.account_id,
+      id: item.plaid_transaction_id,
+      accountId: item.plaid_account_id,
       userId: item.user_id
     });
   }), data.slice(0, Math.min(data.length, TRANSACTION_LIMIT));
@@ -3183,16 +3183,16 @@ var paymentplan = {
   return trxns.forEach((item) => {
     if (item.amount > 0 && !item.in_plan) {
       let trxn = {
-        id: item.id,
-        accountId: item.account_id,
+        id: item.plaid_transaction_id,
+        accountId: item.plaid_account_id,
         userId: item.user_id,
         name: item.name,
         amount: toUSD(item.amount),
         value: item.amount,
         date: item.date,
-        transactionId: item.id
+        transactionId: item.plaid_transaction_id
       };
-      transactionsDict[item.account_id].push(trxn);
+      transactionsDict[item.plaid_account_id].push(trxn);
     }
   }), transactionsDict;
 };
@@ -3203,6 +3203,9 @@ import_dotenv3.default.config();
 var plaid = {
   is_plaid_linked: async (email) => await request.get(
     `/api/plaid/linked/${email}`
+  ),
+  fetchAndCache: async (email) => await request.get(
+    `/api/plaid/accounts/${email}`
   )
 }, get_plaid_url = () => process.env.PLAID_FRONTEND_URL;
 

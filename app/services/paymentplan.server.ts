@@ -70,17 +70,17 @@ export const makeTransactionsFromJson = async (trxns: Transaction[]) => {
   trxns.forEach((item) => {
     if (item.amount > 0 && !item.in_plan) {
       const trxn: SlimTransaction = {
-        id: item["id"],
-        accountId: item["account_id"],
-        userId: item["user_id"],
+        id: item.plaid_transaction_id,
+        accountId: item.plaid_account_id,
+        userId: item.user_id,
         name: item.name,
         amount: toUSD(item.amount),
         value: item.amount,
         date: item.date,
-        transactionId: item["id"],
+        transactionId: item.plaid_transaction_id,
       };
       // @ts-ignore
-      transactionsDict[item["account_id"]].push(trxn);
+      transactionsDict[item.plaid_account_id].push(trxn);
     }
   });
   return transactionsDict;
