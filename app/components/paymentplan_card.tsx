@@ -101,8 +101,8 @@ export const PaymentPlanCard: React.FC<props> = ({
                 <Accordion marginTop="mt-3">
                   <AccordionHeader>Payments Schedule</AccordionHeader>
                   <AccordionBody>
-                    <List>
-                      <ListItem>
+                    <List className="overflow-x-auto">
+                      <ListItem className="flex justify-between items-center whitespace-nowrap">
                         <span>
                           <strong>Account</strong>
                         </span>
@@ -118,7 +118,10 @@ export const PaymentPlanCard: React.FC<props> = ({
                         </span>
                       </ListItem>
                       {plan.payment_action.map((action, idx) => (
-                        <ListItem key={`${action.id}_${idx}`}>
+                        <ListItem
+                          key={`${action.id}_${idx}`}
+                          className="flex justify-between items-center whitespace-nowrap"
+                        >
                           <span>{accIdToName.get(action.account_id)}</span>
                           <span>{toUSD(action.amount)}</span>
                           <span>{cleanDate(action.transaction_date)}</span>
