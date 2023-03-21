@@ -1,3 +1,5 @@
+import type { Account } from "~/utils/types.server";
+
 export const toUSD = (value: number, digits = 2) => {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -49,3 +51,11 @@ export function cleanDate(date: string) {
   const year = clean_date.getUTCFullYear();
   return `${month}-${day}-${year}`;
 }
+
+export const AccountIDToName = (data: Account[]) => {
+  const accIDToName: Map<string, string> = new Map();
+  data.forEach((item) => {
+    accIDToName.set(item.id, item.official_name);
+  });
+  return accIDToName;
+};

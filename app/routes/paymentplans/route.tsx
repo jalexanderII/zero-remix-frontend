@@ -2,13 +2,14 @@ import { Button, Card, Footer, Text, Title } from "@tremor/react";
 import type { GetPaymentPlansResponse } from "~/utils/types.server";
 import { PaymentPlanCard } from "~/components/paymentplan_card";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import React from "react";
+import React, { useMemo } from "react";
 import { Form, useLoaderData } from "@remix-run/react";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import api from "~/services/api.server";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { getUserEmail } from "~/routes/dashboard";
+import { AccountIDToName } from "~/utils/helpers";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
@@ -42,11 +43,18 @@ export const loader: LoaderFunction = async (args) => {
   const email = await getUserEmail(userId);
   const paymentPlans: GetPaymentPlansResponse =
     await api.paymentplan.get_user_payment_plans(email);
-  return { paymentPlans };
+  const accounts = await api.accounts.get_user_accounts(email);
+  return { paymentPlans, accounts };
 };
 
 export default function Route() {
-  const { paymentPlans } = useLoaderData();
+  const { paymentPlans, accounts } = useLoaderData();
+
+  const accIdToName: Map<string, string> = useMemo(
+    () => AccountIDToName(accounts.data),
+    [accounts]
+  );
+
   return (
     <Card marginTop="mt-6">
       <main>
@@ -59,7 +67,11 @@ export default function Route() {
           If you have a premium account these payments will be managed
           automatically!
         </Text>
-        <PaymentPlanCard plans={paymentPlans.data} footer={PlanFooter} />
+        <PaymentPlanCard
+          plans={paymentPlans.data}
+          accIdToName={accIdToName}
+          footer={PlanFooter}
+        />
       </main>
     </Card>
   );

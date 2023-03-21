@@ -14,6 +14,7 @@ import type { Account, SlimTransaction } from "~/utils/types.server";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { MissingData } from "~/components/missing_data";
+import { AccountIDToName } from "~/utils/helpers";
 
 interface props {
   transactions: SlimTransaction[];
@@ -27,14 +28,6 @@ interface ItemProps {
 
 const ITEMS_PER_PAGE = 5;
 const initialState: SlimTransaction[] = [];
-
-export const AccountIDToName = (data: Account[]) => {
-  const accIDToName: Map<string, string> = new Map();
-  data.forEach((item) => {
-    accIDToName.set(item.id, item.official_name);
-  });
-  return accIDToName;
-};
 
 const Items: React.FC<ItemProps> = ({ transactions, accIdToName }) => {
   return (

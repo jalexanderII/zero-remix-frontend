@@ -31,10 +31,15 @@ import { MissingData } from "~/components/missing_data";
 
 interface props {
   plans: PaymentPlan[];
+  accIdToName: Map<string, string>;
   footer?: (paymentPlanId: string, transactionIds: string[]) => JSX.Element;
 }
 
-export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
+export const PaymentPlanCard: React.FC<props> = ({
+  plans,
+  accIdToName,
+  footer,
+}) => {
   if (!plans || plans.length === 0) {
     return (
       <MissingData text="You have no Payment Plans. Create a Payment Plan to see more data here." />
@@ -114,7 +119,7 @@ export const PaymentPlanCard: React.FC<props> = ({ plans, footer }) => {
                       </ListItem>
                       {plan.payment_action.map((action, idx) => (
                         <ListItem key={`${action.id}_${idx}`}>
-                          <span>{action.account_id.slice(0, 4)}</span>
+                          <span>{accIdToName.get(action.account_id)}</span>
                           <span>{toUSD(action.amount)}</span>
                           <span>{cleanDate(action.transaction_date)}</span>
                           <span>{ActionStatus.get(action.status)}</span>
