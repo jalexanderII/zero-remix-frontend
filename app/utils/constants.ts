@@ -55,3 +55,5 @@ export const PaymentPlanOptions: DropdownInput[] = [
   //   icon: BoltIcon,
   // },
 ];
+
+export const KEY = "St0bN9Fp";

@@ -21,6 +21,8 @@ import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
 import React from "react";
 import { get_plaid_url } from "~/services/plaid.server";
+import CryptoJS from "crypto-js";
+import { KEY } from "~/utils/constants";
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
@@ -122,14 +124,15 @@ const PlaidButtonsComponent = (
   userId: string,
   PLAID_FRONTEND_URL: string
 ): JSX.Element => {
+  const ciphertext = CryptoJS.AES.encrypt(userId, KEY).toString();
   const handleOnClickDebit = () => {
     window.location.href = encodeURI(
-      `${PLAID_FRONTEND_URL}/debit?user_id=${userId}`
+      `${PLAID_FRONTEND_URL}/debit?uu=${ciphertext}`
     );
   };
   const handleOnClickCredit = () => {
     window.location.href = encodeURI(
-      `${PLAID_FRONTEND_URL}/credit?user_id=${userId}`
+      `${PLAID_FRONTEND_URL}/credit?uu=${ciphertext}`
     );
   };
 
