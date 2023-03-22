@@ -6,11 +6,15 @@ import {
   Bold,
   Card,
   Col,
-  ColGrid,
   Flex,
-  List,
-  ListItem,
+  Grid,
   Metric,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
   Text,
   Title,
 } from "@tremor/react";
@@ -26,7 +30,7 @@ import {
   TimelineMonths,
 } from "~/utils/constants";
 import React from "react";
-import type { PaymentPlan } from "~/utils/types.server";
+import type { PaymentAction, PaymentPlan } from "~/utils/types.server";
 import { MissingData } from "~/components/missing_data";
 
 interface props {
@@ -34,6 +38,34 @@ interface props {
   accIdToName: Map<string, string>;
   footer?: (paymentPlanId: string, transactionIds: string[]) => JSX.Element;
 }
+
+interface ItemProps {
+  payment_actions: PaymentAction[];
+  accIdToName: Map<string, string>;
+}
+
+const Items: React.FC<ItemProps> = ({ payment_actions, accIdToName }) => {
+  return (
+    <TableBody>
+      {payment_actions.map((action, idx) => (
+        <TableRow key={`${action.id}_${idx}`}>
+          <TableCell key={`${action.id}_${idx}_accname`}>
+            {accIdToName.get(action.account_id)}
+          </TableCell>
+          <TableCell key={`${action.id}_${idx}a`} className="text-right">
+            {toUSD(action.amount)}
+          </TableCell>
+          <TableCell key={`${action.id}_${idx}b`} className="text-right">
+            {cleanDate(action.transaction_date)}
+          </TableCell>
+          <TableCell key={`${action.id}_${idx}c`} className="text-right">
+            {ActionStatus.get(action.status)}
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  );
+};
 
 export const PaymentPlanCard: React.FC<props> = ({
   plans,
@@ -48,16 +80,15 @@ export const PaymentPlanCard: React.FC<props> = ({
 
   const numcols = plans.length >= 2 ? 2 : 1;
   return (
-    <ColGrid numColsMd={numcols} gapX="gap-x-6" gapY="gap-y-6" marginTop="mt-6">
+    <Grid numColsMd={numcols} className="gap-x-6 gap-y-6 mt-6">
       {plans.map((plan, idx) => (
         <Col key={`${plan.name}_${idx}`}>
           <Card>
-            <ColGrid numCols={2} gapX="gap-x-2" gapY="gap-y-2">
+            <Grid numCols={2} className="gap-x-2 gap-y-2">
               <Col numColSpan={2}>
-                <Flex alignItems="items-start">
+                <Flex className="items-start">
                   <Title>{plan.name}</Title>
                   <Badge
-                    text={PlanType.get(plan.plan_type) || ""}
                     color="green"
                     size="sm"
                     icon={
@@ -65,16 +96,14 @@ export const PaymentPlanCard: React.FC<props> = ({
                         ? ArrowUpCircleIcon
                         : ArrowDownCircleIcon
                     }
-                  />
+                  >
+                    {PlanType.get(plan.plan_type) || ""}
+                  </Badge>
                 </Flex>
               </Col>
               <Col numColSpan={2}>
-                <Flex
-                  justifyContent="justify-start"
-                  alignItems="items-baseline"
-                  spaceX="space-x-1"
-                >
-                  <Metric marginTop="mt-2">{toUSD(plan.amount)}</Metric>
+                <Flex className="justify-start items-baseline space-x-1">
+                  <Metric className="mt-2">{toUSD(plan.amount)}</Metric>
                   <Text>
                     /<Bold>{toUSD(plan.amount_per_payment)}</Bold> per payment
                     avg
@@ -85,12 +114,12 @@ export const PaymentPlanCard: React.FC<props> = ({
                 <Text>Last Payment: {cleanDate(plan.end_date)}</Text>
               </Col>
               <Col>
-                <Text marginTop="mt-2">
+                <Text className="mt-2">
                   <Bold>{PaymentFrequency.get(plan.payment_freq)}</Bold>
                 </Text>
               </Col>
               <Col>
-                <Text textAlignment="text-right" marginTop="mt-2">
+                <Text className="text-right mt-2">
                   <Bold>
                     {TimelineMonths.get(plan.timeline)} (
                     {plan.payment_action.length} payments)
@@ -98,47 +127,43 @@ export const PaymentPlanCard: React.FC<props> = ({
                 </Text>
               </Col>
               <Col numColSpan={2}>
-                <Accordion marginTop="mt-3">
+                <Accordion className="mt-3">
                   <AccordionHeader>Payments Schedule</AccordionHeader>
                   <AccordionBody>
-                    <List className="overflow-x-auto">
-                      <ListItem className="flex justify-between items-center whitespace-nowrap">
-                        <span>
-                          <strong>Account</strong>
-                        </span>
-                        <span>
-                          <strong>Amount ($)</strong>
-                        </span>
-                        <span>
-                          <strong>Date</strong>
-                        </span>
-                        <span> </span>
-                        <span>
-                          <strong>Status</strong>
-                        </span>
-                      </ListItem>
-                      {plan.payment_action.map((action, idx) => (
-                        <ListItem
-                          key={`${action.id}_${idx}`}
-                          className="flex justify-between items-center whitespace-nowrap"
-                        >
-                          <span>{accIdToName.get(action.account_id)}</span>
-                          <span>{toUSD(action.amount)}</span>
-                          <span>{cleanDate(action.transaction_date)}</span>
-                          <span>{ActionStatus.get(action.status)}</span>
-                        </ListItem>
-                      ))}
-                    </List>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableHeaderCell> Account </TableHeaderCell>
+                          <TableHeaderCell className="text-right">
+                            {" "}
+                            Amount ($){" "}
+                          </TableHeaderCell>
+                          <TableHeaderCell className="text-right">
+                            {" "}
+                            Date{" "}
+                          </TableHeaderCell>
+                          <TableHeaderCell className="text-right">
+                            {" "}
+                            Status{" "}
+                          </TableHeaderCell>
+                        </TableRow>
+                      </TableHead>
+
+                      <Items
+                        payment_actions={plan.payment_action}
+                        accIdToName={accIdToName}
+                      />
+                    </Table>
                   </AccordionBody>
                 </Accordion>
               </Col>
-            </ColGrid>
+            </Grid>
             <>
               {footer && footer(plan.payment_plan_id, plan.transactions || [])}
             </>
           </Card>
         </Col>
       ))}
-    </ColGrid>
+    </Grid>
   );
 };

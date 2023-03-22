@@ -1,4 +1,4 @@
-import { Card, Metric, Text, Icon, Block, ColGrid } from "@tremor/react";
+import { Card, Grid, Icon, Metric, Text } from "@tremor/react";
 import {
   ChartBarIcon,
   CreditCardIcon,
@@ -46,18 +46,16 @@ const toCategories = (props: KPI): KpiCards => {
 export const KpiPanel: React.FC<props> = ({ kpis }) => {
   const categories = Object.values(toCategories(kpis.data));
   return (
-    <ColGrid numColsSm={2} numColsLg={3} gapX="gap-x-6" gapY="gap-y-6">
+    <Grid numColsSm={2} numColsLg={3} className="gap-x-6 gap-y-6">
       {categories.map((item) => (
         <Card key={item.title}>
-          <Block textAlignment="text-center">
+          <div className="text-center">
             <Icon icon={item.icon} variant="light" size="sm" />
-            <Metric textAlignment="text-center" marginTop="mt-2">
-              {item.metric}
-            </Metric>
-            <Text textAlignment="text-center">{item.title}</Text>
-          </Block>
+            <Metric className="text-center mt-2">{item.metric}</Metric>
+            <Text className="text-center">{item.title}</Text>
+          </div>
         </Card>
       ))}
-    </ColGrid>
+    </Grid>
   );
 };

@@ -6,8 +6,8 @@ interface props {
 }
 export const MissingData: React.FC<props> = ({ text }) => {
   return (
-    <Card marginTop="mt-4">
-      <Text textAlignment="text-center">{text}</Text>
+    <Card className="mt-4">
+      <Text className="text-center">{text}</Text>
     </Card>
   );
 };

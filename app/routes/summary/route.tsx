@@ -53,14 +53,12 @@ export default function Route() {
       className="tr-overflow-auto p-10"
       navigate_path={"/dashboard"}
     >
-      <Title textAlignment="text-center" marginTop="mt-2">
-        New Payment Plan Created
-      </Title>
-      <Text textAlignment="text-center" marginTop="mt-2">
+      <Title className="text-center mt-2">New Payment Plan Created</Title>
+      <Text className="text-center mt-2">
         Here is a summary of your new payment plan. You can always view all of
         your plans on the Payment Plans tab.
       </Text>
-      <Text textAlignment="text-center">
+      <Text className="text-center">
         And don't worry, we'll text you all the necessary details when you have
         an upcoming payment to make.
       </Text>

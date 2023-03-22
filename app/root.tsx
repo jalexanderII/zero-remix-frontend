@@ -23,7 +23,7 @@ import Header from "~/components/header";
 import React, { useContext } from "react";
 import StylesContext from "~/styles/stylesContext";
 import Layout from "~/components/layout";
-import tremor_styles from "@tremor/react/dist/esm/tremor.css";
+// import tremor_styles from "@tremor/react/dist/esm/tremor.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -35,11 +35,11 @@ export const links: LinksFunction = () => {
   return [
     { rel: "preload", href: clark_styles, as: "style" },
     { rel: "preload", href: styles, as: "style" },
-    { rel: "preload", href: tremor_styles, as: "style" },
+    // { rel: "preload", href: tremor_styles, as: "style" },
     //Preload CSS to makes it nonblocking
     { rel: "stylesheet", href: clark_styles },
     { rel: "stylesheet", href: styles },
-    { rel: "stylesheet", href: tremor_styles },
+    // { rel: "stylesheet", href: tremor_styles },
   ];
 };
 

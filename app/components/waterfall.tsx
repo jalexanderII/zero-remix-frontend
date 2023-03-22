@@ -1,12 +1,4 @@
-import {
-  BarChart,
-  Button,
-  Card,
-  Col,
-  ColGrid,
-  Text,
-  Title,
-} from "@tremor/react";
+import { BarChart, Button, Card, Col, Grid, Text, Title } from "@tremor/react";
 import React from "react";
 import { useNavigate } from "@remix-run/react";
 import { valueFormatter } from "~/utils/helpers";
@@ -28,8 +20,8 @@ export const Waterfall: React.FC<props> = ({ waterfall, ready }) => {
   };
 
   return (
-    <Card marginTop="mt-6">
-      <ColGrid numCols={2} gapX="gap-x-6" gapY="gap-y-6">
+    <Card className="mt-6">
+      <Grid numCols={2} className="gap-x-6 gap-y-6">
         <Col>
           <Title>Payment Plan Waterfall</Title>
           <Text>{`Monthly payments due for each plan this year (${current_year})`}</Text>
@@ -42,17 +34,16 @@ export const Waterfall: React.FC<props> = ({ waterfall, ready }) => {
             </Button>
           </div>
         </Col>
-      </ColGrid>
+      </Grid>
       {waterfall.waterfallData && waterfall.waterfallData.length > 0 && (
         <BarChart
-          marginTop="mt-4"
+          className="mt-4 h-80"
           data={waterfall.waterfallData}
-          dataKey="Month"
+          index="Month"
           categories={waterfall.names}
           colors={["indigo", "fuchsia", "amber"]}
           stack={true}
           valueFormatter={valueFormatter}
-          height="h-80"
         />
       )}
       {(!waterfall.waterfallData || waterfall.waterfallData.length === 0) && (

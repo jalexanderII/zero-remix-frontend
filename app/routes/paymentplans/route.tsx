@@ -1,4 +1,4 @@
-import { Button, Card, Footer, Text, Title } from "@tremor/react";
+import { Button, Card, Text, Title } from "@tremor/react";
 import type { GetPaymentPlansResponse } from "~/utils/types.server";
 import { PaymentPlanCard } from "~/components/paymentplan_card";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -56,7 +56,7 @@ export default function Route() {
   );
 
   return (
-    <Card marginTop="mt-6">
+    <Card className="mt-6">
       <main>
         <Title>Payment Plans</Title>
         <Text>
@@ -86,17 +86,18 @@ const PlanFooter = (paymentPlanId: string, transactionIds: string[]) => {
     <Form method="delete" onSubmit={handleOnSubmit}>
       <input type="hidden" value={paymentPlanId} name="payment_plan_id" />
       <input type="hidden" value={transactionIds} name="transaction_ids" />
-      <Footer>
+      <div className="border-t border-slate-200">
         <Button
           type="submit"
-          variant="light"
+          className="mt-3"
           size="sm"
-          text="Delete"
           icon={XMarkIcon}
           iconPosition="left"
           color="red"
-        />
-      </Footer>
+        >
+          Delete
+        </Button>
+      </div>
     </Form>
   );
 };

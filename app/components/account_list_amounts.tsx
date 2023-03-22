@@ -11,6 +11,12 @@ interface props {
   name: string;
 }
 
+const ErrorTypeToMsg: Map<string, string | undefined> = new Map([
+  ["not_number", "Value must be a number"],
+  ["too_large", "Amount must be less than or equal to account balance"],
+  ["", undefined],
+]);
+
 export const AccountListAmount: React.FC<props> = ({
   idx,
   accountId,
@@ -18,15 +24,17 @@ export const AccountListAmount: React.FC<props> = ({
   name,
 }) => {
   const [total, setTotal] = useState(0);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const { updateAmount, setTotalAmount, updateAccountInfo } =
     usePaymentPlanCreationForm((state) => state);
 
   const handleOnChange = (e: React.BaseSyntheticEvent) => {
-    if (e.target.value > balance) {
-      setError(true);
+    if (isNaN(e.target.value)) {
+      setError("not_number");
+    } else if (e.target.value > balance) {
+      setError("too_large");
     } else {
-      setError(false);
+      setError("");
       setTotal(Number(e.target.value));
     }
   };
@@ -45,15 +53,15 @@ export const AccountListAmount: React.FC<props> = ({
 
   return (
     <ListItem key={accountId}>
-      <Text textAlignment="text-left">{`${name}: Total Balance (${toUSD(
+      <Text className="text-left">{`${name}: Total Balance (${toUSD(
         balance
       )})`}</Text>
       <TextInput
         id={accountId}
-        error={error}
-        errorMessage="Amount must be less than or equal to account balance"
+        error={error !== ""}
+        errorMessage={ErrorTypeToMsg.get(error)}
         icon={CurrencyDollarIcon}
-        maxWidth="max-w-xs"
+        className="max-w-xs"
         placeholder="Enter Dollar Amount ($)"
         onChange={(e) => handleOnChange(e)}
       />

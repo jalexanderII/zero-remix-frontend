@@ -3,7 +3,6 @@ import {
   AccordionBody,
   AccordionHeader,
   AccordionList,
-  Block,
 } from "@tremor/react";
 import React from "react";
 import type { AccountAndTransactions, SlimAccount } from "~/utils/types.server";
@@ -19,7 +18,7 @@ export const AccountAccordion: React.FC<props> = ({
   purpose,
 }) => {
   return (
-    <Block marginTop="mt-1">
+    <div className="mt-1">
       <AccordionList>
         {accountAndTransactions.slimAccounts.map(
           (i: SlimAccount, idx: number) => (
@@ -42,6 +41,6 @@ export const AccountAccordion: React.FC<props> = ({
           )
         )}
       </AccordionList>
-    </Block>
+    </div>
   );
 };

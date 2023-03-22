@@ -4,9 +4,8 @@ import {
   AccordionBody,
   AccordionHeader,
   AccordionList,
-  Block,
   Card,
-  ColGrid,
+  Grid,
   Metric,
   Text,
   Title,
@@ -86,7 +85,7 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function PaymentPlanCreation() {
-  const [planOption, setPlanOption] = useState(0);
+  const [planOption, setPlanOption] = useState("0");
   const { accountAndTransactions, email } = useLoaderData();
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
@@ -96,7 +95,8 @@ export default function PaymentPlanCreation() {
     return true;
   };
 
-  const handleInputChange = (value: number) => {
+  const handleInputChange = (value: string) => {
+    console.log("value", value);
     setPlanOption(value);
   };
 
@@ -121,31 +121,25 @@ export default function PaymentPlanCreation() {
           Choose one of our 2 payment plan creation options and select your plan
           preferences when you are done.
         </Text>
-        <Title marginTop="mt-6">Payment Plan creation options</Title>
+        <Title className="mt-6">Payment Plan creation options</Title>
         <Card>
           <PreferenceDropdownItem
             options={PaymentPlanOptions}
-            onChange={(v: number) => handleInputChange(v)}
+            onChange={handleInputChange}
             value={planOption}
           />
           {GetPaymentPlanCreationBody(planOption, accountAndTransactions)}
         </Card>
-        <Title marginTop="mt-4">Payment Preferences</Title>
-        <ColGrid
-          numColsMd={4}
-          numColsLg={4}
-          gapX="gap-x-4"
-          gapY="gap-y-4"
-          marginTop="mt-3"
-        >
+        <Title className="mt-4">Payment Preferences</Title>
+        <Grid numColsMd={4} numColsLg={4} className="gap-x-4 gap-y-4 mt-3">
           <PaymentPlanPreferences />
-          <Card maxWidth="max-w-xs">
-            <Text textAlignment={"text-center"}>Total Amount</Text>
+          <Card className="max-w-xs">
+            <Text className="text-center">Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Metric>{toUSD(totalAmount)}</Metric>
             </div>
           </Card>
-        </ColGrid>
+        </Grid>
         <br />
         <div className="flex flex-col items-center md:flex-row pt-14">
           <div className="flex-1" />
@@ -163,15 +157,15 @@ export default function PaymentPlanCreation() {
 }
 
 const GetPaymentPlanCreationBody = (
-  planOption: number,
+  po: string,
   data: AccountAndTransactions
 ) => {
   const validOptions = new Set([1, 2, 3]);
-
+  const planOption = Number(po);
   return (
-    <Block marginTop="mt-3">
+    <div className="mt-3">
       {planOption === 3 && (
-        <Text textAlignment={"text-center"} color="stone">
+        <Text className="text-center" color="stone">
           Select your payment preferences below and we'll handle the rest of the
           hard work!
         </Text>
@@ -204,6 +198,6 @@ const GetPaymentPlanCreationBody = (
           ))}
         </AccordionList>
       )}
-    </Block>
+    </div>
   );
 };

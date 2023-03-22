@@ -18,17 +18,15 @@ export function PreferenceDropdownItem({
     <>
       <Text>{label}</Text>
       <Dropdown
-        onValueChange={(e) => {
-          onChange(e);
-        }}
-        marginTop="mt-1"
+        onValueChange={onChange}
+        className="mt-1"
         placeholder="Select an Option"
         value={value || 0}
       >
         {options.map((item, i) => (
           <DropdownItem
             key={i}
-            value={item.value}
+            value={`${item.value}`}
             text={item.text}
             icon={item.icon}
           />

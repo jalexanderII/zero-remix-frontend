@@ -39,19 +39,19 @@ const Items: React.FC<ItemProps> = ({ transactions, accIdToName }) => {
           </TableCell>
           <TableCell
             key={`${item.transactionId}_${idx}a`}
-            textAlignment="text-left"
+            className="text-left"
           >
             {item.name}
           </TableCell>
           <TableCell
             key={`${item.transactionId}_${idx}b`}
-            textAlignment="text-right"
+            className="text-right"
           >
             {item.date}
           </TableCell>
           <TableCell
             key={`${item.transactionId}_${idx}c`}
-            textAlignment="text-right"
+            className="text-right"
           >
             {item.amount}
           </TableCell>
@@ -109,14 +109,8 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
             <TableRow>
               <TableHeaderCell> Account </TableHeaderCell>
               <TableHeaderCell> Name </TableHeaderCell>
-              <TableHeaderCell textAlignment="text-right">
-                {" "}
-                Date{" "}
-              </TableHeaderCell>
-              <TableHeaderCell textAlignment="text-right">
-                {" "}
-                Amount{" "}
-              </TableHeaderCell>
+              <TableHeaderCell className="text-right"> Date </TableHeaderCell>
+              <TableHeaderCell className="text-right"> Amount </TableHeaderCell>
             </TableRow>
           </TableHead>
 
