@@ -46,6 +46,9 @@ export const getDashboardLoaderData = async (
 ): Promise<DashboardLoaderData> => {
   const trxnResp: TransactionResponse =
     await api.transactions.get_user_transactions(email);
+  if (trxnResp.data.length === 0) {
+    console.log(`User ${email}, has no transactions`);
+  }
   const accounts = await api.accounts.get_user_accounts(email);
   const transactions: SlimTransaction[] = await pruneTransactions(
     trxnResp.data

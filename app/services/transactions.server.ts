@@ -17,6 +17,9 @@ export const pruneTransactions = async (
   trxns: Transaction[]
 ): Promise<SlimTransaction[]> => {
   let data: SlimTransaction[] = [];
+  if (!trxns) {
+    return data;
+  }
   trxns.forEach((item) => {
     if (item.amount > 0) {
       data.push({
