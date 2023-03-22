@@ -46,7 +46,7 @@ export const getDashboardLoaderData = async (
 ): Promise<DashboardLoaderData> => {
   const trxnResp: TransactionResponse =
     await api.transactions.get_user_transactions(email);
-  if (trxnResp.data.length === 0) {
+  if (!trxnResp.data || trxnResp.data.length === 0) {
     console.log(`User ${email}, has no transactions`);
   }
   const accounts = await api.accounts.get_user_accounts(email);
@@ -136,24 +136,28 @@ const PlaidButtonsComponent = (
   return (
     <div className="flex flex-col md:flex-row pr-4 mt-2">
       <div className="flex-1" />
-      <Card className="p-0 max-w-fit">
-        <Flex className="justify-center items-center space-x-6 truncate mt-0">
-          {!plaidLinked?.data?.debit ? (
+      <Flex className="justify-center items-center space-x-6 truncate mt-0">
+        {!plaidLinked?.data?.debit ? (
+          <Card className="p-0 max-w-fit">
             <Button size="xs" onClick={handleOnClickDebit}>
               Link Debit account
             </Button>
-          ) : null}
-          {!plaidLinked?.data?.credit ? (
+          </Card>
+        ) : null}
+        {!plaidLinked?.data?.credit ? (
+          <Card className="p-0 max-w-fit">
             <Button size="xs" onClick={handleOnClickCredit}>
               Link Credit account
             </Button>
-          ) : (
+          </Card>
+        ) : (
+          <Card className="p-0 max-w-fit">
             <Button size="xs" variant="secondary" onClick={handleOnClickCredit}>
               Link Another Credit account
             </Button>
-          )}
-        </Flex>
-      </Card>
+          </Card>
+        )}
+      </Flex>
     </div>
   );
 };

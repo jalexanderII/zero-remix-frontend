@@ -54,6 +54,9 @@ export function cleanDate(date: string) {
 
 export const AccountIDToName = (data: Account[]) => {
   const accIDToName: Map<string, string> = new Map();
+  if (!data || data.length === 0) {
+    return accIDToName;
+  }
   data.forEach((item) => {
     accIDToName.set(item.id, item.official_name);
   });
