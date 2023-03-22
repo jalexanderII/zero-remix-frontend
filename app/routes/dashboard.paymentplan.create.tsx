@@ -96,7 +96,6 @@ export default function PaymentPlanCreation() {
   };
 
   const handleInputChange = (value: string) => {
-    console.log("value", value);
     setPlanOption(value);
   };
 
