@@ -10,8 +10,8 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import React, { useState } from "react";
-import { Form, useLoaderData } from "@remix-run/react";
+import React, { useEffect, useState } from "react";
+import { Form, useLoaderData, useNavigate } from "@remix-run/react";
 import type { AccountAndTransactions, SlimAccount } from "~/utils/types.server";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
@@ -84,16 +84,42 @@ export const loader: LoaderFunction = async (args) => {
   return { accountAndTransactions, email };
 };
 
+const ErrorTypeToMsg: Map<string, string | undefined> = new Map([
+  [
+    "error",
+    "Select either a transaction or enter an amount for at least one account to create a plan",
+  ],
+  ["", undefined],
+]);
+
 export default function PaymentPlanCreation() {
+  const [error, setError] = useState("");
   const [planOption, setPlanOption] = useState("0");
   const { accountAndTransactions, email } = useLoaderData();
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
 
+  const navigate = useNavigate();
   const handleOnSubmit = () => {
     reset();
     return true;
   };
+
+  const handleOnSubmitValidate = (e: React.FormEvent<HTMLFormElement>) => {
+    if (!accountInfo || accountInfo.length === 0 || totalAmount === 0) {
+      e.preventDefault();
+      setError("error");
+      navigate("/dashboard/paymentplan/create");
+    } else {
+      handleOnSubmit();
+    }
+  };
+
+  useEffect(() => {
+    if (accountInfo && accountInfo.length > 0 && totalAmount > 0) {
+      setError("");
+    }
+  }, [accountInfo, totalAmount]);
 
   const handleInputChange = (value: string) => {
     setPlanOption(value);
@@ -105,7 +131,7 @@ export default function PaymentPlanCreation() {
       className="tr-overflow-auto p-10"
       navigate_path={"/dashboard"}
     >
-      <Form method="post" onSubmit={handleOnSubmit}>
+      <Form method="post" onSubmit={handleOnSubmitValidate}>
         <input type="hidden" value={frequency} name="frequency" />
         <input type="hidden" value={timeline} name="timeline" />
         <input type="hidden" value={planType} name="planType" />
@@ -146,10 +172,16 @@ export default function PaymentPlanCreation() {
             className="rounded-xl bg-blue-300 font-semibold text-blue-600 w-56 h-12 transition duration-300 ease-in-out hover:bg-blue-400 hover:-translate-y-1"
             name="_action"
             value="submit_preference"
+            disabled={error !== ""}
           >
             Send
           </button>
         </div>
+        {error !== "" && (
+          <Text className="text-center" color="red">
+            {ErrorTypeToMsg.get(error)}
+          </Text>
+        )}
       </Form>
     </Modal>
   );
