@@ -80,7 +80,7 @@ export const loader: LoaderFunction = async (args) => {
     transactions,
     accounts,
     plaidLinked,
-    email,
+    userId,
     PLAID_FRONTEND_URL,
   };
 };
@@ -92,13 +92,13 @@ const Dashboard = (): JSX.Element => {
     transactions,
     accounts,
     plaidLinked,
-    email,
+    userId,
     PLAID_FRONTEND_URL,
   } = useLoaderData();
 
   return (
     <main>
-      {PlaidButtonsComponent(plaidLinked, email, PLAID_FRONTEND_URL)}
+      {PlaidButtonsComponent(plaidLinked, userId, PLAID_FRONTEND_URL)}
       <div className="mt-2">
         <Waterfall waterfall={waterfall} ready={transactions.length > 0} />
       </div>
@@ -119,17 +119,17 @@ const Dashboard = (): JSX.Element => {
 
 const PlaidButtonsComponent = (
   plaidLinked: PlaidAccountLinkedResponse,
-  email: string,
+  userId: string,
   PLAID_FRONTEND_URL: string
 ): JSX.Element => {
   const handleOnClickDebit = () => {
     window.location.href = encodeURI(
-      `${PLAID_FRONTEND_URL}/debit?email=${email}`
+      `${PLAID_FRONTEND_URL}/debit?user_id=${userId}`
     );
   };
   const handleOnClickCredit = () => {
     window.location.href = encodeURI(
-      `${PLAID_FRONTEND_URL}/credit?email=${email}`
+      `${PLAID_FRONTEND_URL}/credit?user_id=${userId}`
     );
   };
 
