@@ -3703,10 +3703,8 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
   (!trxnResp.data || trxnResp.data.length === 0) && console.log(`User ${email}, has no transactions`);
   let accounts2 = await api_server_default.accounts.get_user_accounts(email), transactions2 = await pruneTransactions(
     trxnResp.data
-  ), kpis2 = await api_server_default.kpis.get_user_kpis(email), resp = await api_server_default.waterfall.get_user_waterfall(email);
-  console.log("resp for waterfall ", resp);
-  let waterfall2 = makeWaterfallFromJson(resp);
-  return console.log("waterfall ", waterfall2), { kpis: kpis2, waterfall: waterfall2, transactions: transactions2, accounts: accounts2 };
+  ), kpis2 = await api_server_default.kpis.get_user_kpis(email), resp = await api_server_default.waterfall.get_user_waterfall(email), waterfall2 = makeWaterfallFromJson(resp);
+  return { kpis: kpis2, waterfall: waterfall2, transactions: transactions2, accounts: accounts2 };
 }, loader2 = async (args) => {
   let { userId } = await (0, import_ssr2.getAuth)(args);
   if (!userId)
@@ -3735,20 +3733,20 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
     PlaidButtonsComponent(plaidLinked, userId, PLAID_FRONTEND_URL),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(Waterfall, { waterfall: waterfall2, ready: transactions2.length > 0 }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 105,
+      lineNumber: 103,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 104,
+      lineNumber: 102,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(KpiPanel, { kpis: kpis2 }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 108,
+      lineNumber: 106,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 107,
+      lineNumber: 105,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
@@ -3761,28 +3759,28 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
       !1,
       {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 111,
+        lineNumber: 109,
         columnNumber: 9
       },
       this
     ) }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 110,
+      lineNumber: 108,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "preContainer" }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 116,
+      lineNumber: 114,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react18.Outlet, {}, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 117,
+      lineNumber: 115,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/dashboard.tsx",
-    lineNumber: 102,
+    lineNumber: 100,
     columnNumber: 5
   }, this);
 }, PlaidButtonsComponent = (plaidLinked, userId, PLAID_FRONTEND_URL) => {
@@ -3799,44 +3797,44 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
   return /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "flex flex-col md:flex-row pr-4 mt-2", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "flex-1" }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 140,
+      lineNumber: 138,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Flex, { className: "justify-center items-center space-x-6 truncate mt-0", children: [
       (_a = plaidLinked == null ? void 0 : plaidLinked.data) != null && _a.debit ? null : /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Card, { className: "p-0 max-w-fit", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Button, { size: "xs", onClick: handleOnClickDebit, children: "Link Debit account" }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 144,
+        lineNumber: 142,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 143,
+        lineNumber: 141,
         columnNumber: 11
       }, this),
       (_b = plaidLinked == null ? void 0 : plaidLinked.data) != null && _b.credit ? /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Card, { className: "p-0 max-w-fit", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Button, { size: "xs", variant: "secondary", onClick: handleOnClickCredit, children: "Link Another Credit account" }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 157,
+        lineNumber: 155,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 156,
+        lineNumber: 154,
         columnNumber: 11
       }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Card, { className: "p-0 max-w-fit", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Button, { size: "xs", onClick: handleOnClickCredit, children: "Link Credit account" }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 151,
+        lineNumber: 149,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 150,
+        lineNumber: 148,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 141,
+      lineNumber: 139,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/dashboard.tsx",
-    lineNumber: 139,
+    lineNumber: 137,
     columnNumber: 5
   }, this);
 }, dashboard_default = Dashboard;
@@ -5455,7 +5453,7 @@ function Route2() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "4963626e", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2ZRJIAQH.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-7MEG3NLE.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/accounts": { id: "routes/accounts", parentId: "root", path: "accounts", index: void 0, caseSensitive: void 0, module: "/build/routes/accounts-IFWWZY5J.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-ZBEXW6EG.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-IPGCPV6N.js", imports: ["/build/_shared/chunk-ZBEXW6EG.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-LMNUXJNG.js", imports: ["/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-4PRONAIA.js", imports: ["/build/_shared/chunk-VLGYZGYA.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-ZBEXW6EG.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-7OLRMEP3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-6T7COOZE.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-SGVA4JYG.js", imports: ["/build/_shared/chunk-VLGYZGYA.js", "/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-PJA3H5Z2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-4963626E.js" };
+var assets_manifest_default = { version: "0e781603", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2ZRJIAQH.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-7MEG3NLE.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/accounts": { id: "routes/accounts", parentId: "root", path: "accounts", index: void 0, caseSensitive: void 0, module: "/build/routes/accounts-657JFQVR.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-DEKVKGV7.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-MEBQWYDL.js", imports: ["/build/_shared/chunk-DEKVKGV7.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-L55SEZMH.js", imports: ["/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-LKXM2CYC.js", imports: ["/build/_shared/chunk-VLGYZGYA.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-DEKVKGV7.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-7OLRMEP3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-6T7COOZE.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-SGVA4JYG.js", imports: ["/build/_shared/chunk-VLGYZGYA.js", "/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-PJA3H5Z2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-0E781603.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, unstable_cssSideEffectImports: !1, unstable_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, unstable_vanillaExtract: !1, v2_errorBoundary: !1, v2_meta: !1, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
