@@ -1,20 +1,28 @@
 import { useNavigation } from "@remix-run/react";
 import React, { useEffect, useState } from "react";
+import { Text } from "@tremor/react";
 
 const LoadingSpinner: React.FC = () => {
   const [showSpinner, setShowSpinner] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const transition = useNavigation();
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let spinnerTimeoutId: NodeJS.Timeout;
+    let messageTimeoutId: NodeJS.Timeout;
 
     if (transition.state === "loading") {
-      timeoutId = setTimeout(() => setShowSpinner(true), 500);
+      spinnerTimeoutId = setTimeout(() => setShowSpinner(true), 500);
+      messageTimeoutId = setTimeout(() => setShowMessage(true), 10000);
     } else {
       setShowSpinner(false);
+      setShowMessage(false);
     }
 
-    return () => clearTimeout(timeoutId);
+    return () => {
+      clearTimeout(spinnerTimeoutId);
+      clearTimeout(messageTimeoutId);
+    };
   }, [transition.state]);
 
   if (!showSpinner) {
@@ -22,7 +30,7 @@ const LoadingSpinner: React.FC = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex flex-col justify-center items-center min-h-screen space-y-4">
       <div
         className="animate-spin inline-block w-10 h-10 border-[3px] border-current border-t-transparent text-purple-600 rounded-full"
         role="status"
@@ -30,6 +38,11 @@ const LoadingSpinner: React.FC = () => {
       >
         <span className="sr-only">Loading...</span>
       </div>
+      {showMessage && (
+        <Text className="text-center text-gray-700">
+          Just a little longer, crunching numbers and getting your data...
+        </Text>
+      )}
     </div>
   );
 };
