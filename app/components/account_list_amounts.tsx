@@ -53,9 +53,7 @@ export const AccountListAmount: React.FC<props> = ({
 
   return (
     <ListItem key={accountId}>
-      <Text className="text-left">{`${name}: Total Balance (${toUSD(
-        balance
-      )})`}</Text>
+      <Text className="mt-2">Total Balance ({toUSD(balance)}) </Text>
       <TextInput
         id={accountId}
         error={error !== ""}
