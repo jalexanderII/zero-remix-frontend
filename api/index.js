@@ -132,12 +132,13 @@ var import_react7 = require("@remix-run/react"), import_ssr = require("@clerk/re
 var shared_default = "/build/_assets/shared-DNV4CNRF.css";
 
 // app/styles/app.css
-var app_default = "/build/_assets/app-O77TJDTP.css";
+var app_default = "/build/_assets/app-IF3QSQD4.css";
 
 // app/components/header.tsx
 var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/react"), import_outline = require("@heroicons/react/24/outline"), import_react5 = require("@headlessui/react"), import_react6 = require("react"), import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), navigation = [
   { name: "Home", href: "/", protected: !1 },
   { name: "Dashboard", href: "/dashboard", protected: !0 },
+  { name: "Accounts", href: "/accounts", protected: !0 },
   { name: "Payment Plans", href: "/paymentplans", protected: !0 }
 ], Header = () => {
   let [mobileMenuOpen, setMobileMenuOpen] = (0, import_react6.useState)(!1), handleDialogCloseOnLinkClick = () => {
@@ -162,7 +163,7 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
             !1,
             {
               fileName: "app/components/header.tsx",
-              lineNumber: 35,
+              lineNumber: 36,
               columnNumber: 13
             },
             this
@@ -179,12 +180,12 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
               children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("stop", { stopColor: "#9089FC" }, void 0, !1, {
                   fileName: "app/components/header.tsx",
-                  lineNumber: 49,
+                  lineNumber: 50,
                   columnNumber: 17
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("stop", { offset: 1, stopColor: "#FF80B5" }, void 0, !1, {
                   fileName: "app/components/header.tsx",
-                  lineNumber: 50,
+                  lineNumber: 51,
                   columnNumber: 17
                 }, this)
               ]
@@ -193,13 +194,13 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
             !0,
             {
               fileName: "app/components/header.tsx",
-              lineNumber: 41,
+              lineNumber: 42,
               columnNumber: 15
             },
             this
           ) }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 40,
+            lineNumber: 41,
             columnNumber: 13
           }, this)
         ]
@@ -208,13 +209,13 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
       !0,
       {
         fileName: "app/components/header.tsx",
-        lineNumber: 30,
+        lineNumber: 31,
         columnNumber: 11
       },
       this
     ) }, void 0, !1, {
       fileName: "app/components/header.tsx",
-      lineNumber: 29,
+      lineNumber: 30,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "left justify-between", children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react4.Link, { to: "/", className: "-m-1.5 p-1.5", children: [
@@ -231,23 +232,23 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
         !1,
         {
           fileName: "app/components/header.tsx",
-          lineNumber: 58,
+          lineNumber: 59,
           columnNumber: 13
         },
         this
       ),
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("span", { className: "sr-only", children: "Ot.Zero" }, void 0, !1, {
         fileName: "app/components/header.tsx",
-        lineNumber: 65,
+        lineNumber: 66,
         columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/header.tsx",
-      lineNumber: 57,
+      lineNumber: 58,
       columnNumber: 11
     }, this) }, void 0, !1, {
       fileName: "app/components/header.tsx",
-      lineNumber: 56,
+      lineNumber: 57,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "flex lg:hidden", children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
@@ -259,12 +260,12 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
         children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("span", { className: "sr-only", children: "Open main menu" }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 75,
+            lineNumber: 76,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_outline.Bars3Icon, { className: "h-6 w-6", "aria-hidden": "true" }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 76,
+            lineNumber: 77,
             columnNumber: 13
           }, this)
         ]
@@ -273,13 +274,13 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
       !0,
       {
         fileName: "app/components/header.tsx",
-        lineNumber: 70,
+        lineNumber: 71,
         columnNumber: 11
       },
       this
     ) }, void 0, !1, {
       fileName: "app/components/header.tsx",
-      lineNumber: 69,
+      lineNumber: 70,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "hidden lg:flex lg:gap-x-12", children: navigation.map((item) => item.protected ? /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_remix.SignedIn, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
@@ -294,13 +295,13 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
       !1,
       {
         fileName: "app/components/header.tsx",
-        lineNumber: 85,
+        lineNumber: 86,
         columnNumber: 19
       },
       this
     ) }, item.name, !1, {
       fileName: "app/components/header.tsx",
-      lineNumber: 84,
+      lineNumber: 85,
       columnNumber: 17
     }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
       import_react4.Link,
@@ -313,13 +314,13 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
       !1,
       {
         fileName: "app/components/header.tsx",
-        lineNumber: 96,
+        lineNumber: 97,
         columnNumber: 15
       },
       this
     )) }, void 0, !1, {
       fileName: "app/components/header.tsx",
-      lineNumber: 80,
+      lineNumber: 81,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "hidden lg:flex right", children: [
@@ -334,27 +335,27 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
         !1,
         {
           fileName: "app/components/header.tsx",
-          lineNumber: 108,
+          lineNumber: 109,
           columnNumber: 13
         },
         this
       ) }, void 0, !1, {
         fileName: "app/components/header.tsx",
-        lineNumber: 107,
+        lineNumber: 108,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_remix.SignedIn, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_remix.UserButton, { userProfileUrl: "/user", afterSignOutUrl: "/" }, void 0, !1, {
         fileName: "app/components/header.tsx",
-        lineNumber: 116,
+        lineNumber: 117,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/components/header.tsx",
-        lineNumber: 115,
+        lineNumber: 116,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/header.tsx",
-      lineNumber: 106,
+      lineNumber: 107,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react5.Dialog, { as: "div", open: mobileMenuOpen, onClose: setMobileMenuOpen, children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react5.Dialog.Panel, { className: "fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden", children: [
@@ -373,19 +374,19 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
             !1,
             {
               fileName: "app/components/header.tsx",
-              lineNumber: 124,
+              lineNumber: 125,
               columnNumber: 17
             },
             this
           ),
           /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("span", { className: "sr-only", children: "Ot.Zero" }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 131,
+            lineNumber: 132,
             columnNumber: 17
           }, this)
         ] }, void 0, !0, {
           fileName: "app/components/header.tsx",
-          lineNumber: 123,
+          lineNumber: 124,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
@@ -397,12 +398,12 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
             children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("span", { className: "sr-only", children: "Close menu" }, void 0, !1, {
                 fileName: "app/components/header.tsx",
-                lineNumber: 138,
+                lineNumber: 139,
                 columnNumber: 17
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_outline.XMarkIcon, { className: "h-6 w-6", "aria-hidden": "true" }, void 0, !1, {
                 fileName: "app/components/header.tsx",
-                lineNumber: 139,
+                lineNumber: 140,
                 columnNumber: 17
               }, this)
             ]
@@ -411,14 +412,14 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
           !0,
           {
             fileName: "app/components/header.tsx",
-            lineNumber: 133,
+            lineNumber: 134,
             columnNumber: 15
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/components/header.tsx",
-        lineNumber: 122,
+        lineNumber: 123,
         columnNumber: 13
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "mt-6 flow-root", children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "-my-6 divide-y divide-gray-500/10", children: [
@@ -434,13 +435,13 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
           !1,
           {
             fileName: "app/components/header.tsx",
-            lineNumber: 149,
+            lineNumber: 150,
             columnNumber: 27
           },
           this
         ) }, item.name, !1, {
           fileName: "app/components/header.tsx",
-          lineNumber: 148,
+          lineNumber: 149,
           columnNumber: 25
         }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
           import_react4.Link,
@@ -454,13 +455,13 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
           !1,
           {
             fileName: "app/components/header.tsx",
-            lineNumber: 160,
+            lineNumber: 161,
             columnNumber: 23
           },
           this
         )) }, void 0, !1, {
           fileName: "app/components/header.tsx",
-          lineNumber: 144,
+          lineNumber: 145,
           columnNumber: 17
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("div", { className: "py-6", children: [
@@ -476,54 +477,54 @@ var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/
             !1,
             {
               fileName: "app/components/header.tsx",
-              lineNumber: 173,
+              lineNumber: 174,
               columnNumber: 21
             },
             this
           ) }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 172,
+            lineNumber: 173,
             columnNumber: 19
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_remix.SignedIn, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_remix.UserButton, { userProfileUrl: "/user", afterSignOutUrl: "/" }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 182,
+            lineNumber: 183,
             columnNumber: 21
           }, this) }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 181,
+            lineNumber: 182,
             columnNumber: 19
           }, this)
         ] }, void 0, !0, {
           fileName: "app/components/header.tsx",
-          lineNumber: 171,
+          lineNumber: 172,
           columnNumber: 17
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/header.tsx",
-        lineNumber: 143,
+        lineNumber: 144,
         columnNumber: 15
       }, this) }, void 0, !1, {
         fileName: "app/components/header.tsx",
-        lineNumber: 142,
+        lineNumber: 143,
         columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/header.tsx",
-      lineNumber: 121,
+      lineNumber: 122,
       columnNumber: 11
     }, this) }, void 0, !1, {
       fileName: "app/components/header.tsx",
-      lineNumber: 120,
+      lineNumber: 121,
       columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/header.tsx",
-    lineNumber: 28,
+    lineNumber: 29,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/components/header.tsx",
-    lineNumber: 27,
+    lineNumber: 28,
     columnNumber: 5
   }, this);
 }, header_default = Header;
@@ -3060,6 +3061,13 @@ var toUSD = (value, digits = 2) => new Intl.NumberFormat("en-US", {
   "Dec"
 ], getMonth = (val) => month[val];
 var valueFormatter = (number) => `$ ${Intl.NumberFormat("us").format(number).toString()}`;
+function formatAsPercentage(num) {
+  return new Intl.NumberFormat("us", {
+    style: "percent",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(num / 100);
+}
 function cleanDate(date) {
   if (!date)
     return "";
@@ -3695,8 +3703,10 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
   (!trxnResp.data || trxnResp.data.length === 0) && console.log(`User ${email}, has no transactions`);
   let accounts2 = await api_server_default.accounts.get_user_accounts(email), transactions2 = await pruneTransactions(
     trxnResp.data
-  ), kpis2 = await api_server_default.kpis.get_user_kpis(email), resp = await api_server_default.waterfall.get_user_waterfall(email), waterfall2 = makeWaterfallFromJson(resp);
-  return { kpis: kpis2, waterfall: waterfall2, transactions: transactions2, accounts: accounts2 };
+  ), kpis2 = await api_server_default.kpis.get_user_kpis(email), resp = await api_server_default.waterfall.get_user_waterfall(email);
+  console.log("resp for waterfall ", resp);
+  let waterfall2 = makeWaterfallFromJson(resp);
+  return console.log("waterfall ", waterfall2), { kpis: kpis2, waterfall: waterfall2, transactions: transactions2, accounts: accounts2 };
 }, loader2 = async (args) => {
   let { userId } = await (0, import_ssr2.getAuth)(args);
   if (!userId)
@@ -3725,20 +3735,20 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
     PlaidButtonsComponent(plaidLinked, userId, PLAID_FRONTEND_URL),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(Waterfall, { waterfall: waterfall2, ready: transactions2.length > 0 }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 103,
+      lineNumber: 105,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 102,
+      lineNumber: 104,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(KpiPanel, { kpis: kpis2 }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 106,
+      lineNumber: 108,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 105,
+      lineNumber: 107,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
@@ -3751,28 +3761,28 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
       !1,
       {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 109,
+        lineNumber: 111,
         columnNumber: 9
       },
       this
     ) }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 108,
+      lineNumber: 110,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "preContainer" }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 114,
+      lineNumber: 116,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react18.Outlet, {}, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 115,
+      lineNumber: 117,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/dashboard.tsx",
-    lineNumber: 100,
+    lineNumber: 102,
     columnNumber: 5
   }, this);
 }, PlaidButtonsComponent = (plaidLinked, userId, PLAID_FRONTEND_URL) => {
@@ -3789,44 +3799,44 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime"), getUserEmail = 
   return /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "flex flex-col md:flex-row pr-4 mt-2", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("div", { className: "flex-1" }, void 0, !1, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 138,
+      lineNumber: 140,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Flex, { className: "justify-center items-center space-x-6 truncate mt-0", children: [
       (_a = plaidLinked == null ? void 0 : plaidLinked.data) != null && _a.debit ? null : /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Card, { className: "p-0 max-w-fit", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Button, { size: "xs", onClick: handleOnClickDebit, children: "Link Debit account" }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 142,
+        lineNumber: 144,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 141,
+        lineNumber: 143,
         columnNumber: 11
       }, this),
       (_b = plaidLinked == null ? void 0 : plaidLinked.data) != null && _b.credit ? /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Card, { className: "p-0 max-w-fit", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Button, { size: "xs", variant: "secondary", onClick: handleOnClickCredit, children: "Link Another Credit account" }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 155,
+        lineNumber: 157,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 154,
+        lineNumber: 156,
         columnNumber: 11
       }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Card, { className: "p-0 max-w-fit", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react19.Button, { size: "xs", onClick: handleOnClickCredit, children: "Link Credit account" }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 149,
+        lineNumber: 151,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/dashboard.tsx",
-        lineNumber: 148,
+        lineNumber: 150,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/dashboard.tsx",
-      lineNumber: 139,
+      lineNumber: 141,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/dashboard.tsx",
-    lineNumber: 137,
+    lineNumber: 139,
     columnNumber: 5
   }, this);
 }, dashboard_default = Dashboard;
@@ -4378,7 +4388,7 @@ function PaymentPlanCreation() {
     Modal,
     {
       isOpen: !0,
-      className: "tr-overflow-auto p-10",
+      className: "overflow-scroll p-10",
       navigate_path: "/dashboard",
       children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react30.Form, { method: "post", onSubmit: handleOnSubmitValidate, children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("input", { type: "hidden", value: frequency, name: "frequency" }, void 0, !1, {
@@ -4668,34 +4678,362 @@ var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime"), Route = () => /
   columnNumber: 3
 }, this), route_default = Route;
 
-// app/routes/paymentplans/route.tsx
+// app/routes/accounts/route.tsx
 var route_exports2 = {};
 __export(route_exports2, {
-  action: () => action2,
-  default: () => Route2,
+  default: () => AccountSummary,
   loader: () => loader4
 });
-var import_react32 = require("@tremor/react");
+var import_react31 = require("@tremor/react"), import_node5 = require("@remix-run/node"), import_ssr4 = require("@clerk/remix/ssr.server");
+var import_react32 = require("@remix-run/react");
+var import_solid4 = require("@heroicons/react/20/solid"), import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), APRTypeToName = /* @__PURE__ */ new Map([
+  ["purchase_apr", "Purchase Apr"],
+  ["cash_apr", "Cash Apr"],
+  ["special", "Special"]
+]), loader4 = async (args) => {
+  let { userId } = await (0, import_ssr4.getAuth)(args);
+  if (!userId)
+    return (0, import_node5.redirect)("/sign-in");
+  let email = await getUserEmail(userId), accountsResponse = await api_server_default.accounts.get_user_accounts(email), accounts2 = [];
+  for (let account of accountsResponse.data)
+    account.type === "credit" && accounts2.push(account);
+  return { accounts: accounts2 };
+};
+function AccountSummary() {
+  let { accounts: accounts2 } = (0, import_react32.useLoaderData)();
+  return !accounts2 || accounts2.length === 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { children: "You have no linked accounts. Connect a credit card account to see more data here." }, void 0, !1, {
+    fileName: "app/routes/accounts/route.tsx",
+    lineNumber: 60,
+    columnNumber: 7
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Card, { className: "mt-6", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Title, { children: "Linked Accounts" }, void 0, !1, {
+      fileName: "app/routes/accounts/route.tsx",
+      lineNumber: 69,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { children: "These are all of your linked accounts. If any account has a balance and recent transactions you can may a payment plan for it." }, void 0, !1, {
+      fileName: "app/routes/accounts/route.tsx",
+      lineNumber: 70,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Grid, { numColsMd: 1, className: "gap-x-6 gap-y-8 mt-6", children: accounts2.map((account) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Card, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Grid, { numCols: 2, className: "gap-x-2 gap-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Flex, { className: "items-start justify-between", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Title, { children: account.name }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 81,
+          columnNumber: 21
+        }, this),
+        account.current_balance / account.credit_limit * 100 > 0.4 && account.credit_limit > 0 && /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Badge, { color: "red", size: "sm", className: "ml-2", children: "High Utilization (>40%)" }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 85,
+          columnNumber: 25
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 80,
+        columnNumber: 19
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 79,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 1, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: "Official Name:" }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 93,
+          columnNumber: 21
+        }, this),
+        " ",
+        account.official_name
+      ] }, void 0, !0, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 92,
+        columnNumber: 19
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 91,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 1, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: "Next Payment Due Date:" }, void 0, !1, {
+            fileName: "app/routes/accounts/route.tsx",
+            lineNumber: 98,
+            columnNumber: 21
+          }, this),
+          " ",
+          cleanDate(account.next_payment_due_date)
+        ] }, void 0, !0, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 97,
+          columnNumber: 19
+        }, this),
+        account.is_overdue && /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Badge, { color: "red", size: "sm", className: "ml-2", children: "Overdue" }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 102,
+          columnNumber: 21
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 96,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Divider, { className: "mt-0 mb-1" }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 108,
+        columnNumber: 19
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 107,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 1, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+        import_react31.Callout,
+        {
+          title: `Available Balance: ${toUSD(
+            account.available_balance
+          )}`,
+          icon: import_solid4.CheckCircleIcon,
+          color: "teal"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 111,
+          columnNumber: 19
+        },
+        this
+      ) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 110,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 1, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+        import_react31.Callout,
+        {
+          title: `Current Balance: ${toUSD(account.current_balance)}`,
+          icon: import_solid4.ExclamationTriangleIcon,
+          color: "rose"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 120,
+          columnNumber: 19
+        },
+        this
+      ) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 119,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 1, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { className: "mt-2", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: [
+          "Credit Limit: ",
+          toUSD(account.credit_limit)
+        ] }, void 0, !0, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 128,
+          columnNumber: 21
+        }, this),
+        " "
+      ] }, void 0, !0, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 127,
+        columnNumber: 19
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 126,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 1, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { className: "mt-2", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: [
+          "Credit Utilization:",
+          " ",
+          formatAsPercentage(
+            account.current_balance / account.credit_limit * 100
+          )
+        ] }, void 0, !0, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 133,
+          columnNumber: 21
+        }, this),
+        " "
+      ] }, void 0, !0, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 132,
+        columnNumber: 19
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 131,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+        import_react31.ProgressBar,
+        {
+          percentageValue: account.current_balance / account.credit_limit * 100,
+          color: "indigo",
+          className: "mt-2"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 142,
+          columnNumber: 19
+        },
+        this
+      ) }, void 0, !1, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 141,
+        columnNumber: 17
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Divider, { className: "mt-4" }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 151,
+          columnNumber: 19
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: "APR Information" }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 153,
+          columnNumber: 21
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 152,
+          columnNumber: 19
+        }, this),
+        account.annual_percentage_rate && account.annual_percentage_rate.length > 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Table, { className: "mt-2", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHead, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableRow, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { children: "Type" }, void 0, !1, {
+              fileName: "app/routes/accounts/route.tsx",
+              lineNumber: 160,
+              columnNumber: 27
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { children: "APR %" }, void 0, !1, {
+              fileName: "app/routes/accounts/route.tsx",
+              lineNumber: 161,
+              columnNumber: 27
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { children: "Balance Subject to APR" }, void 0, !1, {
+              fileName: "app/routes/accounts/route.tsx",
+              lineNumber: 162,
+              columnNumber: 27
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { children: "Interest Charge Amount" }, void 0, !1, {
+              fileName: "app/routes/accounts/route.tsx",
+              lineNumber: 165,
+              columnNumber: 27
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/accounts/route.tsx",
+            lineNumber: 159,
+            columnNumber: 25
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/accounts/route.tsx",
+            lineNumber: 158,
+            columnNumber: 23
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableBody, { children: account.annual_percentage_rate.map(
+            (apr, index) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableRow, { children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { children: APRTypeToName.get(apr.apr_type) }, void 0, !1, {
+                fileName: "app/routes/accounts/route.tsx",
+                lineNumber: 174,
+                columnNumber: 31
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { children: formatAsPercentage(apr.apr_percentage) }, void 0, !1, {
+                fileName: "app/routes/accounts/route.tsx",
+                lineNumber: 177,
+                columnNumber: 31
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { children: toUSD(apr.balance_subject_to_apr) }, void 0, !1, {
+                fileName: "app/routes/accounts/route.tsx",
+                lineNumber: 180,
+                columnNumber: 31
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { children: toUSD(apr.interest_charge_amount) }, void 0, !1, {
+                fileName: "app/routes/accounts/route.tsx",
+                lineNumber: 183,
+                columnNumber: 31
+              }, this)
+            ] }, `apr-${index}`, !0, {
+              fileName: "app/routes/accounts/route.tsx",
+              lineNumber: 173,
+              columnNumber: 29
+            }, this)
+          ) }, void 0, !1, {
+            fileName: "app/routes/accounts/route.tsx",
+            lineNumber: 170,
+            columnNumber: 23
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 157,
+          columnNumber: 21
+        }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { className: "mt-2", children: "No APR information available for this account." }, void 0, !1, {
+          fileName: "app/routes/accounts/route.tsx",
+          lineNumber: 192,
+          columnNumber: 21
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/accounts/route.tsx",
+        lineNumber: 150,
+        columnNumber: 17
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/accounts/route.tsx",
+      lineNumber: 78,
+      columnNumber: 15
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/accounts/route.tsx",
+      lineNumber: 77,
+      columnNumber: 13
+    }, this) }, `${account.plaid_account_id}`, !1, {
+      fileName: "app/routes/accounts/route.tsx",
+      lineNumber: 76,
+      columnNumber: 11
+    }, this)) }, void 0, !1, {
+      fileName: "app/routes/accounts/route.tsx",
+      lineNumber: 74,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/routes/accounts/route.tsx",
+    lineNumber: 68,
+    columnNumber: 5
+  }, this);
+}
+
+// app/routes/paymentplans/route.tsx
+var route_exports3 = {};
+__export(route_exports3, {
+  action: () => action2,
+  default: () => PaymentPlans,
+  loader: () => loader5
+});
+var import_react34 = require("@tremor/react");
 
 // app/components/paymentplan_card.tsx
-var import_react31 = require("@tremor/react"), import_outline4 = require("@heroicons/react/24/outline");
-var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ payment_actions, accIdToName }) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableBody, { children: payment_actions.map((action3, idx) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableRow, { children: [
-  /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { children: accIdToName.get(action3.account_id) }, `${action3.id}_${idx}_accname`, !1, {
+var import_react33 = require("@tremor/react"), import_outline4 = require("@heroicons/react/24/outline");
+var import_jsx_dev_runtime25 = require("react/jsx-dev-runtime"), Items2 = ({ payment_actions, accIdToName }) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableBody, { children: payment_actions.map((action3, idx) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableRow, { children: [
+  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableCell, { children: accIdToName.get(action3.account_id) }, `${action3.id}_${idx}_accname`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
     lineNumber: 52,
     columnNumber: 11
   }, this),
-  /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { className: "text-right", children: toUSD(action3.amount) }, `${action3.id}_${idx}a`, !1, {
+  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableCell, { className: "text-right", children: toUSD(action3.amount) }, `${action3.id}_${idx}a`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
     lineNumber: 55,
     columnNumber: 11
   }, this),
-  /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { className: "text-right", children: cleanDate(action3.transaction_date) }, `${action3.id}_${idx}b`, !1, {
+  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableCell, { className: "text-right", children: cleanDate(action3.transaction_date) }, `${action3.id}_${idx}b`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
     lineNumber: 58,
     columnNumber: 11
   }, this),
-  /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableCell, { className: "text-right", children: ActionStatus.get(action3.status) }, `${action3.id}_${idx}c`, !1, {
+  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableCell, { className: "text-right", children: ActionStatus.get(action3.status) }, `${action3.id}_${idx}c`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
     lineNumber: 61,
     columnNumber: 11
@@ -4714,22 +5052,22 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
   footer
 }) => {
   if (!plans || plans.length === 0)
-    return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(MissingData, { text: "You have no Payment Plans. Create a Payment Plan to see more data here." }, void 0, !1, {
+    return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(MissingData, { text: "You have no Payment Plans. Create a Payment Plan to see more data here." }, void 0, !1, {
       fileName: "app/components/paymentplan_card.tsx",
       lineNumber: 77,
       columnNumber: 7
     }, this);
   let numcols = plans.length >= 2 ? 2 : 1;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Grid, { numColsMd: numcols, className: "gap-x-6 gap-y-6 mt-6", children: plans.map((plan, idx) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Card, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Grid, { numCols: 2, className: "gap-x-2 gap-y-2", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Flex, { className: "items-start", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Title, { children: plan.name }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Grid, { numColsMd: numcols, className: "gap-x-6 gap-y-6 mt-6", children: plans.map((plan, idx) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Card, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Grid, { numCols: 2, className: "gap-x-2 gap-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Flex, { className: "items-start", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Title, { children: plan.name }, void 0, !1, {
           fileName: "app/components/paymentplan_card.tsx",
           lineNumber: 90,
           columnNumber: 19
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
-          import_react31.Badge,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+          import_react33.Badge,
           {
             color: "green",
             size: "sm",
@@ -4754,15 +5092,15 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
         lineNumber: 88,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Flex, { className: "justify-start items-baseline space-x-1", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Metric, { className: "mt-2", children: toUSD(plan.amount) }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Flex, { className: "justify-start items-baseline space-x-1", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Metric, { className: "mt-2", children: toUSD(plan.amount) }, void 0, !1, {
           fileName: "app/components/paymentplan_card.tsx",
           lineNumber: 106,
           columnNumber: 19
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Text, { children: [
           "/",
-          /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: toUSD(plan.amount_per_payment) }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Bold, { children: toUSD(plan.amount_per_payment) }, void 0, !1, {
             fileName: "app/components/paymentplan_card.tsx",
             lineNumber: 108,
             columnNumber: 22
@@ -4782,7 +5120,7 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
         lineNumber: 104,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Text, { children: [
         "Last Payment: ",
         cleanDate(plan.end_date)
       ] }, void 0, !0, {
@@ -4794,7 +5132,7 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
         lineNumber: 113,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: PaymentFrequency.get(plan.payment_freq) }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Text, { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Bold, { children: PaymentFrequency.get(plan.payment_freq) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
         lineNumber: 118,
         columnNumber: 19
@@ -4807,7 +5145,7 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
         lineNumber: 116,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Text, { className: "text-right mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Bold, { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Text, { className: "text-right mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Bold, { children: [
         TimelineMonths.get(plan.timeline),
         " (",
         plan.payment_action.length,
@@ -4825,20 +5163,20 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
         lineNumber: 121,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Accordion, { className: "mt-3", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.AccordionHeader, { children: "Payments Schedule" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Accordion, { className: "mt-3", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.AccordionHeader, { children: "Payments Schedule" }, void 0, !1, {
           fileName: "app/components/paymentplan_card.tsx",
           lineNumber: 131,
           columnNumber: 19
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.AccordionBody, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.Table, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHead, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableRow, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { children: " Account " }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.AccordionBody, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.Table, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableHead, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableRow, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableHeaderCell, { children: " Account " }, void 0, !1, {
               fileName: "app/components/paymentplan_card.tsx",
               lineNumber: 136,
               columnNumber: 27
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { className: "text-right", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableHeaderCell, { className: "text-right", children: [
               " ",
               "Amount ($)",
               " "
@@ -4847,7 +5185,7 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
               lineNumber: 137,
               columnNumber: 27
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { className: "text-right", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableHeaderCell, { className: "text-right", children: [
               " ",
               "Date",
               " "
@@ -4856,7 +5194,7 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
               lineNumber: 141,
               columnNumber: 27
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react31.TableHeaderCell, { className: "text-right", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react33.TableHeaderCell, { className: "text-right", children: [
               " ",
               "Status",
               " "
@@ -4874,7 +5212,7 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
             lineNumber: 134,
             columnNumber: 23
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
             Items2,
             {
               payment_actions: plan.payment_action,
@@ -4912,7 +5250,7 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
       lineNumber: 87,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_jsx_dev_runtime24.Fragment, { children: footer && footer(plan.payment_plan_id, plan.transactions || []) }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_jsx_dev_runtime25.Fragment, { children: footer && footer(plan.payment_plan_id, plan.transactions || []) }, void 0, !1, {
       fileName: "app/components/paymentplan_card.tsx",
       lineNumber: 161,
       columnNumber: 13
@@ -4933,13 +5271,13 @@ var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), Items2 = ({ pay
 };
 
 // app/routes/paymentplans/route.tsx
-var import_solid4 = require("@heroicons/react/20/solid"), import_react33 = require("react"), import_react34 = require("@remix-run/react"), import_node5 = require("@remix-run/node");
-var import_ssr4 = require("@clerk/remix/ssr.server");
-var import_jsx_dev_runtime25 = require("react/jsx-dev-runtime");
+var import_solid5 = require("@heroicons/react/20/solid"), import_react35 = require("react"), import_react36 = require("@remix-run/react"), import_node6 = require("@remix-run/node");
+var import_ssr5 = require("@clerk/remix/ssr.server");
+var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
 async function action2({ request: request2 }) {
   let form = await request2.formData(), paymentPlanId = form.get("payment_plan_id"), transactionIds = form.get("transaction_ids");
   if (typeof paymentPlanId != "string" || typeof transactionIds != "string")
-    return (0, import_node5.json)(
+    return (0, import_node6.json)(
       {
         error: "Invalid Form Data Wrong Type",
         fields: { paymentPlanId, transactionIds }
@@ -4950,37 +5288,37 @@ async function action2({ request: request2 }) {
     paymentPlanId,
     transactionIds
   );
-  return console.log(resp), (0, import_node5.redirect)("/paymentplans");
+  return console.log(resp), (0, import_node6.redirect)("/paymentplans");
 }
-var loader4 = async (args) => {
-  let { userId } = await (0, import_ssr4.getAuth)(args);
+var loader5 = async (args) => {
+  let { userId } = await (0, import_ssr5.getAuth)(args);
   if (!userId)
-    return (0, import_node5.redirect)("/sign-in");
+    return (0, import_node6.redirect)("/sign-in");
   let email = await getUserEmail(userId), paymentPlans = await api_server_default.paymentplan.get_user_payment_plans(email), accounts2 = await api_server_default.accounts.get_user_accounts(email);
   return { paymentPlans, accounts: accounts2 };
 };
-function Route2() {
-  let { paymentPlans, accounts: accounts2 } = (0, import_react34.useLoaderData)(), accIdToName = (0, import_react33.useMemo)(
+function PaymentPlans() {
+  let { paymentPlans, accounts: accounts2 } = (0, import_react36.useLoaderData)(), accIdToName = (0, import_react35.useMemo)(
     () => AccountIDToName(accounts2.data),
     [accounts2]
   );
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react32.Card, { className: "mt-6", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("main", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react32.Title, { children: "Payment Plans" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react34.Card, { className: "mt-6", children: /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("main", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react34.Title, { children: "Payment Plans" }, void 0, !1, {
       fileName: "app/routes/paymentplans/route.tsx",
       lineNumber: 61,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react32.Text, { children: "These are all of your payment plans. Your plans tell you how much you need to pay and when." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react34.Text, { children: "These are all of your payment plans. Your plans tell you how much you need to pay and when." }, void 0, !1, {
       fileName: "app/routes/paymentplans/route.tsx",
       lineNumber: 62,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react32.Text, { children: "If you have a premium account these payments will be managed automatically!" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react34.Text, { children: "If you have a premium account these payments will be managed automatically!" }, void 0, !1, {
       fileName: "app/routes/paymentplans/route.tsx",
       lineNumber: 66,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
       PaymentPlanCard,
       {
         plans: paymentPlans.data,
@@ -5006,24 +5344,24 @@ function Route2() {
     columnNumber: 5
   }, this);
 }
-var PlanFooter = (paymentPlanId, transactionIds) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react34.Form, { method: "delete", onSubmit: (e) => confirm("Are you sure?") ? !0 : e.preventDefault(), children: [
-  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("input", { type: "hidden", value: paymentPlanId, name: "payment_plan_id" }, void 0, !1, {
+var PlanFooter = (paymentPlanId, transactionIds) => /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react36.Form, { method: "delete", onSubmit: (e) => confirm("Are you sure?") ? !0 : e.preventDefault(), children: [
+  /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("input", { type: "hidden", value: paymentPlanId, name: "payment_plan_id" }, void 0, !1, {
     fileName: "app/routes/paymentplans/route.tsx",
     lineNumber: 87,
     columnNumber: 7
   }, this),
-  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("input", { type: "hidden", value: transactionIds, name: "transaction_ids" }, void 0, !1, {
+  /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("input", { type: "hidden", value: transactionIds, name: "transaction_ids" }, void 0, !1, {
     fileName: "app/routes/paymentplans/route.tsx",
     lineNumber: 88,
     columnNumber: 7
   }, this),
-  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "border-t border-slate-200", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
-    import_react32.Button,
+  /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "border-t border-slate-200", children: /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
+    import_react34.Button,
     {
       type: "submit",
       className: "mt-3",
       size: "sm",
-      icon: import_solid4.XMarkIcon,
+      icon: import_solid5.XMarkIcon,
       iconPosition: "left",
       color: "red",
       children: "Delete"
@@ -5048,57 +5386,57 @@ var PlanFooter = (paymentPlanId, transactionIds) => /* @__PURE__ */ (0, import_j
 }, this);
 
 // app/routes/summary/route.tsx
-var route_exports3 = {};
-__export(route_exports3, {
-  default: () => Route3,
+var route_exports4 = {};
+__export(route_exports4, {
+  default: () => Route2,
   getUserEmail: () => getUserEmail2,
-  loader: () => loader5
+  loader: () => loader6
 });
-var import_node6 = require("@remix-run/node"), import_react35 = require("@remix-run/react");
-var import_react36 = require("@tremor/react"), import_react37 = require("react");
-var import_api6 = require("@clerk/remix/api.server"), import_ssr5 = require("@clerk/remix/ssr.server");
-var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime"), getUserEmail2 = async (userId) => {
-  let { emailAddresses } = await (0, import_api6.createClerkClient)({
+var import_node7 = require("@remix-run/node"), import_react37 = require("@remix-run/react");
+var import_react38 = require("@tremor/react"), import_react39 = require("react");
+var import_api7 = require("@clerk/remix/api.server"), import_ssr6 = require("@clerk/remix/ssr.server");
+var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), getUserEmail2 = async (userId) => {
+  let { emailAddresses } = await (0, import_api7.createClerkClient)({
     apiKey: process.env.CLERK_SECRET_KEY
   }).users.getUser(userId);
   if (!emailAddresses || emailAddresses.length === 0)
     throw new Error("No email address found for user");
   return emailAddresses[0].emailAddress;
-}, loader5 = async (args) => {
-  let { userId } = await (0, import_ssr5.getAuth)(args);
+}, loader6 = async (args) => {
+  let { userId } = await (0, import_ssr6.getAuth)(args);
   if (!userId)
-    return (0, import_node6.redirect)("/sign-in");
+    return (0, import_node7.redirect)("/sign-in");
   let email = await getUserEmail2(userId), encrypted = new URL(args.request.url).searchParams.get("resp"), decrypted = JSON.parse(decodeURI(encrypted)), accounts2 = await api_server_default.accounts.get_user_accounts(email);
   return { decrypted, accounts: accounts2 };
 };
-function Route3() {
-  let { decrypted, accounts: accounts2 } = (0, import_react35.useLoaderData)(), accIdToName = (0, import_react37.useMemo)(
+function Route2() {
+  let { decrypted, accounts: accounts2 } = (0, import_react37.useLoaderData)(), accIdToName = (0, import_react39.useMemo)(
     () => AccountIDToName(accounts2.data),
     [accounts2]
   );
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
     Modal,
     {
       isOpen: !0,
-      className: "tr-overflow-auto p-10",
+      className: "overflow-scroll p-10",
       navigate_path: "/dashboard",
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react36.Title, { className: "text-center mt-2", children: "New Payment Plan Created" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react38.Title, { className: "text-center mt-2", children: "New Payment Plan Created" }, void 0, !1, {
           fileName: "app/routes/summary/route.tsx",
           lineNumber: 56,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react36.Text, { className: "text-center mt-2", children: "Here is a summary of your new payment plan. You can always view all of your plans on the Payment Plans tab." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react38.Text, { className: "text-center mt-2", children: "Here is a summary of your new payment plan. You can always view all of your plans on the Payment Plans tab." }, void 0, !1, {
           fileName: "app/routes/summary/route.tsx",
           lineNumber: 57,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react36.Text, { className: "text-center", children: "And don't worry, we'll text you all the necessary details when you have an upcoming payment to make." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react38.Text, { className: "text-center", children: "And don't worry, we'll text you all the necessary details when you have an upcoming payment to make." }, void 0, !1, {
           fileName: "app/routes/summary/route.tsx",
           lineNumber: 61,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(PaymentPlanCard, { plans: decrypted.data, accIdToName }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(PaymentPlanCard, { plans: decrypted.data, accIdToName }, void 0, !1, {
           fileName: "app/routes/summary/route.tsx",
           lineNumber: 65,
           columnNumber: 7
@@ -5117,7 +5455,7 @@ function Route3() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "ce59853f", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-WAD5JAT7.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-7MEG3NLE.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-GL2WGRBO.js", imports: ["/build/_shared/chunk-34CZYV4A.js", "/build/_shared/chunk-Z4HSH47C.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-AOZEFZXK.js", imports: ["/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-S2DAG25I.js", imports: ["/build/_shared/chunk-2Q4ERQFM.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-34CZYV4A.js", "/build/_shared/chunk-Z4HSH47C.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-7OLRMEP3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-6T7COOZE.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-BSW6JXHS.js", imports: ["/build/_shared/chunk-2Q4ERQFM.js", "/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-Z4HSH47C.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-PJA3H5Z2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-CE59853F.js" };
+var assets_manifest_default = { version: "4963626e", entry: { module: "/build/entry.client-WJMYSVSH.js", imports: ["/build/_shared/chunk-D34PVKNE.js", "/build/_shared/chunk-GOKFC4RT.js", "/build/_shared/chunk-ACT355KU.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-NR73MVZZ.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2ZRJIAQH.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js", "/build/_shared/chunk-JOVKKO2U.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-7MEG3NLE.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/accounts": { id: "routes/accounts", parentId: "root", path: "accounts", index: void 0, caseSensitive: void 0, module: "/build/routes/accounts-IFWWZY5J.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-ZBEXW6EG.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-IPGCPV6N.js", imports: ["/build/_shared/chunk-ZBEXW6EG.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-LMNUXJNG.js", imports: ["/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-7YSJ4UMS.js", "/build/_shared/chunk-V4P7LV3Q.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-4PRONAIA.js", imports: ["/build/_shared/chunk-VLGYZGYA.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-ZBEXW6EG.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-7OLRMEP3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-6T7COOZE.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-SGVA4JYG.js", imports: ["/build/_shared/chunk-VLGYZGYA.js", "/build/_shared/chunk-M7CFCLYI.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-JBEN2R2F.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-PJA3H5Z2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-4963626E.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, unstable_cssSideEffectImports: !1, unstable_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, unstable_vanillaExtract: !1, v2_errorBoundary: !1, v2_meta: !1, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -5185,13 +5523,21 @@ var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, u
     caseSensitive: void 0,
     module: route_exports
   },
+  "routes/accounts": {
+    id: "routes/accounts",
+    parentId: "root",
+    path: "accounts",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route_exports2
+  },
   "routes/paymentplans": {
     id: "routes/paymentplans",
     parentId: "root",
     path: "paymentplans",
     index: void 0,
     caseSensitive: void 0,
-    module: route_exports2
+    module: route_exports3
   },
   "routes/summary": {
     id: "routes/summary",
@@ -5199,7 +5545,7 @@ var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, u
     path: "summary",
     index: void 0,
     caseSensitive: void 0,
-    module: route_exports3
+    module: route_exports4
   }
 };
 // Annotate the CommonJS export names for ESM import in node:

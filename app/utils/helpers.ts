@@ -42,6 +42,14 @@ export function jsonToMap(jsonStr: string): Map<string, any> {
 export const valueFormatter = (number: number) =>
   `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 
+export function formatAsPercentage(num: number) {
+  return new Intl.NumberFormat("us", {
+    style: "percent",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(num / 100);
+}
+
 export function cleanDate(date: string) {
   if (!date) return "";
   // Tue, 01 Aug 2023 23:15:39 GMT

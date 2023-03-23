@@ -55,7 +55,9 @@ export const getDashboardLoaderData = async (
   );
   const kpis: KPIResponse = await api.kpis.get_user_kpis(email);
   const resp: WaterfallResponse = await api.waterfall.get_user_waterfall(email);
+  console.log("resp for waterfall ", resp);
   const waterfall = makeWaterfallFromJson(resp);
+  console.log("waterfall ", waterfall);
   return { kpis, waterfall, transactions, accounts };
 };
 

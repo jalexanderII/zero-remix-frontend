@@ -47,7 +47,7 @@ export const loader: LoaderFunction = async (args) => {
   return { paymentPlans, accounts };
 };
 
-export default function Route() {
+export default function PaymentPlans() {
   const { paymentPlans, accounts } = useLoaderData();
 
   const accIdToName: Map<string, string> = useMemo(

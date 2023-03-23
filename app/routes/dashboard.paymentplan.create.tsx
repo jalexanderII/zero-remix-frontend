@@ -128,7 +128,7 @@ export default function PaymentPlanCreation() {
   return (
     <Modal
       isOpen={true}
-      className="tr-overflow-auto p-10"
+      className="overflow-scroll p-10"
       navigate_path={"/dashboard"}
     >
       <Form method="post" onSubmit={handleOnSubmitValidate}>

@@ -50,7 +50,7 @@ export default function Route() {
   return (
     <Modal
       isOpen={true}
-      className="tr-overflow-auto p-10"
+      className="overflow-scroll p-10"
       navigate_path={"/dashboard"}
     >
       <Title className="text-center mt-2">New Payment Plan Created</Title>
