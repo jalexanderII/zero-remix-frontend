@@ -9,7 +9,7 @@ const LoadingSpinner: React.FC = () => {
     let timeoutId: NodeJS.Timeout;
 
     if (transition.state === "loading") {
-      timeoutId = setTimeout(() => setShowSpinner(true), 1000);
+      timeoutId = setTimeout(() => setShowSpinner(true), 500);
     } else {
       setShowSpinner(false);
     }
@@ -22,9 +22,6 @@ const LoadingSpinner: React.FC = () => {
   }
 
   return (
-    // <div className="flex justify-center items-center min-h-screen">
-    //     <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-purple-500"></div>
-    // </div>
     <div className="flex justify-center items-center min-h-screen">
       <div
         className="animate-spin inline-block w-10 h-10 border-[3px] border-current border-t-transparent text-purple-600 rounded-full"
