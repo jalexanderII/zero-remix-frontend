@@ -57,14 +57,19 @@ export default function Route() {
       className="overflow-scroll p-10"
       navigate_path={"/dashboard"}
     >
-      <Title className="text-center mt-2">New Payment Plan Created</Title>
+      <Title className="text-center mt-2">
+        {paymentPlans.length > 1
+          ? "New Payment Plan Options Available"
+          : "New Payment Plan Created"}
+      </Title>
       <Text className="text-center mt-2">
-        Here is a summary of your new payment plan. You can always view all of
-        your plans on the Payment Plans tab.
+        {paymentPlans.length > 1
+          ? "Here are a few new payment plan options. Accept the one that best meets your needs. You can always view all of your plans on the Payment Plans tab."
+          : "Here is a summary of your new payment plan. You can always view all of your plans on the Payment Plans tab."}
       </Text>
       <Text className="text-center">
-        And don't worry, we'll text you all the necessary details when you have
-        an upcoming payment to make.
+        We'll text you a reminder with all of the necessary details when you
+        have an upcoming payment.
       </Text>
       <PaymentPlanCard
         plans={paymentPlans}

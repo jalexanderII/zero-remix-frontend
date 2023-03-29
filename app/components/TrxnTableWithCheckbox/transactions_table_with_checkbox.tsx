@@ -7,6 +7,14 @@ import type { MRT_ColumnDef } from "material-react-table";
 import MaterialReactTable from "material-react-table";
 import type { RowSelectionState } from "@tanstack/react-table";
 import { usePaymentPlanCreationForm } from "~/utils/store";
+import { cleanDate } from "~/utils/helpers";
+
+export type CleanTransaction = {
+  id: string;
+  name: string;
+  amount: string;
+  date: string;
+};
 
 interface props {
   transactions: SlimTransaction[];
@@ -31,7 +39,7 @@ export const PaymentPlanTransactions: FC<props> = ({
   const { updateAmount, setTotalAmount, updateAccountInfo } =
     usePaymentPlanCreationForm((state) => state);
 
-  const columns = useMemo<MRT_ColumnDef<SlimTransaction>[]>(
+  const columns = useMemo<MRT_ColumnDef<CleanTransaction>[]>(
     () => [
       {
         header: "Name",
@@ -49,7 +57,10 @@ export const PaymentPlanTransactions: FC<props> = ({
     []
   );
 
-  const data: SlimTransaction[] = useMemo(() => transactions, [transactions]);
+  const data: CleanTransaction[] = useMemo(
+    () => toCleanTransaction(transactions),
+    [transactions]
+  );
   const trxnIdToAmount: Map<string, number> = useMemo(
     () => transactionIDToAmount(transactions),
     [transactions]
@@ -90,4 +101,20 @@ export const PaymentPlanTransactions: FC<props> = ({
       />
     </Paper>
   );
+};
+
+export const toCleanTransaction = (trxns: SlimTransaction[]) => {
+  let data: CleanTransaction[] = [];
+  if (!trxns) {
+    return data;
+  }
+  trxns.forEach((item) => {
+    data.push({
+      name: item.name,
+      amount: item.amount,
+      date: cleanDate(item.date),
+      id: item.id,
+    });
+  });
+  return data;
 };

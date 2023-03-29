@@ -6,8 +6,6 @@ import type {
 } from "~/utils/types.server";
 import { toUSD } from "~/utils/helpers";
 
-const TRANSACTION_LIMIT = 100;
-
 export const transactions = {
   get_user_transactions: async (userId: string | null) =>
     request.get<TransactionResponse>(`/api/core/transactions`, userId),
@@ -27,12 +25,12 @@ export const pruneTransactions = async (
         name: item.name,
         amount: toUSD(item.amount),
         value: item.amount,
-        date: item.date,
+        date: new Date(item.date),
         id: item.plaid_transaction_id,
         accountId: item.plaid_account_id,
         userId: item.user_id,
       });
     }
   });
-  return data.slice(0, Math.min(data.length, TRANSACTION_LIMIT));
+  return data;
 };

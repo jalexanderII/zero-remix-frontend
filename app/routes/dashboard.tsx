@@ -50,9 +50,7 @@ export const getDashboardLoaderData = async (
     console.log(`User ${userId}, has no transactions`);
   }
   const accounts = await api.accounts.get_user_accounts(userId);
-  const transactions: SlimTransaction[] = await pruneTransactions(
-    trxnResp.data
-  );
+  let transactions: SlimTransaction[] = await pruneTransactions(trxnResp.data);
   const kpis: KPIResponse = await api.kpis.get_user_kpis(userId);
   const resp: WaterfallResponse = await api.waterfall.get_user_waterfall(
     userId

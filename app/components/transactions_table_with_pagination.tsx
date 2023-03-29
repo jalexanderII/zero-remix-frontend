@@ -14,7 +14,7 @@ import type { Account, SlimTransaction } from "~/utils/types.server";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { MissingData } from "~/components/missing_data";
-import { AccountIDToName } from "~/utils/helpers";
+import { AccountIDToName, cleanDate } from "~/utils/helpers";
 
 interface props {
   transactions: SlimTransaction[];
@@ -26,35 +26,17 @@ interface ItemProps {
   accIdToName: Map<string, string>;
 }
 
-const ITEMS_PER_PAGE = 5;
-const initialState: SlimTransaction[] = [];
+const ITEMS_PER_PAGE = 10;
 
 const Items: React.FC<ItemProps> = ({ transactions, accIdToName }) => {
   return (
     <TableBody>
-      {transactions.map((item, idx) => (
-        <TableRow key={`${item.transactionId}_${idx}`}>
-          <TableCell key={`${item.transactionId}_${idx}_accname`}>
-            {accIdToName.get(item.accountId)}
-          </TableCell>
-          <TableCell
-            key={`${item.transactionId}_${idx}a`}
-            className="text-left"
-          >
-            {item.name}
-          </TableCell>
-          <TableCell
-            key={`${item.transactionId}_${idx}b`}
-            className="text-right"
-          >
-            {item.date}
-          </TableCell>
-          <TableCell
-            key={`${item.transactionId}_${idx}c`}
-            className="text-right"
-          >
-            {item.amount}
-          </TableCell>
+      {transactions.map((item) => (
+        <TableRow key={item.transactionId}>
+          <TableCell>{accIdToName.get(item.accountId)}</TableCell>
+          <TableCell className="text-left">{item.name}</TableCell>
+          <TableCell className="text-right">{cleanDate(item.date)}</TableCell>
+          <TableCell className="text-right">{item.amount}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -65,21 +47,13 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
   transactions,
   accounts,
 }) => {
-  const [items, setItems] = useState(initialState);
-  // We start with an empty list of items.
-  const [currentItems, setCurrentItems] = useState(initialState);
+  transactions.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
+  const [currentItems, setCurrentItems] = useState<SlimTransaction[]>([]);
   const [pageCount, setPageCount] = useState(0);
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
-
-  // Fetch items from another resources.
-  const endOffset = itemOffset + ITEMS_PER_PAGE;
-
-  const currSelection: SlimTransaction[] = transactions.slice(
-    itemOffset,
-    endOffset
-  );
 
   const accIdToName: Map<string, string> = useMemo(
     () => AccountIDToName(accounts),
@@ -87,13 +61,17 @@ export const TransactionsTableWithPagination: React.FC<props> = ({
   );
 
   useEffect(() => {
+    const endOffset = itemOffset + ITEMS_PER_PAGE;
+    const currSelection: SlimTransaction[] = transactions.slice(
+      itemOffset,
+      endOffset
+    );
     setCurrentItems(currSelection);
     setPageCount(Math.ceil(transactions.length / ITEMS_PER_PAGE));
-    setItems(transactions);
   }, [itemOffset]);
 
   const handlePageClick = (event: React.ChangeEvent<unknown>, page: number) => {
-    const newOffset = (page * ITEMS_PER_PAGE) % items.length;
+    const newOffset = (page - 1) * ITEMS_PER_PAGE;
     setItemOffset(newOffset);
   };
 

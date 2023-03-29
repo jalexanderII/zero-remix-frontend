@@ -92,7 +92,7 @@ export const makeTransactionsFromJson = async (trxns: Transaction[]) => {
         name: item.name,
         amount: toUSD(item.amount),
         value: item.amount,
-        date: item.date,
+        date: new Date(item.date),
         transactionId: item.plaid_transaction_id,
       };
       // @ts-ignore

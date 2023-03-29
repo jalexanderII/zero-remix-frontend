@@ -30,11 +30,8 @@ export default function AccountSummary() {
 
   return (
     <Card className="mt-6">
-      <Title>Linked Accounts</Title>
-      <Text>
-        These are all of your linked accounts. If any account has a balance and
-        recent transactions you can may a payment plan for it.
-      </Text>
+      <Title>Linked Credit Accounts</Title>
+      <Text>These are all of your linked credit card accounts.</Text>
       <AccountCard accounts={accounts} />
     </Card>
   );

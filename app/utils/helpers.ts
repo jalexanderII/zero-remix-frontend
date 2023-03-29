@@ -50,14 +50,23 @@ export function formatAsPercentage(num: number) {
   }).format(num / 100);
 }
 
-export function cleanDate(date: string) {
+export function cleanDate(date: string | Date) {
   if (!date) return "";
+  let clean_date: Date;
+
+  if (typeof date === "string") {
+    clean_date = new Date(Date.parse(date));
+  } else {
+    clean_date = date;
+  }
   // Tue, 01 Aug 2023 23:15:39 GMT
-  const clean_date = new Date(Date.parse(date));
+  if (typeof date === "string") {
+    clean_date = new Date(Date.parse(date));
+  }
   const month = getMonth(clean_date.getUTCMonth());
   const day = clean_date.getUTCDate();
   const year = clean_date.getUTCFullYear();
-  return `${month}-${day}-${year}`;
+  return `${month} ${day}, ${year}`;
 }
 
 export const AccountIDToName = (data: Account[]) => {

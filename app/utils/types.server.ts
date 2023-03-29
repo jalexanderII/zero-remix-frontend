@@ -100,7 +100,7 @@ export type Transaction = {
   original_description: string;
   amount: number;
   iso_currency_code: string;
-  date: string;
+  date: number;
   pending: boolean;
   merchant_name: string;
   payment_channel: string;
@@ -125,7 +125,7 @@ export type SlimTransaction = {
   name: string;
   amount: string;
   value: number;
-  date: string;
+  date: Date;
   transactionId: string;
 };
 

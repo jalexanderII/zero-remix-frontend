@@ -20,6 +20,9 @@ export const AccountAccordionBody: React.FC<props> = ({
   name,
   balance,
 }) => {
+  transactions.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
   return purpose === "transactions" ? (
     <PaymentPlanTransactions
       idx={idx}
