@@ -13,7 +13,8 @@ import type {
 import { DefaultDict } from "~/utils/types.server";
 import { makeAccountFromJson } from "~/services/accounts.server";
 import { toUSD } from "~/utils/helpers";
-import { Convert } from "~/utils/paymentplan_request_converter.server";
+import { PaymentPlanConvert } from "~/utils/paymentplan_request_converter.server";
+import { AcceptPaymentPlanConvert } from "~/utils/accept_paymentplan_request_converter.server";
 
 type DeleteBody = {
   transaction_ids: string[];
@@ -37,14 +38,23 @@ export const paymentplan = {
     return resp;
   },
   submit_payment_plan: async (email: string, json: string) => {
-    const paymentPlanRequest = Convert.toPaymentPlanRequest(json);
-    paymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
+    const paymentPlanRequest = PaymentPlanConvert.toPaymentPlanRequest(json);
+    // paymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
     paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
       (account) => account.amount > 0
     );
     return await request.post<CreatePaymentPlanResponse>(
       `/api/core/paymentplan/${email}`,
       paymentPlanRequest
+    );
+  },
+  accept_payment_plan: async (json: string) => {
+    const acceptPaymentPlanRequest =
+      AcceptPaymentPlanConvert.toAcceptPaymentPlanRequest(json);
+    // acceptPaymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
+    return await request.post<CreatePaymentPlanResponse>(
+      `/api/planning/accept`,
+      acceptPaymentPlanRequest
     );
   },
   delete_payment_plan: async (

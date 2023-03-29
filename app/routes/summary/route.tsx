@@ -1,15 +1,19 @@
 import { Modal } from "~/components/modal";
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import { PaymentPlanCard } from "~/components/paymentplan_card";
-import type { CreatePaymentPlanResponse } from "~/utils/types.server";
-import { Text, Title } from "@tremor/react";
+import type {
+  CreatePaymentPlanResponse,
+  PaymentPlan,
+} from "~/utils/types.server";
+import { Button, Text, Title } from "@tremor/react";
 import React, { useMemo } from "react";
 import api from "~/services/api.server";
 import { createClerkClient } from "@clerk/remix/api.server";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { AccountIDToName } from "~/utils/helpers";
+import { CheckIcon } from "@heroicons/react/20/solid";
 
 export const getUserEmail = async (userId: string): Promise<string> => {
   const { emailAddresses } = await createClerkClient({
@@ -22,6 +26,31 @@ export const getUserEmail = async (userId: string): Promise<string> => {
 
   return emailAddresses[0].emailAddress;
 };
+
+// export async function action({ request }: ActionArgs) {
+//   const form = await request.formData();
+//   let paymentPlan = form.get("payment_plan");
+//
+//   if (typeof paymentPlan !== "string") {
+//     return json(
+//       {
+//         error: `Invalid Form Data Wrong Type`,
+//         fields: { paymentPlan },
+//       },
+//       { status: 400 }
+//     );
+//   }
+//
+//   const req: AcceptPaymentPlanRequest = {
+//     paymentPlan: JSON.parse(paymentPlan),
+//     save_plan: false,
+//   };
+//
+//   const resp = await api.paymentplan.accept_payment_plan(JSON.stringify(req));
+//   console.log(resp);
+//
+//   return redirect("/paymentplans");
+// }
 
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
@@ -47,6 +76,8 @@ export default function Route() {
     [accounts]
   );
 
+  const paymentPlans: PaymentPlan[] = decrypted.data;
+
   return (
     <Modal
       isOpen={true}
@@ -62,7 +93,41 @@ export default function Route() {
         And don't worry, we'll text you all the necessary details when you have
         an upcoming payment to make.
       </Text>
-      <PaymentPlanCard plans={decrypted.data} accIdToName={accIdToName} />
+      <PaymentPlanCard
+        plans={paymentPlans}
+        accIdToName={accIdToName}
+        accept={paymentPlans.length > 1 ? AcceptFooter : undefined}
+      />
     </Modal>
   );
 }
+
+const AcceptFooter = (paymentPlan: PaymentPlan) => {
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    return !confirm("Are you sure?") ? e.preventDefault() : true;
+  };
+
+  return (
+    <Form method="post" onSubmit={handleOnSubmit} action="/paymentplans">
+      <input
+        type="hidden"
+        value={JSON.stringify(paymentPlan)}
+        name="payment_plan"
+      />
+      <div className="border-t border-slate-200">
+        <Button
+          type="submit"
+          name="_action"
+          value="accept_payment_plan"
+          className="mt-3"
+          size="sm"
+          icon={CheckIcon}
+          iconPosition="left"
+          color="blue"
+        >
+          Accept
+        </Button>
+      </div>
+    </Form>
+  );
+};

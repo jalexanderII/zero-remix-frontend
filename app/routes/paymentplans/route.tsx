@@ -10,29 +10,63 @@ import api from "~/services/api.server";
 import { getAuth } from "@clerk/remix/ssr.server";
 import { getUserEmail } from "~/routes/dashboard";
 import { AccountIDToName } from "~/utils/helpers";
+import type { AcceptPaymentPlanRequest } from "~/utils/accept_paymentplan_request_converter.server";
 
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
   let paymentPlanId = form.get("payment_plan_id");
   let transactionIds = form.get("transaction_ids");
+  let paymentPlan = form.get("payment_plan");
+  const action = form.get("_action");
+  console.log("this is the action i am seeing!", action);
 
-  if (typeof paymentPlanId !== "string" || typeof transactionIds !== "string") {
-    return json(
-      {
-        error: `Invalid Form Data Wrong Type`,
-        fields: { paymentPlanId, transactionIds },
-      },
-      { status: 400 }
-    );
+  switch (action) {
+    case "delete_payment_plan":
+      if (
+        typeof paymentPlanId !== "string" ||
+        typeof transactionIds !== "string"
+      ) {
+        return json(
+          {
+            error: `Invalid Form Data Wrong Type`,
+            fields: { paymentPlanId, transactionIds },
+          },
+          { status: 400 }
+        );
+      }
+
+      const dresp = await api.paymentplan.delete_payment_plan(
+        paymentPlanId,
+        transactionIds
+      );
+      console.log(dresp);
+
+      return redirect("/paymentplans");
+    case "accept_payment_plan":
+      if (typeof paymentPlan !== "string") {
+        return json(
+          {
+            error: `Invalid Form Data Wrong Type`,
+            fields: { paymentPlan },
+          },
+          { status: 400 }
+        );
+      }
+
+      const req: AcceptPaymentPlanRequest = {
+        payment_plan: JSON.parse(paymentPlan),
+        save_plan: true,
+      };
+
+      const aresp = await api.paymentplan.accept_payment_plan(
+        JSON.stringify(req)
+      );
+      console.log(aresp);
+
+      return redirect("/paymentplans");
+    default:
+      return json({ error: `Invalid Form Data` }, { status: 400 });
   }
-
-  const resp = await api.paymentplan.delete_payment_plan(
-    paymentPlanId,
-    transactionIds
-  );
-  console.log(resp);
-
-  return redirect("/paymentplans");
 }
 
 export const loader: LoaderFunction = async (args) => {
@@ -89,6 +123,8 @@ const PlanFooter = (paymentPlanId: string, transactionIds: string[]) => {
       <div className="border-t border-slate-200">
         <Button
           type="submit"
+          name="_action"
+          value="delete_payment_plan"
           className="mt-3"
           size="sm"
           icon={XMarkIcon}

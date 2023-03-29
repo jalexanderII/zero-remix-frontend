@@ -132,7 +132,7 @@ var import_react10 = require("@remix-run/react"), import_ssr = require("@clerk/r
 var shared_default = "/build/_assets/shared-DNV4CNRF.css";
 
 // app/styles/app.css
-var app_default = "/build/_assets/app-FEBDFCQH.css";
+var app_default = "/build/_assets/app-HIFFSN2J.css";
 
 // app/components/header.tsx
 var import_remix = require("@clerk/remix"), import_react4 = require("@remix-run/react"), import_outline = require("@heroicons/react/24/outline"), import_react5 = require("@headlessui/react"), import_react6 = require("react"), import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), navigation = [
@@ -3203,15 +3203,7 @@ var DefaultDict = class {
   }
 };
 
-// app/utils/paymentplan_request_converter.server.ts
-var Convert = class {
-  static toPaymentPlanRequest(json3) {
-    return cast(JSON.parse(json3), r("PaymentPlanRequest"));
-  }
-  static paymentPlanRequestToJson(value) {
-    return JSON.stringify(uncast(value, r("PaymentPlanRequest")), null, 2);
-  }
-};
+// app/utils/json_converter_helpers.ts
 function invalidValue(typ, val, key, parent = "") {
   let prettyTyp = prettyTypeName(typ), parentText = parent ? ` on ${parent}` : "", keyText = key ? ` for key "${key}"` : "";
   throw Error(
@@ -3237,7 +3229,7 @@ function jsToJSONProps(typ) {
   }
   return typ.jsToJSON;
 }
-function transform(val, typ, getProps, key = "", parent = "") {
+function transform(val, typ, getProps, typeMap3, key = "", parent = "") {
   function transformPrimitive(typ2, val2) {
     return typeof typ2 == typeof val2 ? val2 : invalidValue(typ2, val2, key, parent);
   }
@@ -3246,7 +3238,7 @@ function transform(val, typ, getProps, key = "", parent = "") {
     for (let i = 0; i < l2; i++) {
       let typ2 = typs[i];
       try {
-        return transform(val2, typ2, getProps);
+        return transform(val2, typ2, getProps, typeMap3);
       } catch {
       }
     }
@@ -3261,7 +3253,7 @@ function transform(val, typ, getProps, key = "", parent = "") {
     );
   }
   function transformArray(typ2, val2) {
-    return Array.isArray(val2) ? val2.map((el) => transform(el, typ2, getProps)) : invalidValue(l("array"), val2, key, parent);
+    return Array.isArray(val2) ? val2.map((el) => transform(el, typ2, getProps, typeMap3)) : invalidValue(l("array"), val2, key, parent);
   }
   function transformDate(val2) {
     if (val2 === null)
@@ -3275,9 +3267,16 @@ function transform(val, typ, getProps, key = "", parent = "") {
     let result = {};
     return Object.getOwnPropertyNames(props).forEach((key2) => {
       let prop = props[key2], v = Object.prototype.hasOwnProperty.call(val2, key2) ? val2[key2] : void 0;
-      result[prop.key] = transform(v, prop.typ, getProps, key2, ref);
+      result[prop.key] = transform(v, prop.typ, getProps, typeMap3, key2, ref);
     }), Object.getOwnPropertyNames(val2).forEach((key2) => {
-      Object.prototype.hasOwnProperty.call(props, key2) || (result[key2] = transform(val2[key2], additional, getProps, key2, ref));
+      Object.prototype.hasOwnProperty.call(props, key2) || (result[key2] = transform(
+        val2[key2],
+        additional,
+        getProps,
+        typeMap3,
+        key2,
+        ref
+      ));
     }), result;
   }
   if (typ === "any")
@@ -3288,14 +3287,14 @@ function transform(val, typ, getProps, key = "", parent = "") {
     return invalidValue(typ, val, key, parent);
   let ref;
   for (; typeof typ == "object" && typ.ref !== void 0; )
-    ref = typ.ref, typ = typeMap[typ.ref];
+    ref = typ.ref, typ = typeMap3[typ.ref];
   return Array.isArray(typ) ? transformEnum(typ, val) : typeof typ == "object" ? typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val) : typ.hasOwnProperty("arrayItems") ? transformArray(typ.arrayItems, val) : typ.hasOwnProperty("props") ? transformObject(getProps(typ), typ.additional, val) : invalidValue(typ, val, key, parent) : typ === Date && typeof val != "number" ? transformDate(val) : transformPrimitive(typ, val);
 }
-function cast(val, typ) {
-  return transform(val, typ, jsonToJSProps);
+function cast(val, typ, typeMap3) {
+  return transform(val, typ, jsonToJSProps, typeMap3);
 }
-function uncast(val, typ) {
-  return transform(val, typ, jsToJSONProps);
+function uncast(val, typ, typeMap3) {
+  return transform(val, typ, jsToJSONProps, typeMap3);
 }
 function l(typ) {
   return { literal: typ };
@@ -3303,13 +3302,29 @@ function l(typ) {
 function a(typ) {
   return { arrayItems: typ };
 }
+function u(...typs) {
+  return { unionMembers: typs };
+}
 function o(props, additional) {
   return { props, additional };
 }
 function r(name) {
   return { ref: name };
 }
-var typeMap = {
+
+// app/utils/paymentplan_request_converter.server.ts
+var PaymentPlanConvert = class {
+  static toPaymentPlanRequest(json3) {
+    return cast(JSON.parse(json3), r("PaymentPlanRequest"), typeMap);
+  }
+  static paymentPlanRequestToJson(value) {
+    return JSON.stringify(
+      uncast(value, r("PaymentPlanRequest"), typeMap),
+      null,
+      2
+    );
+  }
+}, typeMap = {
   PaymentPlanRequest: o(
     [
       { json: "account_info", js: "account_info", typ: a(r("AccountInfo")) },
@@ -3340,6 +3355,102 @@ var typeMap = {
   )
 };
 
+// app/utils/accept_paymentplan_request_converter.server.ts
+var AcceptPaymentPlanConvert = class {
+  static toAcceptPaymentPlanRequest(json3) {
+    return cast(JSON.parse(json3), r("AcceptPaymentPlanRequest"), typeMap2);
+  }
+  static acceptPaymentPlanRequestToJson(value) {
+    return JSON.stringify(
+      uncast(value, r("AcceptPaymentPlanRequest"), typeMap2),
+      null,
+      2
+    );
+  }
+}, typeMap2 = {
+  AcceptPaymentPlanRequest: o(
+    [
+      { json: "payment_plan", js: "payment_plan", typ: r("PaymentPlan") },
+      { json: "save_plan", js: "save_plan", typ: !0 }
+    ],
+    !1
+  ),
+  PaymentAction: o(
+    [
+      { json: "id", js: "id", typ: "" },
+      { json: "account_id", js: "account_id", typ: "" },
+      { json: "amount", js: "amount", typ: 3.14 },
+      { json: "transaction_date", js: "transaction_date", typ: "" },
+      { json: "status", js: "status", typ: 0 }
+    ],
+    !1
+  ),
+  PaymentPlan: o(
+    [
+      { json: "id", js: "id", typ: "" },
+      { json: "name", js: "name", typ: "" },
+      { json: "payment_plan_id", js: "payment_plan_id", typ: u("", void 0) },
+      { json: "user_id", js: "user_id", typ: "" },
+      {
+        json: "payment_task_id",
+        js: "payment_task_id",
+        typ: a("")
+      },
+      {
+        json: "amount",
+        js: "amount",
+        typ: 3.14
+      },
+      {
+        json: "timeline",
+        js: "timeline",
+        typ: 0
+      },
+      {
+        json: "payment_freq",
+        js: "payment_freq",
+        typ: 0
+      },
+      {
+        json: "amount_per_payment",
+        js: "amount_per_payment",
+        typ: 3.14
+      },
+      {
+        json: "plan_type",
+        js: "plan_type",
+        typ: 0
+      },
+      {
+        json: "end_date",
+        js: "end_date",
+        typ: ""
+      },
+      {
+        json: "active",
+        js: "active",
+        typ: !0
+      },
+      {
+        json: "status",
+        js: "status",
+        typ: 0
+      },
+      {
+        json: "payment_action",
+        js: "payment_action",
+        typ: a(r("PaymentAction"))
+      },
+      {
+        json: "transactions",
+        js: "transactions",
+        typ: u(a(""), void 0)
+      }
+    ],
+    !1
+  )
+};
+
 // app/services/paymentplan.server.ts
 var paymentplan = {
   get_transactions_by_account: async (email) => {
@@ -3353,12 +3464,19 @@ var paymentplan = {
     return { slimAccounts, transactionDict };
   },
   submit_payment_plan: async (email, json3) => {
-    let paymentPlanRequest = Convert.toPaymentPlanRequest(json3);
-    return paymentPlanRequest.save_plan = !1, paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
+    let paymentPlanRequest = PaymentPlanConvert.toPaymentPlanRequest(json3);
+    return paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
       (account) => account.amount > 0
     ), await request.post(
       `/api/core/paymentplan/${email}`,
       paymentPlanRequest
+    );
+  },
+  accept_payment_plan: async (json3) => {
+    let acceptPaymentPlanRequest = AcceptPaymentPlanConvert.toAcceptPaymentPlanRequest(json3);
+    return await request.post(
+      "/api/planning/accept",
+      acceptPaymentPlanRequest
     );
   },
   delete_payment_plan: async (paymentPlanId, transactionIds) => {
@@ -3936,7 +4054,7 @@ var import_react24 = require("@remix-run/react"), import_jsx_dev_runtime14 = req
       !1,
       {
         fileName: "app/components/modal.tsx",
-        lineNumber: 25,
+        lineNumber: 26,
         columnNumber: 7
       },
       this
@@ -3944,28 +4062,103 @@ var import_react24 = require("@remix-run/react"), import_jsx_dev_runtime14 = req
     /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "fixed inset-0 pointer-events-none flex justify-center items-center max-h-screen overflow-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
       "div",
       {
-        className: `${className} p-4 bg-gray-200 pointer-events-auto w-fit h-5/6 md:rounded-xl`,
-        children
+        className: `${className} p-4 bg-gray-200 pointer-events-auto w-fit md:w-11/12 h-5/6 md:rounded-xl`,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(CloseButton, { navigate, navigate_path }, void 0, !1, {
+            fileName: "app/components/modal.tsx",
+            lineNumber: 37,
+            columnNumber: 11
+          }, this),
+          children
+        ]
       },
       void 0,
-      !1,
+      !0,
       {
         fileName: "app/components/modal.tsx",
-        lineNumber: 33,
+        lineNumber: 34,
         columnNumber: 9
       },
       this
     ) }, void 0, !1, {
       fileName: "app/components/modal.tsx",
-      lineNumber: 32,
+      lineNumber: 33,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/modal.tsx",
-    lineNumber: 24,
+    lineNumber: 25,
     columnNumber: 5
   }, this) : null;
-};
+}, CloseButton = ({ navigate, navigate_path }) => /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "flex flex-col items-right md:flex-row", children: [
+  /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "flex-1" }, void 0, !1, {
+    fileName: "app/components/modal.tsx",
+    lineNumber: 54,
+    columnNumber: 7
+  }, this),
+  /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+    "button",
+    {
+      type: "button",
+      className: "text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white",
+      "data-modal-hide": "popup-modal",
+      onClick: () => navigate(navigate_path),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+          "svg",
+          {
+            "aria-hidden": "true",
+            className: "w-5 h-5",
+            fill: "currentColor",
+            viewBox: "0 0 20 20",
+            xmlns: "http://www.w3.org/2000/svg",
+            children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+              "path",
+              {
+                fillRule: "evenodd",
+                d: "M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z",
+                clipRule: "evenodd"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/modal.tsx",
+                lineNumber: 68,
+                columnNumber: 11
+              },
+              this
+            )
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/components/modal.tsx",
+            lineNumber: 61,
+            columnNumber: 9
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("span", { className: "sr-only", children: "Close modal" }, void 0, !1, {
+          fileName: "app/components/modal.tsx",
+          lineNumber: 74,
+          columnNumber: 9
+        }, this)
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/components/modal.tsx",
+      lineNumber: 55,
+      columnNumber: 7
+    },
+    this
+  )
+] }, void 0, !0, {
+  fileName: "app/components/modal.tsx",
+  lineNumber: 53,
+  columnNumber: 5
+}, this);
 
 // app/routes/dashboard.paymentplan.create.tsx
 var import_react31 = require("@tremor/react"), import_react32 = require("react"), import_react33 = require("@remix-run/react"), import_node4 = require("@remix-run/node"), import_ssr3 = require("@clerk/remix/ssr.server");
@@ -4403,7 +4596,7 @@ async function action({ request: request2 }) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency)
         },
-        save_plan: !1
+        save_plan: !0
       }, resp = await api_server_default.paymentplan.submit_payment_plan(
         email,
         JSON.stringify(req)
@@ -5094,41 +5287,42 @@ var import_react37 = require("@tremor/react"), import_outline4 = require("@heroi
 var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ payment_actions, accIdToName }) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableBody, { children: payment_actions.map((action3, idx) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableRow, { children: [
   /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableCell, { children: accIdToName.get(action3.account_id) }, `${action3.id}_${idx}_accname`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
-    lineNumber: 52,
+    lineNumber: 53,
     columnNumber: 11
   }, this),
   /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableCell, { className: "text-right", children: toUSD(action3.amount) }, `${action3.id}_${idx}a`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
-    lineNumber: 55,
+    lineNumber: 56,
     columnNumber: 11
   }, this),
   /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableCell, { className: "text-right", children: cleanDate(action3.transaction_date) }, `${action3.id}_${idx}b`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
-    lineNumber: 58,
+    lineNumber: 59,
     columnNumber: 11
   }, this),
   /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableCell, { className: "text-right", children: ActionStatus.get(action3.status) }, `${action3.id}_${idx}c`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
-    lineNumber: 61,
+    lineNumber: 62,
     columnNumber: 11
   }, this)
 ] }, `${action3.id}_${idx}`, !0, {
   fileName: "app/components/paymentplan_card.tsx",
-  lineNumber: 51,
+  lineNumber: 52,
   columnNumber: 9
 }, this)) }, void 0, !1, {
   fileName: "app/components/paymentplan_card.tsx",
-  lineNumber: 49,
+  lineNumber: 50,
   columnNumber: 5
 }, this), PaymentPlanCard = ({
   plans,
   accIdToName,
-  footer
+  footer,
+  accept
 }) => {
   if (!plans || plans.length === 0)
     return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(MissingData, { text: "You have no Payment Plans. Create a Payment Plan to see more data here." }, void 0, !1, {
       fileName: "app/components/paymentplan_card.tsx",
-      lineNumber: 77,
+      lineNumber: 79,
       columnNumber: 7
     }, this);
   let numcols = plans.length >= 2 ? 2 : 1;
@@ -5137,7 +5331,7 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
       /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Flex, { className: "items-start", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Title, { children: plan.name }, void 0, !1, {
           fileName: "app/components/paymentplan_card.tsx",
-          lineNumber: 90,
+          lineNumber: 92,
           columnNumber: 19
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
@@ -5152,46 +5346,46 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
           !1,
           {
             fileName: "app/components/paymentplan_card.tsx",
-            lineNumber: 91,
+            lineNumber: 93,
             columnNumber: 19
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 89,
+        lineNumber: 91,
         columnNumber: 17
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 88,
+        lineNumber: 90,
         columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Flex, { className: "justify-start items-baseline space-x-1", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Metric, { className: "mt-2", children: toUSD(plan.amount) }, void 0, !1, {
           fileName: "app/components/paymentplan_card.tsx",
-          lineNumber: 106,
+          lineNumber: 108,
           columnNumber: 19
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Text, { children: [
           "/",
           /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Bold, { children: toUSD(plan.amount_per_payment) }, void 0, !1, {
             fileName: "app/components/paymentplan_card.tsx",
-            lineNumber: 108,
+            lineNumber: 110,
             columnNumber: 22
           }, this),
           " per payment avg"
         ] }, void 0, !0, {
           fileName: "app/components/paymentplan_card.tsx",
-          lineNumber: 107,
+          lineNumber: 109,
           columnNumber: 19
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 105,
+        lineNumber: 107,
         columnNumber: 17
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 104,
+        lineNumber: 106,
         columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Text, { children: [
@@ -5199,24 +5393,24 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
         cleanDate(plan.end_date)
       ] }, void 0, !0, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 114,
+        lineNumber: 116,
         columnNumber: 17
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 113,
+        lineNumber: 115,
         columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Text, { className: "mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Bold, { children: PaymentFrequency.get(plan.payment_freq) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 118,
+        lineNumber: 120,
         columnNumber: 19
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 117,
+        lineNumber: 119,
         columnNumber: 17
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 116,
+        lineNumber: 118,
         columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Col, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Text, { className: "text-right mt-2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Bold, { children: [
@@ -5226,28 +5420,28 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
         " payments)"
       ] }, void 0, !0, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 123,
+        lineNumber: 125,
         columnNumber: 19
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 122,
+        lineNumber: 124,
         columnNumber: 17
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 121,
+        lineNumber: 123,
         columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Col, { numColSpan: 2, children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Accordion, { className: "mt-3", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.AccordionHeader, { children: "Payments Schedule" }, void 0, !1, {
           fileName: "app/components/paymentplan_card.tsx",
-          lineNumber: 131,
+          lineNumber: 133,
           columnNumber: 19
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.AccordionBody, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.Table, { children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableHead, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableRow, { children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableHeaderCell, { children: " Account " }, void 0, !1, {
               fileName: "app/components/paymentplan_card.tsx",
-              lineNumber: 136,
+              lineNumber: 138,
               columnNumber: 27
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableHeaderCell, { className: "text-right", children: [
@@ -5256,7 +5450,7 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
               " "
             ] }, void 0, !0, {
               fileName: "app/components/paymentplan_card.tsx",
-              lineNumber: 137,
+              lineNumber: 139,
               columnNumber: 27
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableHeaderCell, { className: "text-right", children: [
@@ -5265,7 +5459,7 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
               " "
             ] }, void 0, !0, {
               fileName: "app/components/paymentplan_card.tsx",
-              lineNumber: 141,
+              lineNumber: 143,
               columnNumber: 27
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react37.TableHeaderCell, { className: "text-right", children: [
@@ -5274,16 +5468,16 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
               " "
             ] }, void 0, !0, {
               fileName: "app/components/paymentplan_card.tsx",
-              lineNumber: 145,
+              lineNumber: 147,
               columnNumber: 27
             }, this)
           ] }, void 0, !0, {
             fileName: "app/components/paymentplan_card.tsx",
-            lineNumber: 135,
+            lineNumber: 137,
             columnNumber: 25
           }, this) }, void 0, !1, {
             fileName: "app/components/paymentplan_card.tsx",
-            lineNumber: 134,
+            lineNumber: 136,
             columnNumber: 23
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
@@ -5296,50 +5490,55 @@ var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), Items2 = ({ pay
             !1,
             {
               fileName: "app/components/paymentplan_card.tsx",
-              lineNumber: 152,
+              lineNumber: 154,
               columnNumber: 23
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/components/paymentplan_card.tsx",
-          lineNumber: 133,
+          lineNumber: 135,
           columnNumber: 21
         }, this) }, void 0, !1, {
           fileName: "app/components/paymentplan_card.tsx",
-          lineNumber: 132,
+          lineNumber: 134,
           columnNumber: 19
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 130,
+        lineNumber: 132,
         columnNumber: 17
       }, this) }, void 0, !1, {
         fileName: "app/components/paymentplan_card.tsx",
-        lineNumber: 129,
+        lineNumber: 131,
         columnNumber: 15
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/paymentplan_card.tsx",
-      lineNumber: 87,
+      lineNumber: 89,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_jsx_dev_runtime27.Fragment, { children: footer && footer(plan.payment_plan_id, plan.transactions || []) }, void 0, !1, {
       fileName: "app/components/paymentplan_card.tsx",
-      lineNumber: 161,
+      lineNumber: 163,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_jsx_dev_runtime27.Fragment, { children: accept && accept(plan) }, void 0, !1, {
+      fileName: "app/components/paymentplan_card.tsx",
+      lineNumber: 166,
       columnNumber: 13
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/paymentplan_card.tsx",
-    lineNumber: 86,
+    lineNumber: 88,
     columnNumber: 11
   }, this) }, `${plan.name}_${idx}`, !1, {
     fileName: "app/components/paymentplan_card.tsx",
-    lineNumber: 85,
+    lineNumber: 87,
     columnNumber: 9
   }, this)) }, void 0, !1, {
     fileName: "app/components/paymentplan_card.tsx",
-    lineNumber: 83,
+    lineNumber: 85,
     columnNumber: 5
   }, this);
 };
@@ -5349,20 +5548,41 @@ var import_solid5 = require("@heroicons/react/20/solid"), import_react39 = requi
 var import_ssr5 = require("@clerk/remix/ssr.server");
 var import_jsx_dev_runtime28 = require("react/jsx-dev-runtime");
 async function action2({ request: request2 }) {
-  let form = await request2.formData(), paymentPlanId = form.get("payment_plan_id"), transactionIds = form.get("transaction_ids");
-  if (typeof paymentPlanId != "string" || typeof transactionIds != "string")
-    return (0, import_node6.json)(
-      {
-        error: "Invalid Form Data Wrong Type",
-        fields: { paymentPlanId, transactionIds }
-      },
-      { status: 400 }
-    );
-  let resp = await api_server_default.paymentplan.delete_payment_plan(
-    paymentPlanId,
-    transactionIds
-  );
-  return console.log(resp), (0, import_node6.redirect)("/paymentplans");
+  let form = await request2.formData(), paymentPlanId = form.get("payment_plan_id"), transactionIds = form.get("transaction_ids"), paymentPlan = form.get("payment_plan"), action3 = form.get("_action");
+  switch (console.log("this is the action i am seeing!", action3), action3) {
+    case "delete_payment_plan":
+      if (typeof paymentPlanId != "string" || typeof transactionIds != "string")
+        return (0, import_node6.json)(
+          {
+            error: "Invalid Form Data Wrong Type",
+            fields: { paymentPlanId, transactionIds }
+          },
+          { status: 400 }
+        );
+      let dresp = await api_server_default.paymentplan.delete_payment_plan(
+        paymentPlanId,
+        transactionIds
+      );
+      return console.log(dresp), (0, import_node6.redirect)("/paymentplans");
+    case "accept_payment_plan":
+      if (typeof paymentPlan != "string")
+        return (0, import_node6.json)(
+          {
+            error: "Invalid Form Data Wrong Type",
+            fields: { paymentPlan }
+          },
+          { status: 400 }
+        );
+      let req = {
+        payment_plan: JSON.parse(paymentPlan),
+        save_plan: !0
+      }, aresp = await api_server_default.paymentplan.accept_payment_plan(
+        JSON.stringify(req)
+      );
+      return console.log(aresp), (0, import_node6.redirect)("/paymentplans");
+    default:
+      return (0, import_node6.json)({ error: "Invalid Form Data" }, { status: 400 });
+  }
 }
 var loader5 = async (args) => {
   let { userId } = await (0, import_ssr5.getAuth)(args);
@@ -5379,17 +5599,17 @@ function PaymentPlans() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react38.Card, { className: "mt-6", children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("main", { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react38.Title, { children: "Payment Plans" }, void 0, !1, {
       fileName: "app/routes/paymentplans/route.tsx",
-      lineNumber: 61,
+      lineNumber: 95,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react38.Text, { children: "These are all of your payment plans. Your plans tell you how much you need to pay and when." }, void 0, !1, {
       fileName: "app/routes/paymentplans/route.tsx",
-      lineNumber: 62,
+      lineNumber: 96,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react38.Text, { children: "If you have a premium account these payments will be managed automatically!" }, void 0, !1, {
       fileName: "app/routes/paymentplans/route.tsx",
-      lineNumber: 66,
+      lineNumber: 100,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
@@ -5403,36 +5623,38 @@ function PaymentPlans() {
       !1,
       {
         fileName: "app/routes/paymentplans/route.tsx",
-        lineNumber: 70,
+        lineNumber: 104,
         columnNumber: 9
       },
       this
     )
   ] }, void 0, !0, {
     fileName: "app/routes/paymentplans/route.tsx",
-    lineNumber: 60,
+    lineNumber: 94,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/paymentplans/route.tsx",
-    lineNumber: 59,
+    lineNumber: 93,
     columnNumber: 5
   }, this);
 }
 var PlanFooter = (paymentPlanId, transactionIds) => /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react40.Form, { method: "delete", onSubmit: (e) => confirm("Are you sure?") ? !0 : e.preventDefault(), children: [
   /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("input", { type: "hidden", value: paymentPlanId, name: "payment_plan_id" }, void 0, !1, {
     fileName: "app/routes/paymentplans/route.tsx",
-    lineNumber: 87,
+    lineNumber: 121,
     columnNumber: 7
   }, this),
   /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("input", { type: "hidden", value: transactionIds, name: "transaction_ids" }, void 0, !1, {
     fileName: "app/routes/paymentplans/route.tsx",
-    lineNumber: 88,
+    lineNumber: 122,
     columnNumber: 7
   }, this),
   /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { className: "border-t border-slate-200", children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
     import_react38.Button,
     {
       type: "submit",
+      name: "_action",
+      value: "delete_payment_plan",
       className: "mt-3",
       size: "sm",
       icon: import_solid5.XMarkIcon,
@@ -5444,18 +5666,18 @@ var PlanFooter = (paymentPlanId, transactionIds) => /* @__PURE__ */ (0, import_j
     !1,
     {
       fileName: "app/routes/paymentplans/route.tsx",
-      lineNumber: 90,
+      lineNumber: 124,
       columnNumber: 9
     },
     this
   ) }, void 0, !1, {
     fileName: "app/routes/paymentplans/route.tsx",
-    lineNumber: 89,
+    lineNumber: 123,
     columnNumber: 7
   }, this)
 ] }, void 0, !0, {
   fileName: "app/routes/paymentplans/route.tsx",
-  lineNumber: 86,
+  lineNumber: 120,
   columnNumber: 5
 }, this);
 
@@ -5469,7 +5691,7 @@ __export(route_exports4, {
 var import_node7 = require("@remix-run/node"), import_react41 = require("@remix-run/react");
 var import_react42 = require("@tremor/react"), import_react43 = require("react");
 var import_api7 = require("@clerk/remix/api.server"), import_ssr6 = require("@clerk/remix/ssr.server");
-var import_jsx_dev_runtime29 = require("react/jsx-dev-runtime"), getUserEmail2 = async (userId) => {
+var import_solid6 = require("@heroicons/react/20/solid"), import_jsx_dev_runtime29 = require("react/jsx-dev-runtime"), getUserEmail2 = async (userId) => {
   let { emailAddresses } = await (0, import_api7.createClerkClient)({
     apiKey: process.env.CLERK_SECRET_KEY
   }).users.getUser(userId);
@@ -5487,7 +5709,7 @@ function Route2() {
   let { decrypted, accounts: accounts2 } = (0, import_react41.useLoaderData)(), accIdToName = (0, import_react43.useMemo)(
     () => AccountIDToName(accounts2.data),
     [accounts2]
-  );
+  ), paymentPlans = decrypted.data;
   return /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
     Modal,
     {
@@ -5497,39 +5719,98 @@ function Route2() {
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react42.Title, { className: "text-center mt-2", children: "New Payment Plan Created" }, void 0, !1, {
           fileName: "app/routes/summary/route.tsx",
-          lineNumber: 56,
+          lineNumber: 87,
           columnNumber: 7
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react42.Text, { className: "text-center mt-2", children: "Here is a summary of your new payment plan. You can always view all of your plans on the Payment Plans tab." }, void 0, !1, {
           fileName: "app/routes/summary/route.tsx",
-          lineNumber: 57,
+          lineNumber: 88,
           columnNumber: 7
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react42.Text, { className: "text-center", children: "And don't worry, we'll text you all the necessary details when you have an upcoming payment to make." }, void 0, !1, {
           fileName: "app/routes/summary/route.tsx",
-          lineNumber: 61,
+          lineNumber: 92,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(PaymentPlanCard, { plans: decrypted.data, accIdToName }, void 0, !1, {
-          fileName: "app/routes/summary/route.tsx",
-          lineNumber: 65,
-          columnNumber: 7
-        }, this)
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+          PaymentPlanCard,
+          {
+            plans: paymentPlans,
+            accIdToName,
+            accept: paymentPlans.length > 1 ? AcceptFooter : void 0
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/summary/route.tsx",
+            lineNumber: 96,
+            columnNumber: 7
+          },
+          this
+        )
       ]
     },
     void 0,
     !0,
     {
       fileName: "app/routes/summary/route.tsx",
-      lineNumber: 51,
+      lineNumber: 82,
       columnNumber: 5
     },
     this
   );
 }
+var AcceptFooter = (paymentPlan) => /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react41.Form, { method: "post", onSubmit: (e) => confirm("Are you sure?") ? !0 : e.preventDefault(), action: "/paymentplans", children: [
+  /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+    "input",
+    {
+      type: "hidden",
+      value: JSON.stringify(paymentPlan),
+      name: "payment_plan"
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/routes/summary/route.tsx",
+      lineNumber: 112,
+      columnNumber: 7
+    },
+    this
+  ),
+  /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "border-t border-slate-200", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+    import_react42.Button,
+    {
+      type: "submit",
+      name: "_action",
+      value: "accept_payment_plan",
+      className: "mt-3",
+      size: "sm",
+      icon: import_solid6.CheckIcon,
+      iconPosition: "left",
+      color: "blue",
+      children: "Accept"
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/routes/summary/route.tsx",
+      lineNumber: 118,
+      columnNumber: 9
+    },
+    this
+  ) }, void 0, !1, {
+    fileName: "app/routes/summary/route.tsx",
+    lineNumber: 117,
+    columnNumber: 7
+  }, this)
+] }, void 0, !0, {
+  fileName: "app/routes/summary/route.tsx",
+  lineNumber: 111,
+  columnNumber: 5
+}, this);
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "d2ef6c99", entry: { module: "/build/entry.client-2KEW6SYT.js", imports: ["/build/_shared/chunk-RBQMJDUM.js", "/build/_shared/chunk-SW2WQF5F.js", "/build/_shared/chunk-D7HTRAAY.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-FPN3U2J5.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-OHE6VPRF.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js", "/build/_shared/chunk-3UHZGT5Y.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-B3GPOSGC.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/accounts": { id: "routes/accounts", parentId: "root", path: "accounts", index: void 0, caseSensitive: void 0, module: "/build/routes/accounts-3MITYK44.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-CESUYOLM.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-ID4AUCBN.js", imports: ["/build/_shared/chunk-CESUYOLM.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-C5ENOJMW.js", imports: ["/build/_shared/chunk-IPA2X2Z5.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-SCUF3KM4.js", imports: ["/build/_shared/chunk-7WZWOVGP.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-CESUYOLM.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-JBIFBDH2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-GPNDMKEO.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-EAHGB3HO.js", imports: ["/build/_shared/chunk-7WZWOVGP.js", "/build/_shared/chunk-IPA2X2Z5.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-B3W4DKWD.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-D2EF6C99.js" };
+var assets_manifest_default = { version: "73f5b077", entry: { module: "/build/entry.client-2KEW6SYT.js", imports: ["/build/_shared/chunk-RBQMJDUM.js", "/build/_shared/chunk-SW2WQF5F.js", "/build/_shared/chunk-D7HTRAAY.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-FPN3U2J5.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-OUXKDASQ.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js", "/build/_shared/chunk-3UHZGT5Y.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-B3GPOSGC.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/accounts": { id: "routes/accounts", parentId: "root", path: "accounts", index: void 0, caseSensitive: void 0, module: "/build/routes/accounts-3MITYK44.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-CESUYOLM.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-ID4AUCBN.js", imports: ["/build/_shared/chunk-CESUYOLM.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-2H4YPBK6.js", imports: ["/build/_shared/chunk-3THHVH5W.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-CHYYWXC7.js", imports: ["/build/_shared/chunk-IKNHNX3T.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-CESUYOLM.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-JBIFBDH2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-GPNDMKEO.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-7RJDOVTF.js", imports: ["/build/_shared/chunk-IKNHNX3T.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-3THHVH5W.js", "/build/_shared/chunk-WGKLNMGK.js", "/build/_shared/chunk-7PBUM4MA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-B3W4DKWD.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-73F5B077.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, unstable_cssSideEffectImports: !1, unstable_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, unstable_vanillaExtract: !1, v2_errorBoundary: !1, v2_meta: !1, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

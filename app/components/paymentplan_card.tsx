@@ -37,6 +37,7 @@ interface props {
   plans: PaymentPlan[];
   accIdToName: Map<string, string>;
   footer?: (paymentPlanId: string, transactionIds: string[]) => JSX.Element;
+  accept?: (paymentPlan: PaymentPlan) => JSX.Element;
 }
 
 interface ItemProps {
@@ -71,6 +72,7 @@ export const PaymentPlanCard: React.FC<props> = ({
   plans,
   accIdToName,
   footer,
+  accept,
 }) => {
   if (!plans || plans.length === 0) {
     return (
@@ -161,6 +163,7 @@ export const PaymentPlanCard: React.FC<props> = ({
             <>
               {footer && footer(plan.payment_plan_id, plan.transactions || [])}
             </>
+            <>{accept && accept(plan)}</>
           </Card>
         </Col>
       ))}
