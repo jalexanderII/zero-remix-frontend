@@ -9,8 +9,8 @@ import type {
 import { getMonth } from "~/utils/helpers";
 
 export const waterfall = {
-  get_user_waterfall: async (email: string) =>
-    request.get<WaterfallResponse>(`/api/planning/waterfall/${email}`),
+  get_user_waterfall: async (userId: string | null) =>
+    request.get<WaterfallResponse>(`/api/planning/waterfall`, userId),
 };
 
 const toSlimWaterfall = (data: Waterfall): SlimWaterfall => {

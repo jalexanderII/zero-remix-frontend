@@ -27,44 +27,17 @@ export const getUserEmail = async (userId: string): Promise<string> => {
   return emailAddresses[0].emailAddress;
 };
 
-// export async function action({ request }: ActionArgs) {
-//   const form = await request.formData();
-//   let paymentPlan = form.get("payment_plan");
-//
-//   if (typeof paymentPlan !== "string") {
-//     return json(
-//       {
-//         error: `Invalid Form Data Wrong Type`,
-//         fields: { paymentPlan },
-//       },
-//       { status: 400 }
-//     );
-//   }
-//
-//   const req: AcceptPaymentPlanRequest = {
-//     paymentPlan: JSON.parse(paymentPlan),
-//     save_plan: false,
-//   };
-//
-//   const resp = await api.paymentplan.accept_payment_plan(JSON.stringify(req));
-//   console.log(resp);
-//
-//   return redirect("/paymentplans");
-// }
-
 export const loader: LoaderFunction = async (args) => {
   const { userId } = await getAuth(args);
   if (!userId) {
     return redirect("/sign-in");
   }
 
-  const email = await getUserEmail(userId);
-
   const url = new URL(args.request.url);
   let encrypted = url.searchParams.get("resp") as string;
   const decrypted: CreatePaymentPlanResponse = JSON.parse(decodeURI(encrypted));
 
-  const accounts = await api.accounts.get_user_accounts(email);
+  const accounts = await api.accounts.get_user_accounts(userId);
   return { decrypted, accounts };
 };
 

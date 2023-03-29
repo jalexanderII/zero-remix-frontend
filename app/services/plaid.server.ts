@@ -8,14 +8,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const plaid = {
-  is_plaid_linked: async (email: string) => {
+  is_plaid_linked: async (userId: string | null) => {
     return await request.get<PlaidAccountLinkedResponse>(
-      `/api/plaid/linked/${email}`
+      `/api/plaid/linked`,
+      userId
     );
   },
-  fetchAndCache: async (email: string) => {
+  fetchAndCache: async (userId: string | null) => {
     return await request.get<AccountDetailsResponse>(
-      `/api/plaid/accounts/${email}`
+      `/api/plaid/accounts`,
+      userId
     );
   },
 };

@@ -42,19 +42,21 @@ export const getUserEmail = async (userId: string): Promise<string> => {
 };
 
 export const getDashboardLoaderData = async (
-  email: string
+  userId: string | null
 ): Promise<DashboardLoaderData> => {
   const trxnResp: TransactionResponse =
-    await api.transactions.get_user_transactions(email);
+    await api.transactions.get_user_transactions(userId);
   if (!trxnResp.data || trxnResp.data.length === 0) {
-    console.log(`User ${email}, has no transactions`);
+    console.log(`User ${userId}, has no transactions`);
   }
-  const accounts = await api.accounts.get_user_accounts(email);
+  const accounts = await api.accounts.get_user_accounts(userId);
   const transactions: SlimTransaction[] = await pruneTransactions(
     trxnResp.data
   );
-  const kpis: KPIResponse = await api.kpis.get_user_kpis(email);
-  const resp: WaterfallResponse = await api.waterfall.get_user_waterfall(email);
+  const kpis: KPIResponse = await api.kpis.get_user_kpis(userId);
+  const resp: WaterfallResponse = await api.waterfall.get_user_waterfall(
+    userId
+  );
   const waterfall = makeWaterfallFromJson(resp);
   return { kpis, waterfall, transactions, accounts };
 };
@@ -65,12 +67,11 @@ export const loader: LoaderFunction = async (args) => {
     return redirect("/sign-in");
   }
 
-  const email = await getUserEmail(userId);
   const { kpis, waterfall, transactions, accounts } =
-    await getDashboardLoaderData(email);
+    await getDashboardLoaderData(userId);
 
   const plaidLinked: PlaidAccountLinkedResponse =
-    await api.plaid.is_plaid_linked(email);
+    await api.plaid.is_plaid_linked(userId);
 
   const PLAID_FRONTEND_URL = get_plaid_url();
 

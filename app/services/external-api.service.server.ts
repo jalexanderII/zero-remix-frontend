@@ -45,12 +45,22 @@ axios.interceptors.response.use(
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 export const request = {
-  get: <T>(url: string) => axios.get<T>(url).then(responseBody),
-  post: <T>(url: string, body: {}) =>
-    axios.post<T>(url, body).then(responseBody),
-  delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
+  get: <T>(url: string, token: string | null) =>
+    axios
+      .get<T>(url, { headers: token ? { Clerk: `${token}` } : {} })
+      .then(responseBody),
+  post: <T>(url: string, body: {}, token: string | null) =>
+    axios
+      .post<T>(url, body, { headers: token ? { Clerk: `${token}` } : {} })
+      .then(responseBody),
+  delete: <T>(url: string, token: string | null) =>
+    axios
+      .delete<T>(url, {
+        headers: token ? { Clerk: `${token}` } : {},
+      })
+      .then(responseBody),
 };
 
 export const backend = {
-  home: () => request.get<BaseResponse>("/"),
+  home: () => request.get<BaseResponse>("/", null),
 };

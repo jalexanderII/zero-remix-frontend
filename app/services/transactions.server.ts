@@ -9,8 +9,8 @@ import { toUSD } from "~/utils/helpers";
 const TRANSACTION_LIMIT = 100;
 
 export const transactions = {
-  get_user_transactions: async (email: string) =>
-    request.get<TransactionResponse>(`/api/core/transactions/${email}`),
+  get_user_transactions: async (userId: string | null) =>
+    request.get<TransactionResponse>(`/api/core/transactions`, userId),
 };
 
 export const pruneTransactions = async (

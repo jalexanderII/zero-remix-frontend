@@ -8,7 +8,6 @@ import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import api from "~/services/api.server";
 import { getAuth } from "@clerk/remix/ssr.server";
-import { getUserEmail } from "~/routes/dashboard";
 import { AccountIDToName } from "~/utils/helpers";
 import type { AcceptPaymentPlanRequest } from "~/utils/accept_paymentplan_request_converter.server";
 
@@ -18,7 +17,6 @@ export async function action({ request }: ActionArgs) {
   let transactionIds = form.get("transaction_ids");
   let paymentPlan = form.get("payment_plan");
   const action = form.get("_action");
-  console.log("this is the action i am seeing!", action);
 
   switch (action) {
     case "delete_payment_plan":
@@ -37,7 +35,8 @@ export async function action({ request }: ActionArgs) {
 
       const dresp = await api.paymentplan.delete_payment_plan(
         paymentPlanId,
-        transactionIds
+        transactionIds,
+        null
       );
       console.log(dresp);
 
@@ -59,7 +58,8 @@ export async function action({ request }: ActionArgs) {
       };
 
       const aresp = await api.paymentplan.accept_payment_plan(
-        JSON.stringify(req)
+        JSON.stringify(req),
+        null
       );
       console.log(aresp);
 
@@ -74,10 +74,9 @@ export const loader: LoaderFunction = async (args) => {
   if (!userId) {
     return redirect("/sign-in");
   }
-  const email = await getUserEmail(userId);
   const paymentPlans: GetPaymentPlansResponse =
-    await api.paymentplan.get_user_payment_plans(email);
-  const accounts = await api.accounts.get_user_accounts(email);
+    await api.paymentplan.get_user_payment_plans(userId);
+  const accounts = await api.accounts.get_user_accounts(userId);
   return { paymentPlans, accounts };
 };
 

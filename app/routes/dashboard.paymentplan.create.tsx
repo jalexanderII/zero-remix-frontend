@@ -17,7 +17,6 @@ import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
 import api from "~/services/api.server";
-import { getUserEmail } from "~/routes/dashboard";
 import PaymentPlanPreferences from "~/components/paymentplan_preferences";
 import { toUSD } from "~/utils/helpers";
 import { usePaymentPlanCreationForm } from "~/utils/store";
@@ -32,7 +31,7 @@ export async function action({ request }: ActionArgs) {
   let frequency = form.get("frequency");
   let planType = form.get("planType");
   let accountInfo = form.get("account_info");
-  let email = form.get("email");
+  let userId = form.get("userId");
   const action = form.get("_action");
 
   switch (action) {
@@ -42,12 +41,18 @@ export async function action({ request }: ActionArgs) {
         typeof frequency !== "string" ||
         typeof planType !== "string" ||
         typeof accountInfo !== "string" ||
-        typeof email !== "string"
+        typeof userId !== "string"
       ) {
         return json(
           {
             error: `Invalid Form Data Wrong Type`,
-            fields: { timeline, frequency, planType, accountInfo, email },
+            fields: {
+              timeline,
+              frequency,
+              planType,
+              accountInfo,
+              userId,
+            },
           },
           { status: 400 }
         );
@@ -60,11 +65,11 @@ export async function action({ request }: ActionArgs) {
           preferred_timeline_in_months: Number(timeline),
           preferred_payment_freq: Number(frequency),
         },
-        save_plan: true,
+        save_plan: false,
       };
       const resp = await api.paymentplan.submit_payment_plan(
-        email,
-        JSON.stringify(req)
+        JSON.stringify(req),
+        userId
       );
       return redirect(`/summary?resp=${encodeURI(JSON.stringify(resp))}`);
 
@@ -78,10 +83,9 @@ export const loader: LoaderFunction = async (args) => {
   if (!userId) {
     return redirect("/sign-in");
   }
-  const email = await getUserEmail(userId);
   const accountAndTransactions: AccountAndTransactions =
-    await api.paymentplan.get_transactions_by_account(email);
-  return { accountAndTransactions, email };
+    await api.paymentplan.get_transactions_by_account(userId);
+  return { accountAndTransactions, userId };
 };
 
 const ErrorTypeToMsg: Map<string, string | undefined> = new Map([
@@ -95,7 +99,7 @@ const ErrorTypeToMsg: Map<string, string | undefined> = new Map([
 export default function PaymentPlanCreation() {
   const [error, setError] = useState("");
   const [planOption, setPlanOption] = useState("0");
-  const { accountAndTransactions, email } = useLoaderData();
+  const { accountAndTransactions, userId } = useLoaderData();
   const { totalAmount, frequency, timeline, planType, accountInfo, reset } =
     usePaymentPlanCreationForm((state) => state);
 
@@ -132,6 +136,7 @@ export default function PaymentPlanCreation() {
       navigate_path={"/dashboard"}
     >
       <Form method="post" onSubmit={handleOnSubmitValidate}>
+        <input type="hidden" value={userId} name="userId" />
         <input type="hidden" value={frequency} name="frequency" />
         <input type="hidden" value={timeline} name="timeline" />
         <input type="hidden" value={planType} name="planType" />
@@ -140,7 +145,6 @@ export default function PaymentPlanCreation() {
           value={JSON.stringify(accountInfo)}
           name="account_info"
         />
-        <input type="hidden" value={email} name="email" />
         <Title>Create A Payment Plan</Title>
         <Text>
           Choose one of our 2 payment plan creation options and select your plan

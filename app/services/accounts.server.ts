@@ -6,8 +6,8 @@ import type {
 import { request } from "~/services/external-api.service.server";
 
 export const accounts = {
-  get_user_accounts: async (email: string) =>
-    request.get<AccountsResponse>(`/api/core/accounts/${email}`),
+  get_user_accounts: async (userId: string | null) =>
+    request.get<AccountsResponse>(`/api/core/accounts`, userId),
 };
 
 export const makeAccountFromJson = async (data: Account[]) => {

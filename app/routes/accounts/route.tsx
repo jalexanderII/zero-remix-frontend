@@ -3,7 +3,6 @@ import { Card, Text, Title } from "@tremor/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
-import { getUserEmail } from "~/routes/dashboard";
 import api from "~/services/api.server";
 import { useLoaderData } from "@remix-run/react";
 import type { Account } from "~/utils/types.server";
@@ -14,8 +13,7 @@ export const loader: LoaderFunction = async (args) => {
   if (!userId) {
     return redirect("/sign-in");
   }
-  const email = await getUserEmail(userId);
-  const accountsResponse = await api.accounts.get_user_accounts(email);
+  const accountsResponse = await api.accounts.get_user_accounts(userId);
   const accounts: Account[] = [];
   if (accountsResponse.data && accountsResponse.data.length > 0) {
     for (const account of accountsResponse.data) {

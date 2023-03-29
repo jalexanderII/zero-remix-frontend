@@ -21,12 +21,13 @@ type DeleteBody = {
 };
 
 export const paymentplan = {
-  get_transactions_by_account: async (email: string) => {
+  get_transactions_by_account: async (userId: string | null) => {
     const accounts: AccountsResponse = await request.get<AccountsResponse>(
-      `/api/core/accounts/${email}`
+      `/api/core/accounts`,
+      userId
     );
     const transactions: TransactionResponse =
-      await request.get<TransactionResponse>(`/api/core/transactions/${email}`);
+      await request.get<TransactionResponse>(`/api/core/transactions`, userId);
 
     const slimAccounts: SlimAccount[] = await makeAccountFromJson(
       accounts.data
@@ -37,40 +38,45 @@ export const paymentplan = {
     const resp: AccountAndTransactions = { slimAccounts, transactionDict };
     return resp;
   },
-  submit_payment_plan: async (email: string, json: string) => {
+  submit_payment_plan: async (json: string, userId: string | null) => {
     const paymentPlanRequest = PaymentPlanConvert.toPaymentPlanRequest(json);
-    // paymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
+    paymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
     paymentPlanRequest.account_info = paymentPlanRequest.account_info.filter(
       (account) => account.amount > 0
     );
     return await request.post<CreatePaymentPlanResponse>(
-      `/api/core/paymentplan/${email}`,
-      paymentPlanRequest
+      `/api/core/paymentplan`,
+      paymentPlanRequest,
+      userId
     );
   },
-  accept_payment_plan: async (json: string) => {
+  accept_payment_plan: async (json: string, userId: string | null) => {
     const acceptPaymentPlanRequest =
       AcceptPaymentPlanConvert.toAcceptPaymentPlanRequest(json);
-    // acceptPaymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
+    acceptPaymentPlanRequest.save_plan = process.env.NODE_ENV !== "development";
     return await request.post<CreatePaymentPlanResponse>(
       `/api/planning/accept`,
-      acceptPaymentPlanRequest
+      acceptPaymentPlanRequest,
+      userId
     );
   },
   delete_payment_plan: async (
     paymentPlanId: string,
-    transactionIds: string | undefined
+    transactionIds: string | undefined,
+    userId: string | null
   ) => {
     const ids: string[] = transactionIds ? transactionIds.split(",") : [];
     const b: DeleteBody = { transaction_ids: ids };
     return await request.post<DeletePaymentPlanResponse>(
       `/api/core/paymentplan/delete/${paymentPlanId}`,
-      b
+      b,
+      userId
     );
   },
-  get_user_payment_plans: async (email: string) => {
+  get_user_payment_plans: async (userId: string | null) => {
     return await request.get<GetPaymentPlansResponse>(
-      `/api/core/paymentplan/${email}`
+      `/api/core/paymentplan`,
+      userId
     );
   },
 };
