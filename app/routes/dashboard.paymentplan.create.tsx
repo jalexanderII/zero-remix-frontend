@@ -160,9 +160,9 @@ export default function PaymentPlanCreation() {
           {GetPaymentPlanCreationBody(planOption, accountAndTransactions)}
         </Card>
         <Title className="mt-4">Payment Preferences</Title>
-        <Grid numColsMd={4} numColsLg={4} className="gap-x-4 gap-y-4 mt-3">
+        <Grid numColsMd={2} numColsLg={4} className="gap-x-4 gap-y-4 mt-3">
           <PaymentPlanPreferences />
-          <Card className="max-w-xs">
+          <Card className="md:max-w-xs">
             <Text className="text-center">Total Amount</Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Metric>{toUSD(totalAmount)}</Metric>
@@ -205,13 +205,15 @@ const GetPaymentPlanCreationBody = (
           hard work!
         </Text>
       )}
-      {planOption !== 3 && (
+      {validOptions.has(planOption) && (
         <AccordionList>
           {data.slimAccounts.map((i: SlimAccount, idx: number) => (
             <Accordion key={i.accountId}>
               <AccordionHeader>{i.name}</AccordionHeader>
               <AccordionBody>
-                {(planOption === 1 || planOption === 2) && (
+                {planOption === 3 &&
+                  "Select your payment preferences below and we'll handle the rest of the hard work!"}
+                {planOption !== 3 && (
                   <AccountAccordionBody
                     accountId={i.accountId}
                     balance={i.balance}
@@ -224,10 +226,6 @@ const GetPaymentPlanCreationBody = (
                     name={i.name}
                   />
                 )}
-                {planOption === 3 &&
-                  "Select your payment preferences below and we'll handle the rest of the hard work!"}
-                {!validOptions.has(planOption) &&
-                  "Choose one of the options from the dropdown above to see more details"}
               </AccordionBody>
             </Accordion>
           ))}

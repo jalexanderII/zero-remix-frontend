@@ -5,13 +5,13 @@ import {
 } from "@heroicons/react/24/outline";
 
 export const PlanType: Map<number, string> = new Map([
-  [0, "Unknown"],
+  // [0, "Unknown"],
   [1, "Optimize Credit Score"],
   [2, "Minimize Fees"],
 ]);
 
 export const PaymentFrequency: Map<number, string> = new Map([
-  [0, "Unknown"],
+  // [0, "Unknown"],
   [1, "Weekly"],
   [2, "Bi-Weekly"],
   [3, "Monthly"],
@@ -19,7 +19,7 @@ export const PaymentFrequency: Map<number, string> = new Map([
 ]);
 
 export const TimelineMonths: Map<number, string> = new Map([
-  [0, "Unknown"],
+  // [0, "Unknown"],
   [3, "3 Months"],
   [6, "6 Months"],
   [12, "12 Months"],
@@ -27,7 +27,7 @@ export const TimelineMonths: Map<number, string> = new Map([
 ]);
 
 export const ActionStatus: Map<number, string> = new Map([
-  [0, "Unknown"],
+  // [0, "Unknown"],
   [1, "Pending"],
   [2, "Completed"],
   [3, "Missed"],
@@ -36,7 +36,7 @@ export const ActionStatus: Map<number, string> = new Map([
 export const PaymentPlanOptions: DropdownInput[] = [
   {
     value: 0,
-    text: "Unknown",
+    text: "Select an Option",
     icon: null,
   },
   {
@@ -55,5 +55,4 @@ export const PaymentPlanOptions: DropdownInput[] = [
   //   icon: BoltIcon,
   // },
 ];
-
 export const KEY = "St0bN9Fp";

@@ -52,14 +52,17 @@ export const AccountListAmount: React.FC<props> = ({
   }, [total]);
 
   return (
-    <ListItem key={accountId}>
+    <ListItem
+      key={accountId}
+      className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0 md:space-x-4"
+    >
       <Text className="mt-2">Total Balance ({toUSD(balance)}) </Text>
       <TextInput
         id={accountId}
         error={error !== ""}
         errorMessage={ErrorTypeToMsg.get(error)}
         icon={CurrencyDollarIcon}
-        className="max-w-xs"
+        className="max-w-xs w-full md:w-md"
         placeholder="Enter Dollar Amount ($)"
         onChange={(e) => handleOnChange(e)}
       />

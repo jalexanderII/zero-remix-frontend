@@ -32,7 +32,7 @@ export const Modal: React.FC<props> = ({
       ></div>
       <div className="fixed inset-0 pointer-events-none flex justify-center items-center max-h-screen overflow-auto">
         <div
-          className={`${className} p-4 bg-gray-200 pointer-events-auto w-fit md:w-11/12 h-5/6 md:rounded-xl`}
+          className={`${className} p-4 bg-gray-200 pointer-events-auto h-5/6 md:rounded-xl`}
         >
           <CloseButton navigate={navigate} navigate_path={navigate_path} />
           {/* This is where the modal content is rendered  */}

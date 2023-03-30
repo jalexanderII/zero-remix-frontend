@@ -54,7 +54,7 @@ export default function PaymentPlanPreferences() {
 
   return (
     <>
-      <Card className="max-w-xs">
+      <Card className="md:max-w-xs">
         <PreferenceDropdownItem
           label="Payment Timeline (Months)"
           options={toDropdownOption(TimelineMonths, CalendarIcon)}
@@ -62,7 +62,7 @@ export default function PaymentPlanPreferences() {
           value={timeline}
         />
       </Card>
-      <Card className="max-w-xs">
+      <Card className="md:max-w-xs">
         <PreferenceDropdownItem
           label="Payment Frequency"
           options={toDropdownOption(PaymentFrequency, CalendarDaysIcon)}
@@ -70,7 +70,7 @@ export default function PaymentPlanPreferences() {
           value={frequency}
         />
       </Card>
-      <Card className="max-w-xs">
+      <Card className="md:max-w-xs">
         <PreferenceDropdownItem
           label="Payment Plan Type"
           options={toDropdownOption(PlanType, BanknotesIcon)}
