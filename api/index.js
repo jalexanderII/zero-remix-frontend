@@ -540,7 +540,7 @@ var import_react7 = require("@remix-run/react"), import_react8 = require("react"
   let [showSpinner, setShowSpinner] = (0, import_react8.useState)(!1), [showMessage, setShowMessage] = (0, import_react8.useState)(!1), transition = (0, import_react7.useNavigation)();
   return (0, import_react8.useEffect)(() => {
     let spinnerTimeoutId, messageTimeoutId;
-    return transition.state === "loading" ? (spinnerTimeoutId = setTimeout(() => setShowSpinner(!0), 500), messageTimeoutId = setTimeout(() => setShowMessage(!0), 1e4)) : (setShowSpinner(!1), setShowMessage(!1)), () => {
+    return transition.state === "loading" ? (spinnerTimeoutId = setTimeout(() => setShowSpinner(!0), 300), messageTimeoutId = setTimeout(() => setShowMessage(!0), 600)) : (setShowSpinner(!1), setShowMessage(!1)), () => {
       clearTimeout(spinnerTimeoutId), clearTimeout(messageTimeoutId);
     };
   }, [transition.state]), showSpinner ? /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("div", { className: "flex flex-col justify-center items-center min-h-screen space-y-4", children: [
@@ -4218,7 +4218,8 @@ var import_react_dom = require("react-dom"), import_react26 = require("react"), 
 };
 
 // app/components/modal.tsx
-var import_react27 = require("@remix-run/react"), import_jsx_dev_runtime15 = require("react/jsx-dev-runtime"), Modal = ({
+var import_react27 = require("@remix-run/react");
+var import_jsx_dev_runtime15 = require("react/jsx-dev-runtime"), Modal = ({
   children,
   isOpen,
   ariaLabel,
@@ -4240,11 +4241,17 @@ var import_react27 = require("@remix-run/react"), import_jsx_dev_runtime15 = req
       !1,
       {
         fileName: "app/components/modal.tsx",
-        lineNumber: 26,
+        lineNumber: 27,
         columnNumber: 7
       },
       this
     ),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(LoadingSpinner_default, {}, void 0, !1, {
+      fileName: "app/components/modal.tsx",
+      lineNumber: 34,
+      columnNumber: 7
+    }, this),
+    ";",
     /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "fixed inset-0 pointer-events-none flex justify-center items-center max-h-screen overflow-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "div",
       {
@@ -4252,7 +4259,7 @@ var import_react27 = require("@remix-run/react"), import_jsx_dev_runtime15 = req
         children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(CloseButton, { navigate, navigate_path }, void 0, !1, {
             fileName: "app/components/modal.tsx",
-            lineNumber: 37,
+            lineNumber: 39,
             columnNumber: 11
           }, this),
           children
@@ -4262,24 +4269,24 @@ var import_react27 = require("@remix-run/react"), import_jsx_dev_runtime15 = req
       !0,
       {
         fileName: "app/components/modal.tsx",
-        lineNumber: 34,
+        lineNumber: 36,
         columnNumber: 9
       },
       this
     ) }, void 0, !1, {
       fileName: "app/components/modal.tsx",
-      lineNumber: 33,
+      lineNumber: 35,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/modal.tsx",
-    lineNumber: 25,
+    lineNumber: 26,
     columnNumber: 5
   }, this) : null;
 }, CloseButton = ({ navigate, navigate_path }) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "flex flex-col items-right md:flex-row", children: [
   /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "flex-1" }, void 0, !1, {
     fileName: "app/components/modal.tsx",
-    lineNumber: 54,
+    lineNumber: 56,
     columnNumber: 7
   }, this),
   /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
@@ -4309,7 +4316,7 @@ var import_react27 = require("@remix-run/react"), import_jsx_dev_runtime15 = req
               !1,
               {
                 fileName: "app/components/modal.tsx",
-                lineNumber: 68,
+                lineNumber: 70,
                 columnNumber: 11
               },
               this
@@ -4319,14 +4326,14 @@ var import_react27 = require("@remix-run/react"), import_jsx_dev_runtime15 = req
           !1,
           {
             fileName: "app/components/modal.tsx",
-            lineNumber: 61,
+            lineNumber: 63,
             columnNumber: 9
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("span", { className: "sr-only", children: "Close modal" }, void 0, !1, {
           fileName: "app/components/modal.tsx",
-          lineNumber: 74,
+          lineNumber: 76,
           columnNumber: 9
         }, this)
       ]
@@ -4335,14 +4342,14 @@ var import_react27 = require("@remix-run/react"), import_jsx_dev_runtime15 = req
     !0,
     {
       fileName: "app/components/modal.tsx",
-      lineNumber: 55,
+      lineNumber: 57,
       columnNumber: 7
     },
     this
   )
 ] }, void 0, !0, {
   fileName: "app/components/modal.tsx",
-  lineNumber: 53,
+  lineNumber: 55,
   columnNumber: 5
 }, this);
 
@@ -6104,7 +6111,7 @@ var AcceptFooter = (paymentPlan) => /* @__PURE__ */ (0, import_jsx_dev_runtime30
 }, this);
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "ce35c369", entry: { module: "/build/entry.client-2KEW6SYT.js", imports: ["/build/_shared/chunk-RBQMJDUM.js", "/build/_shared/chunk-SW2WQF5F.js", "/build/_shared/chunk-D7HTRAAY.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-FPN3U2J5.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-ZF7U2YP3.js", imports: ["/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js", "/build/_shared/chunk-3UHZGT5Y.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-B3GPOSGC.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/accounts": { id: "routes/accounts", parentId: "root", path: "accounts", index: void 0, caseSensitive: void 0, module: "/build/routes/accounts-YFETIXK2.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-FDAMZUNX.js", imports: ["/build/_shared/chunk-IZ23VKYQ.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-N5OEDOKQ.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-ASHKFBCL.js", imports: ["/build/_shared/chunk-7MAFZ4FD.js", "/build/_shared/chunk-BP4F755U.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-WUPUALXP.js", imports: ["/build/_shared/chunk-7OQ2AV4C.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-BP4F755U.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-JBIFBDH2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-GPNDMKEO.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-IELXGPEW.js", imports: ["/build/_shared/chunk-7OQ2AV4C.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-IZ23VKYQ.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-7MAFZ4FD.js", "/build/_shared/chunk-BP4F755U.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-B3W4DKWD.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-CE35C369.js" };
+var assets_manifest_default = { version: "48b4401c", entry: { module: "/build/entry.client-2KEW6SYT.js", imports: ["/build/_shared/chunk-RBQMJDUM.js", "/build/_shared/chunk-SW2WQF5F.js", "/build/_shared/chunk-D7HTRAAY.js", "/build/_shared/chunk-AZPU6RDF.js", "/build/_shared/chunk-FPN3U2J5.js", "/build/_shared/chunk-56THQXCK.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-KE5NTD27.js", imports: ["/build/_shared/chunk-CFYMYYEX.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js", "/build/_shared/chunk-3UHZGT5Y.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !0, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-B3GPOSGC.js", imports: ["/build/_shared/chunk-2XLGW4DA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/about": { id: "routes/about", parentId: "root", path: "about", index: void 0, caseSensitive: void 0, module: "/build/routes/about-LEHF6LFP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/accounts": { id: "routes/accounts", parentId: "root", path: "accounts", index: void 0, caseSensitive: void 0, module: "/build/routes/accounts-YFETIXK2.js", imports: ["/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard": { id: "routes/dashboard", parentId: "root", path: "dashboard", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard-FDAMZUNX.js", imports: ["/build/_shared/chunk-IZ23VKYQ.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-N5OEDOKQ.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dashboard.paymentplan.create": { id: "routes/dashboard.paymentplan.create", parentId: "routes/dashboard", path: "paymentplan/create", index: void 0, caseSensitive: void 0, module: "/build/routes/dashboard.paymentplan.create-Y6YR5LIR.js", imports: ["/build/_shared/chunk-T6MEAD2Q.js", "/build/_shared/chunk-BP4F755U.js", "/build/_shared/chunk-CFYMYYEX.js", "/build/_shared/chunk-IYK47WIZ.js", "/build/_shared/chunk-6DZVIU6P.js", "/build/_shared/chunk-Z44B4KW6.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/paymentplans": { id: "routes/paymentplans", parentId: "root", path: "paymentplans", index: void 0, caseSensitive: void 0, module: "/build/routes/paymentplans-WUPUALXP.js", imports: ["/build/_shared/chunk-7OQ2AV4C.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-BP4F755U.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in.$": { id: "routes/sign-in.$", parentId: "root", path: "sign-in/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in.$-JBIFBDH2.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up.$": { id: "routes/sign-up.$", parentId: "root", path: "sign-up/*", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up.$-GPNDMKEO.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/summary": { id: "routes/summary", parentId: "root", path: "summary", index: void 0, caseSensitive: void 0, module: "/build/routes/summary-UFOXGMT6.js", imports: ["/build/_shared/chunk-7OQ2AV4C.js", "/build/_shared/chunk-2XLGW4DA.js", "/build/_shared/chunk-IZ23VKYQ.js", "/build/_shared/chunk-7B2GWGYO.js", "/build/_shared/chunk-T6MEAD2Q.js", "/build/_shared/chunk-BP4F755U.js", "/build/_shared/chunk-TZZDSKDH.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/user.$": { id: "routes/user.$", parentId: "root", path: "user/*", index: void 0, caseSensitive: void 0, module: "/build/routes/user.$-B3W4DKWD.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-48B4401C.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { unstable_cssModules: !1, unstable_cssSideEffectImports: !1, unstable_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, unstable_vanillaExtract: !1, v2_errorBoundary: !1, v2_meta: !1, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

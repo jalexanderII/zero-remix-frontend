@@ -12,8 +12,8 @@ const LoadingSpinner: React.FC = () => {
     let messageTimeoutId: NodeJS.Timeout;
 
     if (transition.state === "loading") {
-      spinnerTimeoutId = setTimeout(() => setShowSpinner(true), 500);
-      messageTimeoutId = setTimeout(() => setShowMessage(true), 10000);
+      spinnerTimeoutId = setTimeout(() => setShowSpinner(true), 300);
+      messageTimeoutId = setTimeout(() => setShowMessage(true), 600);
     } else {
       setShowSpinner(false);
       setShowMessage(false);

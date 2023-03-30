@@ -2,6 +2,7 @@ import { Portal } from "./portal";
 import type { NavigateFunction } from "@remix-run/react";
 import { useNavigate } from "@remix-run/react";
 import React from "react";
+import LoadingSpinner from "~/components/LoadingSpinner";
 
 interface props {
   children: React.ReactNode;
@@ -30,6 +31,7 @@ export const Modal: React.FC<props> = ({
         aria-modal="true"
         onClick={() => navigate(navigate_path)}
       ></div>
+      <LoadingSpinner />;
       <div className="fixed inset-0 pointer-events-none flex justify-center items-center max-h-screen overflow-auto">
         <div
           className={`${className} p-4 bg-gray-200 pointer-events-auto h-5/6 md:rounded-xl`}
