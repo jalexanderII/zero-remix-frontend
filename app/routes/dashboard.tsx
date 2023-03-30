@@ -19,8 +19,9 @@ import { makeWaterfallFromJson } from "~/services/waterfall";
 import { TransactionsTableWithPagination } from "~/components/transactions_table_with_pagination";
 import { pruneTransactions } from "~/services/transactions.server";
 import { createClerkClient } from "@clerk/remix/api.server";
-import React from "react";
+import React, { useEffect } from "react";
 import { get_plaid_url } from "~/services/plaid.server";
+import { Onboarding } from "~/components/onboarding";
 
 interface DashboardLoaderData {
   kpis: KPIResponse;
@@ -94,10 +95,31 @@ const Dashboard = (): JSX.Element => {
     userId,
     PLAID_FRONTEND_URL,
   } = useLoaderData();
+  const [action, setAction] = React.useState<string[]>([]);
+
+  useEffect(() => {
+    if (kpis?.data?.payment_plans > 0) {
+      setAction((prev) => [...prev, "payment-plan-created"]);
+    }
+  }, [kpis]);
+
+  if (
+    action.includes("linked-credit") &&
+    action.includes("payment-plan-created") &&
+    !action.includes("complete")
+  ) {
+    setAction((prev) => [...prev, "complete"]);
+  }
 
   return (
     <main>
-      {PlaidButtonsComponent(plaidLinked, userId, PLAID_FRONTEND_URL)}
+      <Onboarding action={action} />
+      {PlaidButtonsComponent(
+        plaidLinked,
+        userId,
+        PLAID_FRONTEND_URL,
+        setAction
+      )}
       <div className="mt-2">
         <Waterfall waterfall={waterfall} ready={transactions.length > 0} />
       </div>
@@ -119,14 +141,22 @@ const Dashboard = (): JSX.Element => {
 const PlaidButtonsComponent = (
   plaidLinked: PlaidAccountLinkedResponse,
   userId: string,
-  PLAID_FRONTEND_URL: string
+  PLAID_FRONTEND_URL: string,
+  setAction: React.Dispatch<React.SetStateAction<string[]>>
 ): JSX.Element => {
+  useEffect(() => {
+    if (plaidLinked?.data?.credit) {
+      setAction((prev) => [...prev, "linked-credit"]);
+    }
+  }, [plaidLinked]);
   const handleOnClickDebit = () => {
+    setAction((prev) => [...prev, "linked-debit"]);
     window.location.href = encodeURI(
       `${PLAID_FRONTEND_URL}/debit?uu=${userId}`
     );
   };
   const handleOnClickCredit = () => {
+    setAction((prev) => [...prev, "linked-credit"]);
     window.location.href = encodeURI(
       `${PLAID_FRONTEND_URL}/credit?uu=${userId}`
     );

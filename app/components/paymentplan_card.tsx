@@ -8,7 +8,9 @@ import {
   Col,
   Flex,
   Grid,
+  Icon,
   Metric,
+  ProgressBar,
   Table,
   TableBody,
   TableCell,
@@ -21,6 +23,7 @@ import {
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 import { cleanDate, toUSD } from "~/utils/helpers";
 import {
@@ -43,23 +46,29 @@ interface props {
 interface ItemProps {
   payment_actions: PaymentAction[];
   accIdToName: Map<string, string>;
+  planId: string;
 }
 
-const Items: React.FC<ItemProps> = ({ payment_actions, accIdToName }) => {
+const Items: React.FC<ItemProps> = ({
+  payment_actions,
+  accIdToName,
+  planId,
+}) => {
   return (
     <TableBody>
       {payment_actions.map((action, idx) => (
-        <TableRow key={`${action.id}_${idx}`}>
-          <TableCell key={`${action.id}_${idx}_accname`}>
+        <TableRow key={`${action.account_id}_${planId}_${idx}`}>
+          <TableCell>
             {accIdToName.get(action.account_id)}
+            {action.status === 2 && (
+              <Icon color="green" size="xs" icon={CheckCircleIcon} />
+            )}
           </TableCell>
-          <TableCell key={`${action.id}_${idx}a`} className="text-right">
-            {toUSD(action.amount)}
-          </TableCell>
-          <TableCell key={`${action.id}_${idx}b`} className="text-right">
+          <TableCell className="text-right">{toUSD(action.amount)}</TableCell>
+          <TableCell className="text-right">
             {cleanDate(action.transaction_date)}
           </TableCell>
-          <TableCell key={`${action.id}_${idx}c`} className="text-right">
+          <TableCell className="text-right">
             {ActionStatus.get(action.status)}
           </TableCell>
         </TableRow>
@@ -115,6 +124,16 @@ export const PaymentPlanCard: React.FC<props> = ({
               <Col numColSpan={2}>
                 <Text>Last Payment: {cleanDate(plan.end_date)}</Text>
               </Col>
+              <Col numColSpan={2}>
+                <Text>
+                  Progress toward completion: {getPlanProgress(plan)}%
+                </Text>
+                <ProgressBar
+                  percentageValue={getPlanProgress(plan)}
+                  color="teal"
+                  className="mt-1"
+                />
+              </Col>
               <Col>
                 <Text className="mt-2">
                   <Bold>{PaymentFrequency.get(plan.payment_freq)}</Bold>
@@ -154,6 +173,10 @@ export const PaymentPlanCard: React.FC<props> = ({
                       <Items
                         payment_actions={plan.payment_action}
                         accIdToName={accIdToName}
+                        planId={plan.payment_plan_id.slice(
+                          plan.payment_plan_id.length - 4,
+                          plan.payment_plan_id.length
+                        )}
                       />
                     </Table>
                   </AccordionBody>
@@ -169,4 +192,12 @@ export const PaymentPlanCard: React.FC<props> = ({
       ))}
     </Grid>
   );
+};
+
+const getPlanProgress = (plan: PaymentPlan) => {
+  let numPaid = 0;
+  for (const action of plan.payment_action) {
+    if (action.status === 2) numPaid++;
+  }
+  return Math.round((numPaid / plan.payment_action.length) * 100);
 };
