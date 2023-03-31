@@ -4,12 +4,34 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
 
-const navigation = [
-  { name: "Home", href: "/", protected: false },
+type NavigationItem = {
+  name: string;
+  href: string;
+  protected: boolean;
+  onlySignedOut?: boolean;
+};
+
+const navigation: NavigationItem[] = [
+  { name: "Home", href: "/", protected: false, onlySignedOut: true },
   // { name: "About", href: "/about", protected: false },
-  { name: "Dashboard", href: "/dashboard", protected: true },
-  { name: "Accounts", href: "/accounts", protected: true },
-  { name: "Payment Plans", href: "/paymentplans", protected: true },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    protected: true,
+    onlySignedOut: false,
+  },
+  {
+    name: "Accounts",
+    href: "/accounts",
+    protected: true,
+    onlySignedOut: false,
+  },
+  {
+    name: "Payment Plans",
+    href: "/paymentplans",
+    protected: true,
+    onlySignedOut: false,
+  },
 ];
 
 // Header component using <SignedIn> & <SignedOut>.
@@ -93,6 +115,19 @@ const Header = (): JSX.Element => {
                   </Link>
                 </SignedIn>
               );
+            if (item.onlySignedOut)
+              return (
+                <SignedOut key={item.name}>
+                  <Link
+                    prefetch="intent"
+                    key={item.name}
+                    to={item.href}
+                    className="text-sm font-semibold leading-6 text-gray-900"
+                  >
+                    {item.name}
+                  </Link>
+                </SignedOut>
+              );
             return (
               <Link
                 key={item.name}
@@ -156,6 +191,19 @@ const Header = (): JSX.Element => {
                             {item.name}
                           </Link>
                         </SignedIn>
+                      );
+                    if (item.onlySignedOut)
+                      return (
+                        <SignedOut key={item.name}>
+                          <Link
+                            prefetch="intent"
+                            key={item.name}
+                            to={item.href}
+                            className="text-sm font-semibold leading-6 text-gray-900"
+                          >
+                            {item.name}
+                          </Link>
+                        </SignedOut>
                       );
                     return (
                       <Link

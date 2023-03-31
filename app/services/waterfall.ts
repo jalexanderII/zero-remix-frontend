@@ -3,7 +3,6 @@ import type {
   SlimWaterfall,
   Waterfall,
   WaterfallDataResponse,
-  WaterfallDataSeries,
   WaterfallResponse,
 } from "~/utils/types.server";
 import { getMonth } from "~/utils/helpers";
@@ -26,27 +25,6 @@ const toSlimWaterfall = (data: Waterfall): SlimWaterfall => {
   };
 };
 
-const fill_data = (waterfallPlans: SlimWaterfall[]) => {
-  let data: WaterfallDataSeries[] = [...Array(12).keys()].map((mon) => ({
-    Month: getMonth(mon),
-  }));
-  for (const sw of waterfallPlans) {
-    sw.data.forEach((num, i) => {
-      const newData = { [sw.planName]: num };
-      data[i] = { ...data[i], ...newData };
-    });
-  }
-  return data;
-};
-
-const getNames = (waterfallPlans: SlimWaterfall[]) => {
-  const names: string[] = [];
-  for (const sw of waterfallPlans) {
-    names.push(sw.planName);
-  }
-  return names;
-};
-
 export const makeWaterfallFromJson = (
   input: WaterfallResponse
 ): WaterfallDataResponse => {
@@ -54,13 +32,22 @@ export const makeWaterfallFromJson = (
     return { waterfallData: [], names: [] };
   }
 
-  let waterfallPlans: SlimWaterfall[] = [];
-  input.data.map((item) => waterfallPlans.push(toSlimWaterfall(item)));
-  const wp: SlimWaterfall[] = waterfallPlans.sort(
-    (a, b) => sumOfAmount(b) - sumOfAmount(a)
-  );
+  const waterfallPlans = input.data
+    .map(toSlimWaterfall)
+    .sort((a, b) => sumOfAmount(b) - sumOfAmount(a));
 
-  return { waterfallData: fill_data(wp), names: getNames(wp) };
+  const waterfallData = [...Array(12).keys()].map((mon) => ({
+    Month: getMonth(mon),
+    ...waterfallPlans.reduce((acc, { planName, data }) => {
+      // @ts-ignore
+      acc[planName] = (acc[planName] || []).concat(data[mon]);
+      return acc;
+    }, {}),
+  }));
+
+  const names = waterfallPlans.map(({ planName }) => planName);
+
+  return { waterfallData, names };
 };
 
 function sumOfAmount(obj: SlimWaterfall) {

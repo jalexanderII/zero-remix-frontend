@@ -12,23 +12,33 @@ export const toUSD = (value: number, digits = 2) => {
   return formatter.format(value);
 };
 
-const month = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+const month = () => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const today = new Date();
+  const currentMonth = today.getMonth();
+
+  return [...months.slice(currentMonth), ...months.slice(0, currentMonth)];
+};
 
 export const getMonth = (val: number) => {
-  return month[val];
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const year = val < month().indexOf("Jan") ? currentYear : currentYear + 1;
+  return `${month()[val]} '${year.toString().slice(-2)}`;
 };
 
 export function mapToJson(map: Map<string, any>) {
